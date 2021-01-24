@@ -1,0 +1,188 @@
+{
+    "frames": {
+        "symbol_1": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "sourceSize": {
+                "w": 184,
+                "h": 175
+            }
+        },
+        "symbol_2": {
+            "frame": {
+                "x": 184,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "sourceSize": {
+                "w": 184,
+                "h": 175
+            }
+        },
+        "symbol_3": {
+            "frame": {
+                "x": 0,
+                "y": 175,
+                "w": 184,
+                "h": 175
+            },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "sourceSize": {
+                "w": 184,
+                "h": 175
+            }
+        },
+        "symbol_4": {
+            "frame": {
+                "x": 184,
+                "y": 175,
+                "w": 184,
+                "h": 175
+            },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "sourceSize": {
+                "w": 184,
+                "h": 175
+            }
+        },
+        "symbol_5": {
+            "frame": {
+                "x": 368,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "sourceSize": {
+                "w": 184,
+                "h": 175
+            }
+        },
+        "symbol_6": {
+            "frame": {
+                "x": 368,
+                "y": 175,
+                "w": 184,
+                "h": 175
+            },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "sourceSize": {
+                "w": 184,
+                "h": 175
+            }
+        },
+        "symbol_7": {
+            "frame": {
+                "x": 0,
+                "y": 350,
+                "w": 184,
+                "h": 175
+            },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "sourceSize": {
+                "w": 184,
+                "h": 175
+            }
+        },
+        "symbol_8": {
+            "frame": {
+                "x": 184,
+                "y": 350,
+                "w": 184,
+                "h": 175
+            },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 184,
+                "h": 175
+            },
+            "sourceSize": {
+                "w": 184,
+                "h": 175
+            }
+        }
+    },
+    "animations": {
+        "symbol": [
+            "symbol_1",
+            "symbol_2",
+            "symbol_3",
+            "symbol_4",
+            "symbol_5",
+            "symbol_6",
+            "symbol_7",
+            "symbol_8"
+        ]
+    },
+    "meta": {
+        "app": "",
+        "version": "1.0",
+        "image": "symbol.png",
+        "format": "RGBA4444",
+        "size": {
+            "w": 552,
+            "h": 525
+        },
+        "scale": "1",
+        "smartupdate": ""
+    }
+}

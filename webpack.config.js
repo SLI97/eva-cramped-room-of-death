@@ -1,6 +1,6 @@
-const path = require("path");
-const webpack = require("webpack");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 /*
  * SplitChunksPlugin is enabled by default and replaced
@@ -24,17 +24,20 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
  */
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.ts",
+  mode: 'development',
+  entry: './src/index.ts',
   plugins: [new webpack.ProgressPlugin()],
-  devtool: "inline-source-map",
-
+  devtool: 'inline-source-map',
+  output: {
+    path: __dirname + '/docs',
+    filename: 'main.js',
+  },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        loader: "ts-loader",
-        include: [path.resolve(__dirname, "src")],
+        loader: 'ts-loader',
+        include: [path.resolve(__dirname, 'src')],
         exclude: [/node_modules/],
       },
       {
@@ -42,10 +45,10 @@ module.exports = {
 
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               sourceMap: true,
             },
@@ -56,16 +59,22 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-    fallback: { "path": require.resolve("path-browserify") }
+    extensions: ['.tsx', '.ts', '.js'],
+    fallback: { path: require.resolve('path-browserify') },
   },
 
   devServer: {
     port: 9000,
     compress: true,
-    contentBase: path.join(__dirname, "dist"),
-    allowedHosts: [""],
+    contentBase: path.join(__dirname, 'docs'),
+    allowedHosts: [''],
   },
 
-  plugins: [new CleanWebpackPlugin({ cleanStaleWebpackAssets: false })],
+  plugins: [
+    new CleanWebpackPlugin({
+      root: __dirname + '/docs',
+      cleanStaleWebpackAssets: false,
+      cleanOnceBeforeBuildPatterns: ['main.js'],
+    }),
+  ],
 };
