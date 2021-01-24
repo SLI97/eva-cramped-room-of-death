@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "sourceMap": false,
+    "downlevelIteration": true,
+    "noImplicitReturns": false,
+    "noUnusedParameters": true,
+    "lib": ["esnext", "dom"],
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "target": "es5",
+    "allowJs": true,
+    "baseUrl": "."
+  },
+  "include": ["./src/**/*.ts"]
+}
