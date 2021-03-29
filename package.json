@@ -27,15 +27,15 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@eva/eva.js": "^1.0.0-alpha.7",
-    "@eva/plugin-renderer": "^1.0.0-alpha.7",
-    "@eva/plugin-renderer-event": "^1.0.0-alpha.7",
-    "@eva/plugin-renderer-graphics": "^1.0.0-alpha.7",
-    "@eva/plugin-renderer-img": "^1.0.0-alpha.7",
-    "@eva/plugin-renderer-render": "^1.0.0-alpha.7",
-    "@eva/plugin-renderer-sprite-animation": "^1.0.0-alpha.7",
-    "@eva/plugin-renderer-text": "^1.0.0-alpha.7",
-    "@eva/plugin-transition": "^1.0.0-alpha.7",
-    "@eva/renderer-adapter": "^1.0.0-alpha.7"
+    "@eva/eva.js": "^1.0.0",
+    "@eva/plugin-renderer": "^1.0.0",
+    "@eva/plugin-renderer-event": "^1.0.0",
+    "@eva/plugin-renderer-graphics": "^1.0.0",
+    "@eva/plugin-renderer-img": "^1.0.0",
+    "@eva/plugin-renderer-render": "^1.0.0",
+    "@eva/plugin-renderer-sprite-animation": "^1.0.0",
+    "@eva/plugin-renderer-text": "^1.0.0",
+    "@eva/plugin-transition": "^1.0.0",
+    "@eva/renderer-adapter": "^1.0.0"
   }
 }
