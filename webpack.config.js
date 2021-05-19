@@ -1,6 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 /*
  * SplitChunksPlugin is enabled by default and replaced
@@ -36,7 +37,11 @@ module.exports = {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        loader: 'ts-loader',
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'tsx',
+          target: 'es2015',
+        },
         include: [path.resolve(__dirname, 'src')],
         exclude: [/node_modules/],
       },
@@ -51,6 +56,13 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
+            },
+          },
+          {
+            loader: 'esbuild-loader',
+            options: {
+              loader: 'css',
+              minify: true,
             },
           },
         ],
@@ -77,4 +89,11 @@ module.exports = {
       cleanOnceBeforeBuildPatterns: ['main.js'],
     }),
   ],
-};
+  optimization: {
+    minimizer: [
+      new ESBuildMinifyPlugin({
+        css: true,
+      }),
+    ],
+  },
+}
