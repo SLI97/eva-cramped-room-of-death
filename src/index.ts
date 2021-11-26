@@ -5,7 +5,7 @@ import createBall from './gameObjects/ball';
 import createBtn from './gameObjects/btn';
 import resources from './resources';
 
-import { Game, resource } from '@eva/eva.js';
+import { Game,Scene, resource,LOAD_SCENE_MODE } from '@eva/eva.js';
 import { RendererSystem } from '@eva/plugin-renderer';
 import { ImgSystem } from '@eva/plugin-renderer-img';
 import { EventSystem } from '@eva/plugin-renderer-event';
@@ -35,8 +35,15 @@ const game = new Game({
   ],
 });
 
-game.scene.transform.size.width = 750;
-game.scene.transform.size.height = 1484;
+// game.scene.transform.size.width = 750;
+// game.scene.transform.size.height = 1484;
+
+const scene = new Scene('game');
+
+game.loadScene({
+  scene,
+  type: LOAD_SCENE_MODE.SINGLE,
+} as any);
 
 const pos = {
   x: 500,
