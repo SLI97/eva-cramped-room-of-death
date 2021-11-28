@@ -1,11 +1,5 @@
-import createBackground from './gameObjects/background';
-import createBasketFront from './gameObjects/board/basketFront';
-import createBoard from './gameObjects/board/board';
-import createBall from './gameObjects/ball';
-import createBtn from './gameObjects/btn';
 import resources from './resources';
-
-import { Game,Scene, resource,LOAD_SCENE_MODE } from '@eva/eva.js';
+import { Game, resource, LOAD_SCENE_MODE } from '@eva/eva.js';
 import { RendererSystem } from '@eva/plugin-renderer';
 import { ImgSystem } from '@eva/plugin-renderer-img';
 import { EventSystem } from '@eva/plugin-renderer-event';
@@ -14,70 +8,44 @@ import { RenderSystem } from '@eva/plugin-renderer-render';
 import { TransitionSystem } from '@eva/plugin-transition';
 import { GraphicsSystem } from '@eva/plugin-renderer-graphics';
 import { TextSystem } from '@eva/plugin-renderer-text';
+// import MenuScene from './Scenes/Menu/index';
+import { SpriteSystem } from '@eva/plugin-renderer-sprite';
+import Battle from './Scenes/Battle';
+
+// export const SCREEN_WIDTH = window.innerWidth;
+// export const SCREEN_HEIGHT = window.innerHeight;
+export const SCREEN_WIDTH = 375;
+export const SCREEN_HEIGHT = 667;
 
 resource.addResource(resources);
 
-const game = new Game({
+export const game = new Game({
   systems: [
     new RendererSystem({
       canvas: document.querySelector('#canvas'),
-      width: 750,
-      height: 1484,
+      resolution: window.devicePixelRatio / 2,
+      width: SCREEN_WIDTH,
+      height: SCREEN_HEIGHT,
       antialias: true,
     }),
     new ImgSystem(),
     new TransitionSystem(),
     new SpriteAnimationSystem(),
     new RenderSystem(),
+    new SpriteSystem(),
     new EventSystem(),
     new GraphicsSystem(),
     new TextSystem(),
   ],
 });
 
-// game.scene.transform.size.width = 750;
-// game.scene.transform.size.height = 1484;
-
-const scene = new Scene('game');
-
 game.loadScene({
-  scene,
+  // scene: MenuScene(),
+  scene: Battle(),
   type: LOAD_SCENE_MODE.SINGLE,
 } as any);
 
-const pos = {
-  x: 500,
-  y: 1100,
-};
+// game.start();
 
-const ball = createBall(pos);
-const { basetFront, playAnim } = createBasketFront();
-const btn = createBtn({
-  text: '投球',
-  transform: {
-    position: {
-      x: 0,
-      y: -120,
-    },
-    origin: {
-      x: 0.5,
-      y: 0.5,
-    },
-    anchor: {
-      x: 0.5,
-      y: 1,
-    },
-  },
-  callback: () => {
-    alert('还没做呢～一起来完善吧')
-  },
-});
-
-game.scene.addChild(createBackground());
-game.scene.addChild(createBoard());
-game.scene.addChild(ball);
-game.scene.addChild(basetFront);
-game.scene.addChild(btn);
-
-window.playAnim = playAnim;
+// window.playAnim = playAnim;
 window.game = game;
