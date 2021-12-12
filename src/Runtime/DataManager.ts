@@ -32,7 +32,7 @@ export default class DataManager extends Singleton {
 
   constructor() {
     super();
-    this.levelIndex = 4;
+    this.levelIndex = 16;
     this.reset();
   }
 

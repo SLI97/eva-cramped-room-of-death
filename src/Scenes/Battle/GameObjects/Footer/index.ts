@@ -2,9 +2,6 @@ import { GameObject } from '@eva/eva.js';
 import { Text } from '@eva/plugin-renderer-text';
 import { Render } from '@eva/plugin-renderer-render';
 
-export const TILE_WIDTH = 32;
-export const TILE_HEIGHT = 32;
-
 const Footer = () => {
   const go = new GameObject('footer', {
     position: {

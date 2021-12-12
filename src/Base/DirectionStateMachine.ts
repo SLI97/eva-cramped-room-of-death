@@ -29,6 +29,5 @@ export default class DirectionStateMachine extends SubStateMachine {
     }
 
     this.currentState = this.states.get(DIRECTION_ORDER_ENUM[value as number]);
-    // console.log('switch',this.params, value, this.currentState);
   }
 }

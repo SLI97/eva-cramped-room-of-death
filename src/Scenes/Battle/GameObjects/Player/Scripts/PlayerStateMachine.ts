@@ -68,7 +68,7 @@ export default class PlayerStateMachine extends StateMachine {
       } else if (spriteAnimation.resource.startsWith('player_death')) {
         spriteAnimation.gotoAndStop(13);
       } else if (spriteAnimation.resource.startsWith('player_air_death')) {
-        spriteAnimation.gotoAndStop(9);
+        spriteAnimation.gotoAndStop(10);
       }
     });
   }

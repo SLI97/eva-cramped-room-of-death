@@ -21,13 +21,11 @@ export default class WoodenSkeletonManager extends EnemyManager {
     }
 
     const { targetX: playerX, targetY: playerY, state: playerState } = DataManager.Instance.player;
-    // console.log(playerX,);
     if (
       ((playerX === this.x && Math.abs(playerY - this.y) <= 1) ||
         (playerY === this.y && Math.abs(playerX - this.x) <= 1)) &&
       playerState === PLAYER_STATE.IDLE
     ) {
-      console.log('onAttack attack');
       this.state = PLAYER_STATE.ATTACK;
       EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, PLAYER_STATE.DEATH);
     }

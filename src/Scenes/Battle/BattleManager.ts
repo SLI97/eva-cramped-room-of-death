@@ -14,6 +14,8 @@ import IronSkeleton from './GameObjects/IronSkeleton/IronSkeleton';
 import SmokeManager from './GameObjects/Smoke/Scripts/SmokeManager';
 import Smoke from './GameObjects/Smoke/Smoke';
 import MenuScene from '../Menu';
+import Burst from './GameObjects/Burst/Burst';
+import Spikes from './GameObjects/Spikes/Spikes';
 
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
@@ -54,8 +56,8 @@ export default class BattleManager extends Component {
         this.generateEnemy();
         this.generatePlayer();
 
-        // this.generateBursts();
-        // this.generateSpikes();
+        this.generateBursts();
+        this.generateSpikes();
         EventManager.Instance.emit(EVENT_ENUM.BATTLE_LOADED);
 
         this.fixPos();
@@ -102,6 +104,37 @@ export default class BattleManager extends Component {
       return enemy.getComponent(EntityManager);
     });
     DataManager.Instance.enemies = list;
+  }
+
+  generateBursts() {
+    if (!this.level.bursts) {
+      DataManager.Instance.bursts = [];
+      return;
+    }
+    const list = this.level.bursts.map(item => {
+      let enemy = null;
+      if (item.type === ENEMY_TYPE_ENUM.BURST_FLOOR) {
+        enemy = Burst(item);
+      }
+      this.gameObject.addChild(enemy);
+      this.childrens.push(enemy);
+      return enemy.getComponent(EntityManager);
+    });
+    DataManager.Instance.bursts = list;
+  }
+
+  generateSpikes() {
+    if (!this.level.spikes) {
+      DataManager.Instance.spikes = [];
+      return;
+    }
+    const list = this.level.spikes.map(item => {
+      const enemy = Spikes(item);
+      this.gameObject.addChild(enemy);
+      this.childrens.push(enemy);
+      return enemy.getComponent(EntityManager);
+    });
+    DataManager.Instance.spikes = list;
   }
 
   generateDoor() {

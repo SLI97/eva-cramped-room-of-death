@@ -116,8 +116,6 @@ export const UI_ENUM = {
 /***
  * 方向顺序
  */
-// export const DIRECTION_ORDER = [DIRECTION_ENUM.TOP, DIRECTION_ENUM.BOTTOM, DIRECTION_ENUM.LEFT, DIRECTION_ENUM.RIGHT];
-
 export enum DIRECTION_ORDER_ENUM {
   TOP = 0,
   BOTTOM = 1,
@@ -128,24 +126,24 @@ export enum DIRECTION_ORDER_ENUM {
 /***
  * 尖刺类型和总点数映射
  */
-export const SPIKES_TYPE_MAP_POINT = {
-  SPIKES_ONE: 2,
-  SPIKES_TWO: 3,
-  SPIKES_THREE: 4,
-  SPIKES_FOUR: 5,
-};
+export enum SPIKES_TYPE_TOTAL_POINT {
+  SPIKES_ONE = 2,
+  SPIKES_TWO = 3,
+  SPIKES_THREE = 4,
+  SPIKES_FOUR = 5,
+}
 
 /***
  * 尖刺当前点数枚举
  */
-export const SPIKES_CUR_POINT_TYPE = {
-  ZERO: 'ZERO',
-  ONE: 'ONE',
-  TWO: 'TWO',
-  THREE: 'THREE',
-  FOUR: 'FOUR',
-  FIVE: 'FIVE',
-};
+export enum SPIKES_CUR_POINT_TYPE {
+  ZERO = 'ZERO',
+  ONE = 'ONE',
+  TWO = 'TWO',
+  THREE = 'THREE',
+  FOUR = 'FOUR',
+  FIVE = 'FIVE',
+}
 
 /***
  * 尖刺点数类型和数字映射

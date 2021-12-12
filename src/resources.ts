@@ -1170,4 +1170,319 @@ export default [
     },
     preload: true,
   },
+  {
+    name: 'burst_idle',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/burst/idle.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/burst/idle.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'burst_attack',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/burst/attack.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/burst/attack.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'burst_death',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/burst/death.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/burst/death.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_one_zero',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/one_zero.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/one_zero.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_one_one',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/one_one.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/one_one.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_one_two',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/one_two.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/one_two.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_two_zero',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/two_zero.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/two_zero.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_two_one',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/two_one.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/two_one.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_two_two',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/two_two.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/two_two.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_two_three',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/two_three.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/two_three.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_three_zero',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/three_zero.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/three_zero.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_three_one',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/three_one.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/three_one.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_three_two',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/three_two.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/three_two.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_three_three',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/three_three.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/three_three.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_three_four',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/three_four.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/three_four.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_four_zero',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/four_zero.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/four_zero.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_four_one',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/four_one.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/four_one.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_four_two',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/four_two.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/four_two.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_four_three',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/four_three.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/four_three.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_four_four',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/four_four.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/four_four.json',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'spikes_four_five',
+    type: RESOURCE_TYPE.SPRITE_ANIMATION,
+    src: {
+      image: {
+        type: 'png',
+        url: './static/assets/spikes/four_five.png',
+      },
+      json: {
+        type: 'json',
+        url: './static/assets/spikes/four_five.json',
+      },
+    },
+    preload: true,
+  },
 ];

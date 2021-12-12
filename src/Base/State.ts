@@ -12,8 +12,12 @@ export default class State {
   }
 
   play() {
-    // this.spriteAnimation.resource= null
     this.spriteAnimation.resource = this.animationName;
     this.spriteAnimation.play(this.times);
+  }
+
+  stop() {
+    this.spriteAnimation.resource = null;
+    this.spriteAnimation.stop();
   }
 }

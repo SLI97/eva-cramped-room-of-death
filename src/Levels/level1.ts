@@ -1,5 +1,5 @@
 import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENEMY_TYPE_ENUM, PLAYER_STATE } from '../Enum/index';
-import { IBurst, IDoor, IEnemy, IPlayer, ISpike } from './index';
+import { IBurst, IDoor, IEnemy, IPlayer, ISpikes } from './index';
 
 const mapInfo = [
   [
@@ -441,7 +441,7 @@ const enemies: Array<IEnemy> = [
   },
 ];
 
-const spikes: Array<ISpike> = [];
+const spikes: Array<ISpikes> = [];
 
 const bursts: Array<IBurst> = null;
 

@@ -17,7 +17,7 @@ export default class StateMachine extends Component {
 
   _currentState: State | SubStateMachine = null;
   params: Map<string, IParamsValue> = new Map();
-  states: Map<string, SubStateMachine> = new Map();
+  states: Map<string, SubStateMachine | State> = new Map();
 
   get currentState() {
     return this._currentState;

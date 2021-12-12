@@ -30,7 +30,7 @@ export interface ILevel {
   mapInfo: Array<Array<ITile>>;
   player: IPlayer;
   enemies: Array<IEnemy>;
-  spikes: Array<ISpike>;
+  spikes: Array<ISpikes>;
   bursts: Array<IBurst>;
   door: IDoor;
 }
@@ -50,7 +50,7 @@ export interface IEnemy {
   type: ENEMY_TYPE_ENUM;
 }
 
-export interface ISpike {
+export interface ISpikes {
   x: number;
   y: number;
   type: ENEMY_TYPE_ENUM;
