@@ -4,10 +4,12 @@ import { ENEMY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE } from '../../../../../Enum';
 import EnemyManager from '../../../../../Base/EnemyManager';
 import DataManager from '../../../../../Runtime/DataManager';
 import WoodenSkeletonStateMachine from './WoodenSkeletonStateMachine';
+import { Render } from '@eva/plugin-renderer-render';
 
 export default class WoodenSkeletonManager extends EnemyManager {
   init(enemy: IEnemy) {
     this.gameObject.addComponent(new WoodenSkeletonStateMachine());
+    this.gameObject.addComponent(new Render());
     super.init(enemy);
     this.type = ENEMY_TYPE_ENUM.SKELETON_WOODEN;
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onAttack, this);

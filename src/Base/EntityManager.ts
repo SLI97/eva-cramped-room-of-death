@@ -1,8 +1,8 @@
 import { Component } from '@eva/eva.js';
-import { DIRECTION_ENUM, DIRECTION_ORDER, PLAYER_STATE, PARAMS_NAME } from '../Enum';
+import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, PLAYER_STATE, PARAMS_NAME } from '../Enum';
 import StateMachine from './StateMachine';
 import { randomByCount } from '../Utils';
-import { IDoor, IEnemy, IPlayer } from '../Levels';
+import { IDoor, IEnemy, IPlayer, ISmoke } from '../Levels';
 import { TILE_HEIGHT, TILE_WIDTH } from '../Scenes/Battle/GameObjects/Tile/Tile';
 
 /***
@@ -17,22 +17,13 @@ export default class EntityManager extends Component {
   _state: PLAYER_STATE;
   _direction: DIRECTION_ENUM;
   id: string = randomByCount(12);
-  dto: IPlayer | IEnemy | IDoor;
 
-  init(dto: IPlayer | IEnemy | IDoor) {
-    this.dto = dto;
+  init(dto: IPlayer | IEnemy | IDoor | ISmoke) {
     this.x = dto.x;
     this.y = dto.y;
     this.state = dto.state;
+    this.fsm = this.gameObject.getComponent(StateMachine) || null;
     this.direction = dto.direction;
-  }
-
-  start() {
-    // this.x = this.dto.x;
-    // this.y = this.dto.y;
-    // this.state = this.dto.state;
-    // // this.direction = this.dto.direction;
-    this.fsm = this.gameObject.getComponent(StateMachine);
   }
 
   /***
@@ -50,10 +41,7 @@ export default class EntityManager extends Component {
   set direction(value) {
     this._direction = value;
     if (this.fsm) {
-      this.fsm.setParams(
-        PARAMS_NAME.DIRECTION,
-        DIRECTION_ORDER.findIndex(i => i === this._direction),
-      );
+      this.fsm.setParams(PARAMS_NAME.DIRECTION, DIRECTION_ORDER_ENUM[this._direction]);
     }
   }
 

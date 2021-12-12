@@ -1,4 +1,3 @@
-import State from '../../../../../../Base/State'
+import State from '../../../../../../Base/State';
 
-export default class BlockLeftState extends State {
-}
+export default class BlockLeftState extends State {}

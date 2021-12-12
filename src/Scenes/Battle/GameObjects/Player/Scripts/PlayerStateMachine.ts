@@ -14,6 +14,7 @@ import DeathSubStateMachine from './DeathSubStateMachine';
 import AirDeathSubStateMachine from './AirDeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import EnemyManager from '../../../../../Base/EnemyManager';
+import { Render } from '@eva/plugin-renderer-render';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -21,7 +22,17 @@ import EnemyManager from '../../../../../Base/EnemyManager';
 export default class PlayerStateMachine extends StateMachine {
   init() {
     this.gameObject.addComponent(
-      new SpriteAnimation(),
+      new SpriteAnimation({
+        autoPlay: true,
+        resource: '',
+        speed: 1000 / 8,
+      }),
+    );
+
+    this.gameObject.addComponent(
+      new Render({
+        zIndex: 1,
+      }),
     );
 
     this.initParams();
@@ -148,7 +159,7 @@ export default class PlayerStateMachine extends StateMachine {
       case this.states.get(PARAMS_NAME.DEATH):
       case this.states.get(PARAMS_NAME.AIRDEATH):
         if (this.params.get(PARAMS_NAME.DEATH).value) {
-            this.currentState = this.states.get(PARAMS_NAME.DEATH);
+          this.currentState = this.states.get(PARAMS_NAME.DEATH);
         } else if (this.params.get(PARAMS_NAME.AIRDEATH).value) {
           this.currentState = this.states.get(PARAMS_NAME.AIRDEATH);
         } else if (this.params.get(PARAMS_NAME.TURNLEFT).value) {

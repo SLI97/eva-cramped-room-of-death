@@ -1,5 +1,5 @@
 import SubStateMachine from './SubStateMachine';
-import { DIRECTION_ENUM, DIRECTION_ORDER, PARAMS_NAME } from '../Enum';
+import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, PARAMS_NAME } from '../Enum';
 
 export default class DirectionStateMachine extends SubStateMachine {
   update() {
@@ -18,17 +18,17 @@ export default class DirectionStateMachine extends SubStateMachine {
         break;
       default:
         this.currentState = this.states.get(this.manager.direction);
-          console.log(222);
-          break;
+        break;
     }
   }
 
   switch(type: DIRECTION_ENUM) {
     const { value } = this.params.get(PARAMS_NAME.DIRECTION);
-    if (DIRECTION_ORDER.findIndex(i => i === type) === value) {
+    if (DIRECTION_ORDER_ENUM[type] === value) {
       return;
     }
 
-    this.currentState = this.states.get(DIRECTION_ORDER.find((_, index) => value === index));
+    this.currentState = this.states.get(DIRECTION_ORDER_ENUM[value as number]);
+    // console.log('switch',this.params, value, this.currentState);
   }
 }

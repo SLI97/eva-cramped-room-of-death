@@ -72,6 +72,14 @@ export interface IDoor {
   type: ENEMY_TYPE_ENUM;
 }
 
+export interface ISmoke {
+  x: number;
+  y: number;
+  direction: DIRECTION_ENUM;
+  state: PLAYER_STATE;
+  // type: ENEMY_TYPE_ENUM;
+}
+
 export default {
   level1,
   level2,

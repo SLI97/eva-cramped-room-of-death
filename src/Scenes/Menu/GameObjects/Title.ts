@@ -4,8 +4,8 @@ import { Text } from '@eva/plugin-renderer-text';
 const Title = () => {
   const go = new GameObject('title', {
     position: {
-        x: 0,
-        y: 70,
+      x: 0,
+      y: 70,
     },
     origin: {
       x: 0.5,

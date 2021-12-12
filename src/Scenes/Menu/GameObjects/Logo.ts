@@ -18,7 +18,7 @@ const Logo = () => {
   go.addComponent(
     new Sprite({
       resource: 'ctrl',
-      spriteName: 'logo.png',
+      spriteName: 'ctrl (7).png',
     }),
   );
 

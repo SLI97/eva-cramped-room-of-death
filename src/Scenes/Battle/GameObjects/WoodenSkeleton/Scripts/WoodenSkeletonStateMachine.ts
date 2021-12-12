@@ -11,7 +11,13 @@ import EnemyManager from '../../../../../Base/EnemyManager';
  */
 export default class WoodenSkeletonStateMachine extends StateMachine {
   init() {
-    this.gameObject.addComponent(new SpriteAnimation());
+    this.gameObject.addComponent(
+      new SpriteAnimation({
+        autoPlay: true,
+        resource: '',
+        speed: 1000 / 8,
+      }),
+    );
 
     this.initParams();
   }
@@ -52,7 +58,7 @@ export default class WoodenSkeletonStateMachine extends StateMachine {
 
     this.params.set(PARAMS_NAME.DIRECTION, {
       type: FSM_PARAM_TYPE_ENUM.NUMBER,
-      value: 1,
+      value: 0,
     });
   }
 

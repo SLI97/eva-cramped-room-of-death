@@ -22,7 +22,7 @@ const Door = (door: IDoor) => {
     },
   });
 
-    go.addComponent(new DoorManager(door));
+  go.addComponent(new DoorManager(door));
 
   return go;
 };

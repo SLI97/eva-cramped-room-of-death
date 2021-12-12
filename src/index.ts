@@ -1,5 +1,5 @@
 import resources from './resources';
-import { Game, resource, LOAD_SCENE_MODE, LOAD_EVENT } from '@eva/eva.js';
+import { Game, resource } from '@eva/eva.js';
 import { RendererSystem } from '@eva/plugin-renderer';
 import { ImgSystem } from '@eva/plugin-renderer-img';
 import { EventSystem } from '@eva/plugin-renderer-event';
@@ -8,9 +8,12 @@ import { RenderSystem } from '@eva/plugin-renderer-render';
 import { TransitionSystem } from '@eva/plugin-transition';
 import { GraphicsSystem } from '@eva/plugin-renderer-graphics';
 import { TextSystem } from '@eva/plugin-renderer-text';
+// import { StatsSystem } from '@eva/plugin-stats';
 // import MenuScene from './Scenes/Menu/index';
 import { SpriteSystem } from '@eva/plugin-renderer-sprite';
-import Battle from './Scenes/Battle';
+// import Battle from './Scenes/Battle';
+import StartScene from './Scenes/Start';
+import DataManager from './Runtime/DataManager';
 
 // export const SCREEN_WIDTH = window.innerWidth;
 // export const SCREEN_HEIGHT = window.innerHeight;
@@ -39,20 +42,19 @@ export const game = new Game({
   ],
 });
 
-// resource.on("progress", () => {}); // 开始loader
-// resource.on(LOAD_EVENT.PROGRESS, () => {}); // 加载进度更新
-// resource.on(LOAD_EVENT.LOADED, () => {}); // 某文件加载成功
-resource.on(LOAD_EVENT.COMPLETE, () => {
-  game.loadScene({
-    // scene: MenuScene(),
-    scene: Battle(),
-    type: LOAD_SCENE_MODE.SINGLE,
-  } as any);
-}); // 加载完成
-// resource.on(LOAD_EVENT.ERROR, () => {}); // 某文件加载失败
-resource.preload();
+game.ticker.add(() => {
+  DataManager.Instance.frame++;
+});
 
-// game.start();
+game.loadScene({
+  scene: StartScene(),
+});
 
-// window.playAnim = playAnim;
+// game.addSystem(new StatsSystem({
+//     x: 0,
+//     y: 50,
+//     width: 20,
+//     height: 12
+// }))
+
 window.game = game;

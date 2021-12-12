@@ -4,6 +4,7 @@ import DataManager from '../../../../../Runtime/DataManager';
 import { IPlayer } from '../../../../../Levels';
 import EntityManager from '../../../../../Base/EntityManager';
 import PlayerStateMachine from './PlayerStateMachine';
+import BattleManager from '../../../BattleManager';
 
 export default class PlayerManager extends EntityManager {
   targetX: number;
@@ -21,14 +22,12 @@ export default class PlayerManager extends EntityManager {
     EventManager.Instance.on(EVENT_ENUM.ATTACK_PLAYER, this.onDead, this);
   }
 
-
   unbind() {
     EventManager.Instance.off(EVENT_ENUM.PLAYER_CTRL, this.inputProcess);
     EventManager.Instance.off(EVENT_ENUM.ATTACK_PLAYER, this.onDead);
   }
 
   update() {
-    console.log(this.direction, this.state);
     this.updateXY();
     super.update();
   }
@@ -51,11 +50,19 @@ export default class PlayerManager extends EntityManager {
 
     if (Math.abs(this.targetX - this.x) < 0.01) {
       this.x = this.targetX;
-      this.isMoveEndX = true;
-      EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
+      this.onMoveEnd('X');
     }
     if (Math.abs(this.targetY - this.y) < 0.01) {
       this.y = this.targetY;
+      this.onMoveEnd('Y');
+    }
+  }
+
+  onMoveEnd(type: string) {
+    if (type === 'X' && !this.isMoveEndX) {
+      this.isMoveEndX = true;
+      EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
+    } else if (type === 'Y' && !this.isMoveEndY) {
       this.isMoveEndY = true;
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
     }
@@ -169,7 +176,7 @@ export default class PlayerManager extends EntityManager {
   }
 
   showSmoke(type: DIRECTION_ENUM) {
-    // console.log(type);
+    this.gameObject.parent.getComponent(BattleManager).generateSmoke(this.x, this.y, type);
   }
 
   /***

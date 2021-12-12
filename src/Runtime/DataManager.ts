@@ -1,6 +1,10 @@
 import Singleton from '../base/Singleton';
 import TileManager from '../Scenes/Battle/GameObjects/Tile/TileManager';
-import { ILevel, ITile } from '../Levels';
+import { ITile } from '../Levels';
+import PlayerManager from '../Scenes/Battle/GameObjects/Player/Scripts/PlayerManager';
+import EnemyManager from '../Base/EnemyManager';
+import DoorManager from '../Scenes/Battle/GameObjects/Door/Scripts/DoorManager';
+import FaderManager from '../Scenes/Battle/GameObjects/Fader/FaderManager';
 
 /**
  * 全局数据管理类
@@ -10,29 +14,32 @@ export default class DataManager extends Singleton {
     return super.GetInstance(DataManager);
   }
 
-  player: any;
-  enemies: any;
+  player: PlayerManager;
+  enemies: EnemyManager[];
   spikes: any;
   bursts: any;
-  door: any;
+  door: DoorManager;
   smokes: any;
   records: any;
   mapRowCount: number;
   mapColumnCount: number;
-  tileInfo: Array<Array<TileManager>>;
-  mapInfo: Array<Array<ITile>>;
   levelIndex: number;
+  frame: number = 0;
+  mapInfo: Array<Array<ITile>> = []; //关卡的描述数据
+  tileInfo: Array<Array<TileManager>> = []; //实例化出来的组件实例
+
+  fm: FaderManager;
 
   constructor() {
     super();
-    this.levelIndex = 1;
-    this.tileInfo = [];
+    this.levelIndex = 4;
     this.reset();
   }
 
   reset() {
     //地图信息
     this.mapInfo = [];
+    this.tileInfo = [];
     this.mapRowCount = 0;
     this.mapColumnCount = 0;
 
@@ -62,7 +69,7 @@ export default class DataManager extends Singleton {
       });
     }
     this.bursts = [];
-    //
+
     if (this.door) {
       this.door.unbind();
     }

@@ -1,5 +1,5 @@
 import EntityManager from './EntityManager';
-import { IEnemy, IPlayer } from '../Levels';
+import { IEnemy } from '../Levels';
 import EventManager from '../Runtime/EventManager';
 import { ENEMY_TYPE_ENUM, EVENT_ENUM } from '../Enum';
 import { DIRECTION_ENUM, PLAYER_STATE } from '../Enum';
@@ -12,6 +12,9 @@ export default class EnemyManager extends EntityManager {
     super.init(dto);
     EventManager.Instance.on(EVENT_ENUM.ATTACK_ENEMY, this.onDead, this);
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onChangeDirection, this);
+  }
+
+  start() {
     this.onChangeDirection(false);
   }
 

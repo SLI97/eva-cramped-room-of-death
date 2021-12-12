@@ -4,7 +4,6 @@ import { TILE_TYPE_ENUM } from '../../../../Enum/index';
 export default class TileManager extends Component {
   static componentName = 'TileManager'; // 设置组件的名字
 
-  tileMap: any;
   type: TILE_TYPE_ENUM;
   moveable: boolean;
   turnable: boolean;

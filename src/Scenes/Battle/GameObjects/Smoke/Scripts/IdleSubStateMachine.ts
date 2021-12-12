@@ -1,0 +1,19 @@
+import IdleState from './Idle/IdleState';
+import DirectionStateMachine from '../../../../../Base/DirectionStateMachine';
+import { DIRECTION_ENUM } from '../../../../../Enum';
+import { GameObject } from '@eva/eva.js';
+
+export default class IdleSubStateMachine extends DirectionStateMachine {
+  constructor(go: GameObject) {
+    super(go);
+
+    this.init();
+  }
+
+  init() {
+    this.states.set(DIRECTION_ENUM.TOP, new IdleState(this.go, 'smoke_idle_top', 1));
+    this.states.set(DIRECTION_ENUM.BOTTOM, new IdleState(this.go, 'smoke_idle_bottom', 1));
+    this.states.set(DIRECTION_ENUM.LEFT, new IdleState(this.go, 'smoke_idle_left', 1));
+    this.states.set(DIRECTION_ENUM.RIGHT, new IdleState(this.go, 'smoke_idle_right', 1));
+  }
+}

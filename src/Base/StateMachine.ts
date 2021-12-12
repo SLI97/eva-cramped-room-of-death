@@ -13,7 +13,7 @@ export interface IParamsValue {
  * 有限状态机基类
  */
 export default class StateMachine extends Component {
-    static componentName = 'StateMachine'; // 设置组件的名字
+  static componentName = 'StateMachine'; // 设置组件的名字
 
   _currentState: State | SubStateMachine = null;
   params: Map<string, IParamsValue> = new Map();

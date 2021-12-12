@@ -1,15 +1,19 @@
 import { Component, GameObject } from '@eva/eva.js';
 import DataManager from '../../Runtime/DataManager';
-import Levels, { ILevel } from '../../Levels/index';
+import Levels, { ILevel, ISmoke } from '../../Levels/index';
 import Background from './GameObjects/Background/Background';
 import Player from './GameObjects/Player/Player';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
+import { game, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
 import { TILE_HEIGHT, TILE_WIDTH } from './GameObjects/Tile/Tile';
 import Door from './GameObjects/Door/Door';
 import EntityManager from '../../Base/EntityManager';
-import { ENEMY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE } from '../../Enum';
+import { DIRECTION_ENUM, ENEMY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE } from '../../Enum';
 import WoodenSkeleton from './GameObjects/WoodenSkeleton/WoodenSkeleton';
 import EventManager from '../../Runtime/EventManager';
+import IronSkeleton from './GameObjects/IronSkeleton/IronSkeleton';
+import SmokeManager from './GameObjects/Smoke/Scripts/SmokeManager';
+import Smoke from './GameObjects/Smoke/Smoke';
+import MenuScene from '../Menu';
 
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
@@ -20,6 +24,7 @@ export default class BattleManager extends Component {
   init() {
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.checkFinishCurLevel, this);
     EventManager.Instance.on(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this);
+    EventManager.Instance.on(EVENT_ENUM.RESTART_LEVEL, this.initLevel, this);
     this.initLevel();
   }
 
@@ -32,35 +37,34 @@ export default class BattleManager extends Component {
   initLevel() {
     const level = Levels['level' + DataManager.Instance.levelIndex];
     if (level) {
-      console.log('level' + DataManager.Instance.levelIndex);
-      // UIManager.Instance.fadeIn(200).then(() => {
-      //防止把抖动效果带到下一关，导致下一关错位
-      // this.isShaking = false;
+      DataManager.Instance.fm.fadeIn(200).then(() => {
+        this.clearLevel();
+        console.log('level' + DataManager.Instance.levelIndex);
+        //防止把抖动效果带到下一关，导致下一关错位
+        // this.isShaking = false;
+        DataManager.Instance.reset();
+        this.level = level;
+        // //地图信息
+        DataManager.Instance.mapInfo = this.level.mapInfo.concat();
+        DataManager.Instance.mapRowCount = this.level.mapInfo.length || 0;
+        DataManager.Instance.mapColumnCount = this.level.mapInfo[0].length || 0;
 
-      // CanvasManager.Ctx.fillStyle = `#000`;
-      // CanvasManager.Ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-      // this.isLoaded = false;
-      DataManager.Instance.reset();
-      this.level = level;
-      // //地图信息
-      DataManager.Instance.mapInfo = this.level.mapInfo.concat();
-      DataManager.Instance.mapRowCount = this.level.mapInfo.length || 0;
-      DataManager.Instance.mapColumnCount = this.level.mapInfo[0].length || 0;
+        this.generateBackground();
+        this.generateDoor();
+        this.generateEnemy();
+        this.generatePlayer();
 
-      this.generateBackground();
-      this.generateDoor();
-      this.generateEnemy();
-      this.generatePlayer();
+        // this.generateBursts();
+        // this.generateSpikes();
+        EventManager.Instance.emit(EVENT_ENUM.BATTLE_LOADED);
 
-      // this.generateBursts();
-      // this.generateSpikes();
-      // this.gameObject.addChild(Door(this.level.door));
-      // this.isLoaded = true;
-      // UIManager.Instance.fadeOut(200);
-      // });
-      this.fixPos();
+        this.fixPos();
+        DataManager.Instance.fm.fadeOut(200);
+      });
     } else {
-      // this.sceneManager.setScene(new MainMenuScene(SceneManager.Instance));
+      game.loadScene({
+        scene: MenuScene(),
+      });
     }
   }
 
@@ -91,7 +95,7 @@ export default class BattleManager extends Component {
       if (item.type === ENEMY_TYPE_ENUM.SKELETON_WOODEN) {
         enemy = WoodenSkeleton(item);
       } else if (item.type === ENEMY_TYPE_ENUM.SKELETON_IRON) {
-        // enemy = new IronSkeleton(item);
+        enemy = IronSkeleton(item);
       }
       this.gameObject.addChild(enemy);
       this.childrens.push(enemy);
@@ -111,6 +115,26 @@ export default class BattleManager extends Component {
     DataManager.Instance.door = door.getComponent(EntityManager);
   }
 
+  generateSmoke(x: number, y: number, type: DIRECTION_ENUM) {
+    const item = DataManager.Instance.smokes.find((smoke: SmokeManager) => smoke.state === PLAYER_STATE.DEATH);
+    if (item) {
+      item.x = x;
+      item.y = y;
+      item.state = PLAYER_STATE.IDLE;
+      item.direction = type;
+    } else {
+      const smoke = Smoke({
+        x: x,
+        y: y,
+        direction: type,
+        state: PLAYER_STATE.IDLE,
+      } as ISmoke);
+      this.gameObject.addChild(smoke);
+      this.childrens.push(smoke);
+      DataManager.Instance.smokes.push(smoke.getComponent(SmokeManager));
+    }
+  }
+
   checkFinishCurLevel() {
     const { x: doorX, y: doorY, state: doorState } = DataManager.Instance.door;
     const { x: playerX, y: playerY } = DataManager.Instance.player;
@@ -121,10 +145,7 @@ export default class BattleManager extends Component {
 
   nextLevel() {
     DataManager.Instance.levelIndex += 1;
-      this.clearLevel();
-    setTimeout(() => {
-      this.initLevel();
-    }, 1000);
+    this.initLevel();
   }
 
   fixPos() {

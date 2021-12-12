@@ -427,7 +427,7 @@ const mapInfo = [
 const player: IPlayer = {
   x: 2,
   y: 8,
-  direction: DIRECTION_ENUM.RIGHT,
+  direction: DIRECTION_ENUM.TOP,
   state: PLAYER_STATE.IDLE,
 };
 

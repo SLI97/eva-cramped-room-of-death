@@ -1,13 +1,11 @@
-import { Component, GameObject } from '@eva/eva.js';
+import { Component } from '@eva/eva.js';
 import DataManager from '../../../../Runtime/DataManager';
-import { randomByRange } from '../../../../Utils/index';
+import { randomByRange } from '../../../../Utils';
 import Tile from '../Tile/Tile';
 import TileManager from '../Tile/TileManager';
 
 export default class BackgroundManager extends Component {
   static componentName = 'BackgroundManager'; // 设置组件的名字
-
-  tileMap: Array<Array<GameObject>>;
 
   init() {
     this.initTile();
@@ -16,16 +14,13 @@ export default class BackgroundManager extends Component {
   player() {}
 
   initTile() {
-    this.tileMap = [];
-    const { mapInfo, tileInfo } = DataManager.Instance;
+    const { mapInfo } = DataManager.Instance;
 
+    DataManager.Instance.tileInfo = [];
     for (let i = 0; i < mapInfo.length; i++) {
       const colum = mapInfo[i];
-      this.tileMap[i] = [];
-      tileInfo[i] = [];
+      DataManager.Instance.tileInfo[i] = [];
       for (let j = 0; j < colum.length; j++) {
-        this.tileMap[i][j] = null;
-
         const item = colum[j];
         if (item.src === null) {
           continue;
@@ -43,8 +38,7 @@ export default class BackgroundManager extends Component {
         const type = item.type;
 
         const tile = Tile(type, imgSrc, i, j);
-        this.tileMap[i][j] = tile;
-        tileInfo[i][j] = tile.getComponent(TileManager);
+        DataManager.Instance.tileInfo[i][j] = tile.getComponent(TileManager);
         this.gameObject.addChild(tile);
       }
     }

@@ -1,6 +1,7 @@
 import { GameObject } from '@eva/eva.js';
 import ControllerButton from './ControllerButton';
-import { CONTROLLER_ENUM } from '../../../../Enum/index';
+import { CONTROLLER_ENUM } from '../../../../Enum';
+import { Render } from '@eva/plugin-renderer-render';
 
 const Controller = () => {
   const go = new GameObject('controller', {
@@ -24,6 +25,8 @@ const Controller = () => {
   go.addChild(ControllerButton(CONTROLLER_ENUM.BOTTOM, 4));
   go.addChild(ControllerButton(CONTROLLER_ENUM.TURNRIGHT, 5));
   go.addChild(ControllerButton(CONTROLLER_ENUM.RIGHT, 6));
+
+  go.addComponent(new Render());
 
   return go;
 };
