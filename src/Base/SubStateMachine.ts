@@ -1,6 +1,7 @@
 import State from './State';
 import { GameObject } from '@eva/eva.js';
 import StateMachine, { IParamsValue } from './StateMachine';
+import EntityManager from './EntityManager';
 
 /***
  * 子有限状态机基类
@@ -11,9 +12,11 @@ export default class SubStateMachine {
   _currentState: State | SubStateMachine = null;
   params: Map<string, IParamsValue> = new Map();
   states: Map<string, State | SubStateMachine> = new Map();
+  manager: EntityManager;
 
   constructor(go: GameObject) {
     this.go = go;
+    this.manager = this.go.getComponent(EntityManager);
     this.params = this.go.getComponent(StateMachine).params;
   }
 
@@ -26,6 +29,15 @@ export default class SubStateMachine {
     if (this._currentState instanceof State) {
       this._currentState.play();
     }
+  }
+
+  stop() {
+    this.currentState = null;
+    // for (const [key, value] of this.states) {
+    //   if (value instanceof State) {
+    //     value.stop();
+    //   }
+    // }
   }
 
   /***

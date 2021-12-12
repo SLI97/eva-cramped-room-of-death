@@ -2,14 +2,15 @@ import { Component } from '@eva/eva.js';
 import { TILE_TYPE_ENUM } from '../../../../Enum/index';
 
 export default class TileManager extends Component {
-  static componentName = 'BackgroundManager'; // 设置组件的名字
+  static componentName = 'TileManager'; // 设置组件的名字
 
   tileMap: any;
   type: TILE_TYPE_ENUM;
   moveable: boolean;
   turnable: boolean;
 
-  init() {
+  init(type: TILE_TYPE_ENUM) {
+    this.type = type;
     if (
       this.type === TILE_TYPE_ENUM.WALL_LEFT_TOP ||
       this.type === TILE_TYPE_ENUM.WALL_ROW ||

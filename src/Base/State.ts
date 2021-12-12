@@ -12,11 +12,8 @@ export default class State {
   }
 
   play() {
-      this.spriteAnimation.resource= null
-    this.spriteAnimation.resource = this.animationName;
-    // this.spriteAnimation.stop();
-    // this.spriteAnimation.gotoAndPlay(0);
-    // this.spriteAnimation.play();
-    this.spriteAnimation.play(this.times);
+      // this.spriteAnimation.resource= null
+      this.spriteAnimation.resource = this.animationName;
+      this.spriteAnimation.play(this.times);
   }
 }

@@ -2,6 +2,7 @@ import { Component, GameObject } from '@eva/eva.js';
 import DataManager from '../../../../Runtime/DataManager';
 import { randomByRange } from '../../../../Utils/index';
 import Tile from '../Tile/Tile';
+import TileManager from '../Tile/TileManager';
 
 export default class BackgroundManager extends Component {
   static componentName = 'BackgroundManager'; // 设置组件的名字
@@ -10,20 +11,18 @@ export default class BackgroundManager extends Component {
 
   init() {
     this.initTile();
-
-    // this.resetPos();
   }
 
   player() {}
 
   initTile() {
     this.tileMap = [];
-    const { mapInfo, tileGoInfo } = DataManager.Instance;
+    const { mapInfo, tileInfo } = DataManager.Instance;
 
     for (let i = 0; i < mapInfo.length; i++) {
       const colum = mapInfo[i];
       this.tileMap[i] = [];
-      tileGoInfo[i] = [];
+      tileInfo[i] = [];
       for (let j = 0; j < colum.length; j++) {
         this.tileMap[i][j] = null;
 
@@ -45,7 +44,7 @@ export default class BackgroundManager extends Component {
 
         const tile = Tile(type, imgSrc, i, j);
         this.tileMap[i][j] = tile;
-        tileGoInfo[i][j] = tile;
+        tileInfo[i][j] = tile.getComponent(TileManager);
         this.gameObject.addChild(tile);
       }
     }

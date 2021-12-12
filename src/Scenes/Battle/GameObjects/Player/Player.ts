@@ -1,7 +1,6 @@
 import { GameObject } from '@eva/eva.js';
 import PlayerManager from './Scripts/PlayerManager';
 import { IPlayer } from '../../../../Levels';
-import PlayerStateMachine from './Scripts/PlayerStateMachine';
 
 const PLAYER_WIDTH = 128;
 const PLAYER_HEIGHT = 128;
@@ -23,7 +22,7 @@ const Player = (player: IPlayer) => {
     },
   });
 
-    go.addComponent(new PlayerManager(player));
+  go.addComponent(new PlayerManager(player));
 
   return go;
 };

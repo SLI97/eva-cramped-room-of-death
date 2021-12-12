@@ -13,6 +13,8 @@ export interface IParamsValue {
  * 有限状态机基类
  */
 export default class StateMachine extends Component {
+    static componentName = 'StateMachine'; // 设置组件的名字
+
   _currentState: State | SubStateMachine = null;
   params: Map<string, IParamsValue> = new Map();
   states: Map<string, SubStateMachine> = new Map();
@@ -22,9 +24,16 @@ export default class StateMachine extends Component {
   }
 
   set currentState(value) {
+    this.stop();
     this._currentState = value;
     if (this._currentState instanceof State) {
       this._currentState.play();
+    }
+  }
+
+  stop() {
+    for (const [_, value] of this.states) {
+      value.stop();
     }
   }
 
@@ -36,6 +45,10 @@ export default class StateMachine extends Component {
       this.currentState.update();
     }
     this.resetTrigger();
+  }
+
+  lateUpdate() {
+    // this.resetTrigger();
   }
 
   getParams(paramsName: string) {

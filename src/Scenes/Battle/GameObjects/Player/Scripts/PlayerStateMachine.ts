@@ -1,35 +1,19 @@
 import StateMachine from '../../../../../Base/StateMachine';
-import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE } from '../../../../../Enum/index';
+import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME } from '../../../../../Enum';
 import IdleSubStateMachine from './IdleSubStateMachine';
-// import AttackSubStateMachine from './AttackSubStateMachine';
+import AttackSubStateMachine from './AttackSubStateMachine';
 import TurnLeftSubStateMachine from './TurnLeftSubStateMachine';
 import TurnRightSubStateMachine from './TurnRightSubStateMachine';
-// import BlockFrontSubStateMachine from './BlockFrontSubStateMachine';
-// import BlockBackSubStateMachine from './BlockBackSubStateMachine';
-// import BlockLeftSubStateMachine from './BlockLeftSubStateMachine';
-// import BlockRightSubStateMachine from './BlockRightSubStateMachine';
-// import DeathSubStateMachine from './DeathSubStateMachine';
-// import BlockTurnLeftSubStateMachine from './BlockTurnLeftSubStateMachine';
-// import BlockTurnRightSubStateMachine from './BlockTurnRightSubStateMachine';
-// import AirDeathSubStateMachine from './AirDeathSubStateMachine';
+import BlockFrontSubStateMachine from './BlockFrontSubStateMachine';
+import BlockBackSubStateMachine from './BlockBackSubStateMachine';
+import BlockLeftSubStateMachine from './BlockLeftSubStateMachine';
+import BlockRightSubStateMachine from './BlockRightSubStateMachine';
+import BlockTurnLeftSubStateMachine from './BlockTurnLeftSubStateMachine';
+import BlockTurnRightSubStateMachine from './BlockTurnRightSubStateMachine';
+import DeathSubStateMachine from './DeathSubStateMachine';
+import AirDeathSubStateMachine from './AirDeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
-import PlayerManager from './PlayerManager';
-
-export enum PARAMS_NAME {
-  IDLE = 'IDLE',
-  ATTACK = 'ATTACK',
-  TURNLEFT = 'TURNLEFT',
-  TURNRIGHT = 'TURNRIGHT',
-  BLOCKFRONT = 'BLOCKFRONT',
-  BLOCKBACK = 'BLOCKBACK',
-  BLOCKLEFT = 'BLOCKLEFT',
-  BLOCKRIGHT = 'BLOCKRIGHT',
-  BLOCKTURNLEFT = 'BLOCKTURNLEFT',
-  BLOCKTURNRIGHT = 'BLOCKTURNRIGHT',
-  DEATH = 'DEATH',
-  AIRDEATH = 'AIRDEATH',
-  DIRECTION = 'DIRECTION',
-}
+import EnemyManager from '../../../../../Base/EnemyManager';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -37,11 +21,7 @@ export enum PARAMS_NAME {
 export default class PlayerStateMachine extends StateMachine {
   init() {
     this.gameObject.addComponent(
-      new SpriteAnimation({
-        resource: 'player_idle_top',
-        speed: 120,
-        autoPlay: true,
-      }),
+      new SpriteAnimation(),
     );
 
     this.initParams();
@@ -49,17 +29,17 @@ export default class PlayerStateMachine extends StateMachine {
 
   start() {
     this.states.set(PARAMS_NAME.IDLE, new IdleSubStateMachine(this.gameObject));
-    // this.states.set(PARAMS_NAME.ATTACK, new AttackSubStateMachine(this.owner, this));
+    this.states.set(PARAMS_NAME.ATTACK, new AttackSubStateMachine(this.gameObject));
     this.states.set(PARAMS_NAME.TURNLEFT, new TurnLeftSubStateMachine(this.gameObject));
     this.states.set(PARAMS_NAME.TURNRIGHT, new TurnRightSubStateMachine(this.gameObject));
-    // this.states.set(PARAMS_NAME.BLOCKFRONT, new BlockFrontSubStateMachine(this.owner, this));
-    // this.states.set(PARAMS_NAME.BLOCKBACK, new BlockBackSubStateMachine(this.owner, this));
-    // this.states.set(PARAMS_NAME.BLOCKLEFT, new BlockLeftSubStateMachine(this.owner, this));
-    // this.states.set(PARAMS_NAME.BLOCKRIGHT, new BlockRightSubStateMachine(this.owner, this));
-    // this.states.set(PARAMS_NAME.BLOCKTURNLEFT, new BlockTurnLeftSubStateMachine(this.owner, this));
-    // this.states.set(PARAMS_NAME.BLOCKTURNRIGHT, new BlockTurnRightSubStateMachine(this.owner, this));
-    // this.states.set(PARAMS_NAME.DEATH, new DeathSubStateMachine(this.owner, this));
-    // this.states.set(PARAMS_NAME.AIRDEATH, new AirDeathSubStateMachine(this.owner, this));
+    this.states.set(PARAMS_NAME.BLOCKFRONT, new BlockFrontSubStateMachine(this.gameObject));
+    this.states.set(PARAMS_NAME.BLOCKBACK, new BlockBackSubStateMachine(this.gameObject));
+    this.states.set(PARAMS_NAME.BLOCKLEFT, new BlockLeftSubStateMachine(this.gameObject));
+    this.states.set(PARAMS_NAME.BLOCKRIGHT, new BlockRightSubStateMachine(this.gameObject));
+    this.states.set(PARAMS_NAME.BLOCKTURNLEFT, new BlockTurnLeftSubStateMachine(this.gameObject));
+    this.states.set(PARAMS_NAME.BLOCKTURNRIGHT, new BlockTurnRightSubStateMachine(this.gameObject));
+    this.states.set(PARAMS_NAME.DEATH, new DeathSubStateMachine(this.gameObject));
+    this.states.set(PARAMS_NAME.AIRDEATH, new AirDeathSubStateMachine(this.gameObject));
     this.currentState = this.states.get(PARAMS_NAME.IDLE);
 
     const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
@@ -67,7 +47,17 @@ export default class PlayerStateMachine extends StateMachine {
       //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
       if (spriteAnimation.resource.startsWith('player_turn')) {
         spriteAnimation.gotoAndStop(2);
-        this.gameObject.getComponent(PlayerManager).state = PLAYER_STATE.IDLE;
+        this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
+      } else if (spriteAnimation.resource.startsWith('player_block')) {
+        spriteAnimation.gotoAndStop(3);
+        this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
+      } else if (spriteAnimation.resource.startsWith('player_attack')) {
+        spriteAnimation.gotoAndStop(7);
+        this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
+      } else if (spriteAnimation.resource.startsWith('player_death')) {
+        spriteAnimation.gotoAndStop(13);
+      } else if (spriteAnimation.resource.startsWith('player_air_death')) {
+        spriteAnimation.gotoAndStop(9);
       }
     });
   }
@@ -158,7 +148,7 @@ export default class PlayerStateMachine extends StateMachine {
       case this.states.get(PARAMS_NAME.DEATH):
       case this.states.get(PARAMS_NAME.AIRDEATH):
         if (this.params.get(PARAMS_NAME.DEATH).value) {
-          this.currentState = this.states.get(PARAMS_NAME.DEATH);
+            this.currentState = this.states.get(PARAMS_NAME.DEATH);
         } else if (this.params.get(PARAMS_NAME.AIRDEATH).value) {
           this.currentState = this.states.get(PARAMS_NAME.AIRDEATH);
         } else if (this.params.get(PARAMS_NAME.TURNLEFT).value) {

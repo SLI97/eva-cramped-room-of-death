@@ -30,7 +30,7 @@ const Tile = (type: TILE_TYPE_ENUM, imgSrc: string, i: number, j: number) => {
     }),
   );
 
-  go.addComponent(new TileManager());
+  go.addComponent(new TileManager(type));
 
   return go;
 };
