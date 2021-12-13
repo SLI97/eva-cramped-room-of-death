@@ -399,18 +399,18 @@ const spikes: Array<ISpikes> = [
     type: ENEMY_TYPE_ENUM.SPIKES_THREE,
     count: 0,
   },
-  {
-    x: 5,
-    y: 5,
-    type: ENEMY_TYPE_ENUM.SPIKES_TWO,
-    count: 0,
-  },
-  {
-    x: 6,
-    y: 5,
-    type: ENEMY_TYPE_ENUM.SPIKES_ONE,
-    count: 0,
-  },
+  // {
+  //   x: 5,
+  //   y: 5,
+  //   type: ENEMY_TYPE_ENUM.SPIKES_TWO,
+  //   count: 0,
+  // },
+  // {
+  //   x: 6,
+  //   y: 5,
+  //   type: ENEMY_TYPE_ENUM.SPIKES_ONE,
+  //   count: 0,
+  // },
 ];
 
 const bursts: Array<IBurst> = [

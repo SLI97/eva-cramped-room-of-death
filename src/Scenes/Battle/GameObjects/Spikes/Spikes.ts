@@ -2,12 +2,12 @@ import { GameObject } from '@eva/eva.js';
 import {  ISpikes } from '../../../../Levels';
 import SpikesManager from './Scripts/SpikesManager';
 
-export const DOOR_WIDTH = 128;
-export const DOOR_HEIGHT = 128;
+export const SPIKES_WIDTH = 128;
+export const SPIKES_HEIGHT = 128;
 
 const Spikes = (spikes: ISpikes) => {
-    const go = new GameObject('door', {
-        size: { width: DOOR_WIDTH, height: DOOR_HEIGHT },
+    const go = new GameObject('spikes', {
+        size: { width: SPIKES_WIDTH, height: SPIKES_HEIGHT },
         position: {
             x: 0,
             y: 0,

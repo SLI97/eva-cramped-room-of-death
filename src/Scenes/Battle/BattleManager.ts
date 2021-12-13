@@ -16,6 +16,7 @@ import Smoke from './GameObjects/Smoke/Smoke';
 import MenuScene from '../Menu';
 import Burst from './GameObjects/Burst/Burst';
 import Spikes from './GameObjects/Spikes/Spikes';
+import SpikesManager from './GameObjects/Spikes/Scripts/SpikesManager';
 
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
@@ -132,7 +133,7 @@ export default class BattleManager extends Component {
       const enemy = Spikes(item);
       this.gameObject.addChild(enemy);
       this.childrens.push(enemy);
-      return enemy.getComponent(EntityManager);
+      return enemy.getComponent(SpikesManager);
     });
     DataManager.Instance.spikes = list;
   }

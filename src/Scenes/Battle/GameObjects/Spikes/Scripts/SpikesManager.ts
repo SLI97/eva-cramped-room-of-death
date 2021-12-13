@@ -1,12 +1,12 @@
 import { ISpikes } from '../../../../../Levels';
 import DataManager from '../../../../../Runtime/DataManager';
-import { ENEMY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
+import { EVENT_ENUM, PLAYER_STATE, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import { Component } from '@eva/eva.js';
 import StateMachine from '../../../../../Base/StateMachine';
 import SpikesStateMachine from './SpikesStateMachine';
 
-type SPIKES_TYPE_ENUM = 'SPIKES_ONE' | 'SPIKES_TWO' | 'SPIKES_THREE' | 'SPIKES_FOUR';
+export type SPIKES_TYPE_ENUM = 'SPIKES_ONE' | 'SPIKES_TWO' | 'SPIKES_THREE' | 'SPIKES_FOUR';
 
 export const PARAMS_NAME = {
   SPIKES_TYPE: 'SPIKES_TYPE',

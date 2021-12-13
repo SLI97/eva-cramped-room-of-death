@@ -136,7 +136,7 @@ export enum SPIKES_TYPE_TOTAL_POINT {
 /***
  * 尖刺当前点数枚举
  */
-export enum SPIKES_CUR_POINT_TYPE {
+export enum SPIKES_CUR_POINT_ENUM {
   ZERO = 'ZERO',
   ONE = 'ONE',
   TWO = 'TWO',
@@ -171,4 +171,6 @@ export enum PARAMS_NAME {
   DEATH = 'DEATH',
   AIRDEATH = 'AIRDEATH',
   DIRECTION = 'DIRECTION',
+  SPIKES_TYPE = 'SPIKES_TYPE',
+  CUR_POINT_COUNT = 'CUR_POINT_COUNT',
 }
