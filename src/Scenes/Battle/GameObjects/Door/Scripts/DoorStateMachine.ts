@@ -10,11 +10,13 @@ import { Render } from '@eva/plugin-renderer-render';
  */
 export default class DoorStateMachine extends StateMachine {
   init() {
-    this.gameObject.addComponent(new SpriteAnimation({
+    this.gameObject.addComponent(
+      new SpriteAnimation({
         autoPlay: true,
         resource: '',
-        speed:1000,
-    }));
+        speed: 1000,
+      }),
+    );
     this.gameObject.addComponent(new Render());
 
     this.initParams();

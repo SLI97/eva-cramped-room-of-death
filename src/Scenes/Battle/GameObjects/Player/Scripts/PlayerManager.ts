@@ -5,6 +5,8 @@ import { IPlayer } from '../../../../../Levels';
 import EntityManager from '../../../../../Base/EntityManager';
 import PlayerStateMachine from './PlayerStateMachine';
 import BattleManager from '../../../BattleManager';
+import EnemyManager from '../../../../../Base/EnemyManager';
+import BurstManager from '../../Burst/Scripts/BurstManager';
 
 export default class PlayerManager extends EntityManager {
   targetX: number;
@@ -229,9 +231,13 @@ export default class PlayerManager extends EntityManager {
   WillBlock(type: CONTROLLER_ENUM) {
     const { targetX: x, targetY: y, direction } = this;
     const { tileInfo: tileInfo } = DataManager.Instance;
-    const enemies = DataManager.Instance.enemies.filter(enemy => enemy.state !== PLAYER_STATE.DEATH);
+    const enemies: EnemyManager[] = DataManager.Instance.enemies.filter(
+      (enemy: EnemyManager) => enemy.state !== PLAYER_STATE.DEATH,
+    );
     const { x: doorX, y: doorY, state: doorState } = DataManager.Instance.door;
-    const bursts = DataManager.Instance.bursts.filter(burst => burst.state !== PLAYER_STATE.DEATH);
+    const bursts: BurstManager[] = DataManager.Instance.bursts.filter(
+      (burst: BurstManager) => burst.state !== PLAYER_STATE.DEATH,
+    );
 
     const { mapRowCount: row, mapColumnCount: column } = DataManager.Instance;
 
@@ -281,6 +287,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKFRONT;
           return true;
@@ -328,6 +335,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKBACK;
           return true;
@@ -376,6 +384,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKRIGHT;
           return true;
@@ -424,6 +433,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKLEFT;
           return true;
@@ -476,6 +486,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKBACK;
           return true;
@@ -523,6 +534,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKFRONT;
           return true;
@@ -571,6 +583,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKLEFT;
           return true;
@@ -619,6 +632,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKRIGHT;
           return true;
@@ -673,6 +687,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKLEFT;
           return true;
@@ -722,6 +737,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKRIGHT;
           return true;
@@ -770,6 +786,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKFRONT;
           return true;
@@ -818,6 +835,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKBACK;
           return true;
@@ -871,6 +889,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKRIGHT;
           return true;
@@ -919,6 +938,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKLEFT;
           return true;
@@ -966,6 +986,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKBACK;
           return true;
@@ -1013,6 +1034,7 @@ export default class PlayerManager extends EntityManager {
 
         //最后判断地图元素
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
+          // empty
         } else {
           this.state = PLAYER_STATE.BLOCKFRONT;
           return true;
@@ -1074,6 +1096,7 @@ export default class PlayerManager extends EntityManager {
         (!tileInfo[nextX]?.[y] || tileInfo[nextX]?.[y].turnable) &&
         (!tileInfo[nextX]?.[nextY] || tileInfo[nextX]?.[nextY].turnable)
       ) {
+        // empty
       } else {
         this.state = PLAYER_STATE.BLOCKTURNLEFT;
         return true;
@@ -1134,6 +1157,7 @@ export default class PlayerManager extends EntityManager {
         (!tileInfo[nextX]?.[y] || tileInfo[nextX]?.[y].turnable) &&
         (!tileInfo[nextX]?.[nextY] || tileInfo[nextX]?.[nextY].turnable)
       ) {
+        // empty
       } else {
         this.state = PLAYER_STATE.BLOCKTURNRIGHT;
         return true;

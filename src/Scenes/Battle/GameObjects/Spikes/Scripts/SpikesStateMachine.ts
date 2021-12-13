@@ -1,10 +1,5 @@
 import StateMachine from '../../../../../Base/StateMachine';
-import {
-  FSM_PARAM_TYPE_ENUM,
-  PARAMS_NAME,
-  ENEMY_TYPE_ENUM,
-  SPIKES_TYPE_TOTAL_POINT,
-} from '../../../../../Enum';
+import { FSM_PARAM_TYPE_ENUM, PARAMS_NAME, ENEMY_TYPE_ENUM, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import { Render } from '@eva/plugin-renderer-render';
 import SpikesOneSubStateMachine from './SpikesOneSubStateMachine';
@@ -17,11 +12,13 @@ import SpikesFourSubStateMachine from './SpikesFourSubStateMachine';
  */
 export default class SpikesStateMachine extends StateMachine {
   init() {
-      this.gameObject.addComponent(new SpriteAnimation({
-          autoPlay: true,
-          resource: '',
-          speed:1000,
-      }));
+    this.gameObject.addComponent(
+      new SpriteAnimation({
+        autoPlay: true,
+        resource: '',
+        speed: 1000,
+      }),
+    );
     this.gameObject.addComponent(new Render());
 
     this.initParams();

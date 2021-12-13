@@ -1,5 +1,5 @@
 import SpikesOneState from './SpikesOne/SpikesOneState';
-import {  SPIKES_CUR_POINT_ENUM } from '../../../../../Enum';
+import { SPIKES_CUR_POINT_ENUM } from '../../../../../Enum';
 import { GameObject } from '@eva/eva.js';
 import SubStateMachine from '../../../../../Base/SubStateMachine';
 
