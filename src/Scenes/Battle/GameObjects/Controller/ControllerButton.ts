@@ -9,7 +9,7 @@ const CTRL_WIDTH = 70;
 const CTRL_HEIGHT = 60;
 
 const GAP_HEIGHT = 3;
-const OFFSET_HEIGHT = 150;
+const OFFSET_HEIGHT = 140;
 
 const getPosition = (index: number) => {
   const xAxis = Math.floor((index - 1) / 2);

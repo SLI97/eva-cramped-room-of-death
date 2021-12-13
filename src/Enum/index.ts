@@ -148,14 +148,14 @@ export enum SPIKES_CUR_POINT_ENUM {
 /***
  * 尖刺点数类型和数字映射
  */
-export const SPIKES_POINT_MAP_NUMBER = {
-  ZERO: 0,
-  ONE: 1,
-  TWO: 2,
-  THREE: 3,
-  FOUR: 4,
-  FIVE: 5,
-};
+export enum SPIKES_POINT_MAP_NUMBER {
+  ZERO = 0,
+  ONE = 1,
+  TWO = 2,
+  THREE = 3,
+  FOUR = 4,
+  FIVE = 5,
+}
 
 export enum PARAMS_NAME {
   IDLE = 'IDLE',
@@ -173,4 +173,11 @@ export enum PARAMS_NAME {
   DIRECTION = 'DIRECTION',
   SPIKES_TYPE = 'SPIKES_TYPE',
   CUR_POINT_COUNT = 'CUR_POINT_COUNT',
+}
+
+export enum SHAKE_ENUM {
+  TOP = 0,
+  BOTTOM = 1,
+  LEFT = 2,
+  RIGHT = 3,
 }

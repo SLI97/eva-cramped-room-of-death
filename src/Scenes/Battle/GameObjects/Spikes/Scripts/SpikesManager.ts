@@ -1,17 +1,13 @@
 import { ISpikes } from '../../../../../Levels';
 import DataManager from '../../../../../Runtime/DataManager';
-import { EVENT_ENUM, PLAYER_STATE, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
+import { EVENT_ENUM, PARAMS_NAME, PLAYER_STATE, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import { Component } from '@eva/eva.js';
 import StateMachine from '../../../../../Base/StateMachine';
 import SpikesStateMachine from './SpikesStateMachine';
+import { TILE_HEIGHT, TILE_WIDTH } from '../../Tile/Tile';
 
 export type SPIKES_TYPE_ENUM = 'SPIKES_ONE' | 'SPIKES_TWO' | 'SPIKES_THREE' | 'SPIKES_FOUR';
-
-export const PARAMS_NAME = {
-  SPIKES_TYPE: 'SPIKES_TYPE',
-  CUR_POINT_COUNT: 'CUR_POINT_COUNT',
-};
 
 /***
  * 关卡门类
@@ -44,6 +40,14 @@ export default class SpikesManager extends Component {
     this.totalPointCount = SPIKES_TYPE_TOTAL_POINT[type];
 
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onLoop, this);
+  }
+
+  /***
+   * 更新位置，把虚拟坐标（1,1）转为屏幕实际位置
+   */
+  update() {
+    this.gameObject.transform.position.x = this.x * TILE_WIDTH - 16 * 3;
+    this.gameObject.transform.position.y = this.y * TILE_HEIGHT - 16 * 3;
   }
 
   unbind() {

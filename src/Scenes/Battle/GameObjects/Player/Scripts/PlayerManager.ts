@@ -1,4 +1,4 @@
-import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, PLAYER_STATE } from '../../../../../Enum';
+import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import DataManager from '../../../../../Runtime/DataManager';
 import { IPlayer } from '../../../../../Levels';
@@ -96,26 +96,50 @@ export default class PlayerManager extends EntityManager {
 
     const id = this.attackEnemy(type);
     if (id !== -1) {
-      // EventManager.Instance.emit(EVENT_ENUM.RECORD_STEP);
+      EventManager.Instance.emit(EVENT_ENUM.RECORD_STEP);
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
       this.state = PLAYER_STATE.ATTACK;
       EventManager.Instance.emit(EVENT_ENUM.ATTACK_ENEMY, id);
       return;
     }
 
-    // console.log(this.WillBlock(type));
     if (this.WillBlock(type)) {
-      if (type === CONTROLLER_ENUM.TOP || type === CONTROLLER_ENUM.BOTTOM) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, 1);
-      } else if (type === CONTROLLER_ENUM.LEFT || type === CONTROLLER_ENUM.RIGHT) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, 0);
-      } else if (type === CONTROLLER_ENUM.TURNLEFT || type === CONTROLLER_ENUM.TURNRIGHT) {
-        if (this.direction === DIRECTION_ENUM.TOP || this.direction === DIRECTION_ENUM.BOTTOM) {
-          EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, 0);
-        } else if (this.direction === DIRECTION_ENUM.LEFT || this.direction === DIRECTION_ENUM.RIGHT) {
-          EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, 1);
-        }
+      if (type === CONTROLLER_ENUM.TOP) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
+      } else if (type === CONTROLLER_ENUM.BOTTOM) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
+      } else if (type === CONTROLLER_ENUM.LEFT) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
+      } else if (type === CONTROLLER_ENUM.RIGHT) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
+      } else if (type === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.TOP) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
+      } else if (type === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.LEFT) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
+      } else if (type === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.BOTTOM) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
+      } else if (type === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.RIGHT) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
+      } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.TOP) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
+      } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.LEFT) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
+      } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.BOTTOM) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
+      } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.RIGHT) {
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
       }
+      // if (type === CONTROLLER_ENUM.TOP || type === CONTROLLER_ENUM.BOTTOM) {
+      //   EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.VERTICAL);
+      // } else if (type === CONTROLLER_ENUM.LEFT || type === CONTROLLER_ENUM.RIGHT) {
+      //   EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.HORIZONTAL);
+      // } else if (type === CONTROLLER_ENUM.TURNLEFT || type === CONTROLLER_ENUM.TURNRIGHT) {
+      //   if (this.direction === DIRECTION_ENUM.TOP || this.direction === DIRECTION_ENUM.BOTTOM) {
+      //     EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.HORIZONTAL);
+      //   } else if (this.direction === DIRECTION_ENUM.LEFT || this.direction === DIRECTION_ENUM.RIGHT) {
+      //     EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.VERTICAL);
+      //   }
+      // }
       return;
     }
 

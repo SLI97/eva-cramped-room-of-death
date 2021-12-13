@@ -7,7 +7,6 @@ import Footer from './GameObjects/Footer/index';
 import { Render } from '@eva/plugin-renderer-render';
 import Fader from './GameObjects/Fader/Fader';
 import Menu from './GameObjects/Menu/Menu';
-import { Graphics } from '@eva/plugin-renderer-graphics';
 import Mask from './GameObjects/Mask/Mask';
 
 const Battle = () => {

@@ -6,6 +6,7 @@ import SpikesOneSubStateMachine from './SpikesOneSubStateMachine';
 import SpikesTwoSubStateMachine from './SpikesTwoSubStateMachine';
 import SpikesThreeSubStateMachine from './SpikesThreeSubStateMachine';
 import SpikesFourSubStateMachine from './SpikesFourSubStateMachine';
+import SpikesManager from './SpikesManager';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -16,7 +17,7 @@ export default class SpikesStateMachine extends StateMachine {
       new SpriteAnimation({
         autoPlay: true,
         resource: '',
-        speed: 1000,
+        speed: 1000 / 8,
       }),
     );
     this.gameObject.addComponent(new Render());
@@ -25,13 +26,29 @@ export default class SpikesStateMachine extends StateMachine {
   }
 
   start() {
-    // this.states.set(ENEMY_TYPE_ENUM.SPIKES_ONE, new SpikesOneSubStateMachine(this.gameObject));
-    // this.states.set(ENEMY_TYPE_ENUM.SPIKES_TWO, new SpikesTwoSubStateMachine(this.gameObject));
-    // this.states.set(ENEMY_TYPE_ENUM.SPIKES_THREE, new SpikesThreeSubStateMachine(this.gameObject));
-    // this.states.set(ENEMY_TYPE_ENUM.SPIKES_FOUR, new SpikesFourSubStateMachine(this.gameObject));
+    this.states.set(ENEMY_TYPE_ENUM.SPIKES_ONE, new SpikesOneSubStateMachine(this.gameObject));
+    this.states.set(ENEMY_TYPE_ENUM.SPIKES_TWO, new SpikesTwoSubStateMachine(this.gameObject));
+    this.states.set(ENEMY_TYPE_ENUM.SPIKES_THREE, new SpikesThreeSubStateMachine(this.gameObject));
+    this.states.set(ENEMY_TYPE_ENUM.SPIKES_FOUR, new SpikesFourSubStateMachine(this.gameObject));
 
     const value = this.params.get(PARAMS_NAME.SPIKES_TYPE).value;
     this.currentState = this.states.get(SPIKES_TYPE_TOTAL_POINT[value as number]);
+
+    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
+    const sm = this.gameObject.getComponent(SpikesManager);
+    spriteAnimation.on('complete', () => {
+      //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
+      if (
+        (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_ONE && spriteAnimation.resource.startsWith('spikes_one_two')) ||
+        (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_TWO && spriteAnimation.resource.startsWith('spikes_two_three')) ||
+        (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_THREE && spriteAnimation.resource.startsWith('spikes_three_four')) ||
+        (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_FOUR && spriteAnimation.resource.startsWith('spikes_four_five'))
+      ) {
+        //例如尖刺1的value为2，攻击动画有四帧，所以value+1代表最后一帧
+        spriteAnimation.gotoAndStop(value + 1);
+        sm.backZero();
+      }
+    });
   }
 
   initParams() {
@@ -92,7 +109,6 @@ export default class SpikesStateMachine extends StateMachine {
     //     this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_ONE);
     //     break;
     // }
-
     super.update();
   }
 }

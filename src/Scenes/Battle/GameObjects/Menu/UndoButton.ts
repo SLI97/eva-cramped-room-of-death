@@ -1,10 +1,9 @@
 import { GameObject } from '@eva/eva.js';
 import { Sprite } from '@eva/plugin-renderer-sprite';
-import { SCREEN_WIDTH } from '../../../../index';
-import { addAnimation, START_BUTTON_HEIGHT, START_BUTTON_WIDTH } from './Menu';
-// import { CONTROLLER_ENUM, EVENT_ENUM } from '../../../../Enum';
-// import EventManager from '../../../../Runtime/EventManager';
-// import { Event } from '@eva/plugin-renderer-event';
+import { START_BUTTON_HEIGHT, START_BUTTON_WIDTH } from './Menu';
+import { EVENT_ENUM } from '../../../../Enum';
+import EventManager from '../../../../Runtime/EventManager';
+import { Event } from '@eva/plugin-renderer-event';
 // import { Transition } from '@eva/plugin-transition';
 
 const UndoButton = () => {
@@ -32,20 +31,17 @@ const UndoButton = () => {
   );
 
   //
-  // const eventManager = go.addComponent(new Event());
-  //
-  // eventManager.on('touchstart', () => {
-  //     animation.play('small', 1);
-  // });
-  //
-  // const touchHandler = () => {
-  //     animation.play('big', 1);
-  //     EventManager.Instance.emit(EVENT_ENUM.RESTART_LEVEL, type);
-  // };
-  //
-  // eventManager.on('touchend', touchHandler);
-  //
-  // eventManager.on('touchendoutside', touchHandler);
+  const eventManager = go.addComponent(new Event());
+
+  eventManager.on('touchstart', () => {});
+
+  const touchHandler = () => {
+    EventManager.Instance.emit(EVENT_ENUM.REVOKE_STEP);
+  };
+
+  eventManager.on('touchend', touchHandler);
+
+  eventManager.on('touchendoutside', touchHandler);
 
   return go;
 };
