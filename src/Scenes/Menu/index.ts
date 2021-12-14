@@ -22,7 +22,7 @@ const MenuScene = () => {
   );
 
   scene.addChild(Fader());
-  // DataManager.Instance.levelIndex = 1;
+  DataManager.Instance.levelIndex = 1;
   DataManager.Instance.fm.fadeOut(1000);
 
   scene.addChild(Logo());

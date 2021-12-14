@@ -1,0 +1,20 @@
+{"frames": {
+
+"burst (2).png":
+{
+	"frame": {"x":0,"y":0,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "attack.png",
+	"format": "RGBA8888",
+	"size": {"w":160,"h":160},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:004c33880a954673d5a3b821e5fc2724:c556e2d7210a79a1ba59e64daf070fc0:c558c2d9773adf0f4ef6f0e9687f205f$"
+}
+}
