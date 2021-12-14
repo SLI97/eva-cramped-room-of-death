@@ -69,7 +69,7 @@ export interface IDoor {
   y: number;
   direction: DIRECTION_ENUM;
   state: PLAYER_STATE;
-  type: ENEMY_TYPE_ENUM;
+  type?: ENEMY_TYPE_ENUM;
 }
 
 export interface ISmoke {

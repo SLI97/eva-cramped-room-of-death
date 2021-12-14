@@ -1,6 +1,6 @@
 import { Component, GameObject } from '@eva/eva.js';
 import DataManager from '../../Runtime/DataManager';
-import Levels, { ILevel, ISmoke } from '../../Levels/index';
+import Levels, { IBurst, IDoor, IEnemy, ILevel, IPlayer, ISmoke, ISpikes } from '../../Levels/index';
 import Background from './GameObjects/Background/Background';
 import Player from './GameObjects/Player/Player';
 import { game, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
@@ -19,6 +19,7 @@ import Spikes from './GameObjects/Spikes/Spikes';
 import SpikesManager from './GameObjects/Spikes/Scripts/SpikesManager';
 import EnemyManager from '../../Base/EnemyManager';
 import BurstManager from './GameObjects/Burst/Scripts/BurstManager';
+import PlayerManager from './GameObjects/Player/Scripts/PlayerManager';
 
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
@@ -36,7 +37,7 @@ export default class BattleManager extends Component {
     EventManager.Instance.on(EVENT_ENUM.RESTART_LEVEL, this.initLevel, this);
     EventManager.Instance.on(EVENT_ENUM.SCREEN_SHAKE, this.onShake, this);
     EventManager.Instance.on(EVENT_ENUM.REVOKE_STEP, this.revoke, this);
-    EventManager.Instance.on(EVENT_ENUM.RECORD_STEP, this.record,this)
+    EventManager.Instance.on(EVENT_ENUM.RECORD_STEP, this.record, this);
     this.initLevel();
   }
 
@@ -282,7 +283,13 @@ export default class BattleManager extends Component {
   }
 
   record() {
-    const item: any = {
+    const item: {
+      player: IPlayer;
+      door: IDoor;
+      enemies: IEnemy[];
+      spikes: ISpikes[];
+      bursts: IBurst[];
+    } = {
       player: {
         x: DataManager.Instance.player.targetX,
         y: DataManager.Instance.player.targetY,
@@ -298,31 +305,29 @@ export default class BattleManager extends Component {
         state: DataManager.Instance.door.state,
         direction: DataManager.Instance.door.direction,
       },
+      enemies: DataManager.Instance.enemies.map((i: EnemyManager) => {
+        return {
+          x: i.x,
+          y: i.y,
+          state: i.state,
+          direction: i.direction,
+        };
+      }),
+      spikes: DataManager.Instance.spikes.map((i: SpikesManager) => {
+        return {
+          x: i.x,
+          y: i.y,
+          curPointCount: i.curPointCount,
+        };
+      }),
+      bursts: DataManager.Instance.bursts.map((i: BurstManager) => {
+        return {
+          x: i.x,
+          y: i.y,
+          state: i.state,
+        };
+      }),
     };
-    item.enemies = DataManager.Instance.enemies.map((i: EnemyManager) => {
-      return {
-        x: i.x,
-        y: i.y,
-        state: i.state,
-        direction: i.direction,
-      };
-    });
-
-    item.spikes = DataManager.Instance.spikes.map((i: SpikesManager) => {
-      return {
-        x: i.x,
-        y: i.y,
-        curPointCount: i.curPointCount,
-      };
-    });
-
-    item.bursts = DataManager.Instance.bursts.map((i: BurstManager) => {
-      return {
-        x: i.x,
-        y: i.y,
-        state: i.state,
-      };
-    });
 
     DataManager.Instance.records.push(item);
   }

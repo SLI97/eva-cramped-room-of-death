@@ -12,7 +12,7 @@ export default class BlockBackSubStateMachine extends DirectionStateMachine {
 
   init() {
     this.states.set(DIRECTION_ENUM.TOP, new BlockBackState(this.go, 'player_block_back_top', 1));
-    this.states.set(DIRECTION_ENUM.BOTTOM, new BlockBackState(this.go, 'player_block_back_left', 1));
+    this.states.set(DIRECTION_ENUM.BOTTOM, new BlockBackState(this.go, 'player_block_back_bottom', 1));
     this.states.set(DIRECTION_ENUM.LEFT, new BlockBackState(this.go, 'player_block_back_left', 1));
     this.states.set(DIRECTION_ENUM.RIGHT, new BlockBackState(this.go, 'player_block_back_right', 1));
   }
