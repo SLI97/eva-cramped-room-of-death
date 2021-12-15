@@ -1,0 +1,44 @@
+{"frames": {
+
+"spikes (18).png":
+{
+	"frame": {"x":0,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+},
+"spikes (19).png":
+{
+	"frame": {"x":320,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+},
+"spikes (20).png":
+{
+	"frame": {"x":640,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+},
+"spikes (21).png":
+{
+	"frame": {"x":960,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "three_four.png",
+	"format": "RGBA8888",
+	"size": {"w":1280,"h":320},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:a23b4bb40d96bb6739c4b012583c9dba:a933de621648b5ca42f751486e1ade6b:3eb17cc330a53a12eb025152a2380770$"
+}
+}

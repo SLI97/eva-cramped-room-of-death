@@ -26,7 +26,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
  *
  */
 
-const target = path.resolve(__dirname, './dist');
+const target = path.resolve(__dirname, './docs');
 
 module.exports = {
   mode: 'development',
