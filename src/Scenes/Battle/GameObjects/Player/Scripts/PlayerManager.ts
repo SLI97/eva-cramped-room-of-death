@@ -20,6 +20,11 @@ export default class PlayerManager extends EntityManager {
     super.init(player);
     this.targetX = this.x;
     this.targetY = this.y;
+
+    /***
+     * （目前用eva.js的情况下连续点击的时候触发攻击状态的时候
+     *   用原生js做的游戏没这情况，原因未知。）
+     */
     EventManager.Instance.on(EVENT_ENUM.PLAYER_CTRL, this.inputProcess, this);
     EventManager.Instance.on(EVENT_ENUM.ATTACK_PLAYER, this.onDead, this);
   }
@@ -129,6 +134,7 @@ export default class PlayerManager extends EntityManager {
       } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.RIGHT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
       }
+      //优化震动效果
       // if (type === CONTROLLER_ENUM.TOP || type === CONTROLLER_ENUM.BOTTOM) {
       //   EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.VERTICAL);
       // } else if (type === CONTROLLER_ENUM.LEFT || type === CONTROLLER_ENUM.RIGHT) {

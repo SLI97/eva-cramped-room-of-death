@@ -1,4 +1,4 @@
-import { FSM_PARAM_TYPE_ENUM } from '../Enum/index';
+import { FSM_PARAM_TYPE_ENUM } from '../Enum';
 import { Component } from '@eva/eva.js';
 
 import State from './State';

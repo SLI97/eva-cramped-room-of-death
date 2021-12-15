@@ -1,6 +1,6 @@
 import { GameObject } from '@eva/eva.js';
 import { Sprite } from '@eva/plugin-renderer-sprite';
-import { CONTROLLER_ENUM, EVENT_ENUM } from '../../../../Enum/index';
+import { CONTROLLER_ENUM, EVENT_ENUM } from '../../../../Enum';
 import EventManager from '../../../../Runtime/EventManager';
 import { Event } from '@eva/plugin-renderer-event';
 import { Transition } from '@eva/plugin-transition';

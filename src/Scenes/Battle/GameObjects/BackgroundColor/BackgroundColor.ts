@@ -1,23 +1,13 @@
 import { GameObject } from '@eva/eva.js';
 import { Graphics } from '@eva/plugin-renderer-graphics';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../../../index';
+import { getInitPosition } from '../../../../Utils';
 
 const BG_COLOR = 0x140b28;
 
 const BackgroundColor = () => {
   const go = new GameObject('backgroundColor', {
-    position: {
-      x: 0,
-      y: 0,
-    },
-    origin: {
-      x: 0,
-      y: 0,
-    },
-    anchor: {
-      x: 0,
-      y: 0,
-    },
+   ...getInitPosition(),
   });
 
   const outterGraphics = go.addComponent(new Graphics());

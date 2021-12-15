@@ -1,7 +1,7 @@
 import { Component } from '@eva/eva.js';
 import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, PLAYER_STATE, PARAMS_NAME } from '../Enum';
 import StateMachine from './StateMachine';
-import { randomByCount } from '../Utils';
+import { randomByLength } from '../Utils';
 import { IDoor, IEnemy, IPlayer, ISmoke } from '../Levels';
 import { TILE_HEIGHT, TILE_WIDTH } from '../Scenes/Battle/GameObjects/Tile/Tile';
 
@@ -16,7 +16,7 @@ export default class EntityManager extends Component {
   fsm: StateMachine;
   _state: PLAYER_STATE;
   _direction: DIRECTION_ENUM;
-  id: string = randomByCount(12);
+  id: string = randomByLength(12);
 
   init(dto: IPlayer | IEnemy | IDoor | ISmoke) {
     this.x = dto.x;

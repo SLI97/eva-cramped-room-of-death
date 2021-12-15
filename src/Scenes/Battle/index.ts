@@ -8,11 +8,17 @@ import { Render } from '@eva/plugin-renderer-render';
 import Fader from './GameObjects/Fader/Fader';
 import Menu from './GameObjects/Menu/Menu';
 import Mask from './GameObjects/Mask/Mask';
+import { getInitPosition } from '../../Utils';
 
+/***
+ * 游戏主场景
+ * @constructor
+ */
 const Battle = () => {
   const scene = new Scene('battle');
   scene.transform.size.width = SCREEN_WIDTH;
   scene.transform.size.height = SCREEN_HEIGHT;
+
   scene.addComponent(
     new Render({
       sortableChildren: true,
@@ -23,18 +29,7 @@ const Battle = () => {
   scene.addChild(BackgroundColor());
 
   const container = new GameObject('container', {
-    position: {
-      x: 0,
-      y: 0,
-    },
-    origin: {
-      x: 0,
-      y: 0,
-    },
-    anchor: {
-      x: 0,
-      y: 0,
-    },
+   ...getInitPosition(),
   });
 
   container.addComponent(new BattleManager());
@@ -43,14 +38,13 @@ const Battle = () => {
       sortableChildren: true,
     }),
   );
-
   scene.addChild(container);
 
   scene.addChild(Controller());
   scene.addChild(Menu());
   scene.addChild(Footer());
 
-  //当Battle加载完成，才去掉mask
+  //当Battle加载完成，才去掉mask，防止场景的物体和fader闪烁的问题
   scene.addChild(Mask(scene));
 
   return scene;

@@ -3,6 +3,10 @@ import { Scene, resource, LOAD_EVENT, GameObject } from '@eva/eva.js';
 import { Graphics } from '@eva/plugin-renderer-graphics';
 import MenuScene from '../Menu';
 
+/***
+ * 资源加载场景
+ * @constructor
+ */
 const StartScene = () => {
   const scene = new Scene('menu');
   scene.transform.size.width = SCREEN_WIDTH;
@@ -28,7 +32,7 @@ const StartScene = () => {
     innerGraphics.graphics.endFill();
   });
 
-  // 加载完成
+  // 加载完成后，加载菜单场景
   resource.on(LOAD_EVENT.COMPLETE, () => {
     game.loadScene({
       scene: MenuScene(),

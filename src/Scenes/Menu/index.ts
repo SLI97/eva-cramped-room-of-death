@@ -10,11 +10,15 @@ import Fader from '../Battle/GameObjects/Fader/Fader';
 import { Render } from '@eva/plugin-renderer-render';
 import DataManager from '../../Runtime/DataManager';
 
+/***
+ * 菜单场景，展示Logo
+ * @constructor
+ */
 const MenuScene = () => {
   const scene = new Scene('menu');
-
   scene.transform.size.width = SCREEN_WIDTH;
   scene.transform.size.height = SCREEN_HEIGHT;
+
   scene.addComponent(
     new Render({
       sortableChildren: true,
@@ -32,6 +36,7 @@ const MenuScene = () => {
 
   const evt = scene.addComponent(new Event());
 
+  //点击屏幕加载游戏场景
   evt.on('touchstart', () => {
     DataManager.Instance.fm.fadeIn(300).then(() => {
       game.loadScene({

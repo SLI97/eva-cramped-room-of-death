@@ -5,6 +5,9 @@ import { ENEMY_TYPE_ENUM, EVENT_ENUM } from '../Enum';
 import { DIRECTION_ENUM, PLAYER_STATE } from '../Enum';
 import DataManager from '../Runtime/DataManager';
 
+/***
+ * 敌人基类，实现面朝人物和死亡
+ */
 export default class EnemyManager extends EntityManager {
   type: ENEMY_TYPE_ENUM;
 

@@ -1,20 +1,10 @@
 import { GameObject } from '@eva/eva.js';
 import BackgroundManager from './BackgroundManager';
+import { getInitPosition } from '../../../../Utils';
 
 const Background = () => {
   const go = new GameObject('background', {
-    position: {
-      x: 0,
-      y: 0,
-    },
-    origin: {
-      x: 0,
-      y: 0,
-    },
-    anchor: {
-      x: 0,
-      y: 0,
-    },
+   ...getInitPosition(),
   });
 
   go.addComponent(new BackgroundManager());

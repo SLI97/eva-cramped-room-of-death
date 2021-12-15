@@ -1,5 +1,5 @@
 import { Component } from '@eva/eva.js';
-import { TILE_TYPE_ENUM } from '../../../../Enum/index';
+import { TILE_TYPE_ENUM } from '../../../../Enum';
 
 export default class TileManager extends Component {
   static componentName = 'TileManager'; // 设置组件的名字

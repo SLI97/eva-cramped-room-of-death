@@ -1,4 +1,8 @@
 /***
+ * 全局枚举
+ */
+
+/***
  * 地图瓦片枚举
  */
 export enum TILE_TYPE_ENUM {

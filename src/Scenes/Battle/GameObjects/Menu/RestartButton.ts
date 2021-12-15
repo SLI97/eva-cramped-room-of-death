@@ -1,6 +1,6 @@
 import { GameObject } from '@eva/eva.js';
 import { Sprite } from '@eva/plugin-renderer-sprite';
-import { addAnimation, START_BUTTON_HEIGHT, START_BUTTON_WIDTH } from './Menu';
+import { START_BUTTON_HEIGHT, START_BUTTON_WIDTH } from './Menu';
 import EventManager from '../../../../Runtime/EventManager';
 import { EVENT_ENUM } from '../../../../Enum';
 import { Event } from '@eva/plugin-renderer-event';

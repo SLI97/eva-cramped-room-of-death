@@ -13,11 +13,11 @@ export default class DoorManager extends EntityManager {
     super.init(door);
   }
 
-  // off() {
-  //   EventManager.Instance.off(EVENT_ENUM.OPENDOOR, this.onOpenHandler)
-  // }
-  unbind() {}
+  unbind() {
+    // EventManager.Instance.off(EVENT_ENUM.OPENDOOR, this.onOpenHandler)
+  }
 
+  //用事件中心来处理门时候打开的话，在撤回的情况下容易出bug，所以直接在update里判断是否打开门比较安全
   // onOpen() {
   // 	const enemies = DataManager.Instance.enemies.filter(enemy => enemy.state !== PLAYER_STATE.DEATH)
   // 	if (enemies.length === 0) {

@@ -1,4 +1,4 @@
-import { DIRECTION_ENUM } from '../../../../../Enum/index';
+import { DIRECTION_ENUM } from '../../../../../Enum';
 import { GameObject } from '@eva/eva.js';
 import DirectionStateMachine from '../../../../../Base/DirectionStateMachine';
 import TurnRightState from './TurnRight/TurnRightState';

@@ -4,7 +4,6 @@ import { START_BUTTON_HEIGHT, START_BUTTON_WIDTH } from './Menu';
 import { EVENT_ENUM } from '../../../../Enum';
 import EventManager from '../../../../Runtime/EventManager';
 import { Event } from '@eva/plugin-renderer-event';
-// import { Transition } from '@eva/plugin-transition';
 
 const UndoButton = () => {
   const go = new GameObject('restartButton', {
@@ -30,7 +29,6 @@ const UndoButton = () => {
     }),
   );
 
-  //
   const eventManager = go.addComponent(new Event());
 
   eventManager.on('touchstart', () => {});

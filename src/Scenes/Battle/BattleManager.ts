@@ -19,7 +19,6 @@ import Spikes from './GameObjects/Spikes/Spikes';
 import SpikesManager from './GameObjects/Spikes/Scripts/SpikesManager';
 import EnemyManager from '../../Base/EnemyManager';
 import BurstManager from './GameObjects/Burst/Scripts/BurstManager';
-import PlayerManager from './GameObjects/Player/Scripts/PlayerManager';
 
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
@@ -39,12 +38,6 @@ export default class BattleManager extends Component {
     EventManager.Instance.on(EVENT_ENUM.REVOKE_STEP, this.revoke, this);
     EventManager.Instance.on(EVENT_ENUM.RECORD_STEP, this.record, this);
     this.initLevel();
-  }
-
-  clearLevel() {
-    this.childrens.forEach(go => {
-      this.gameObject.removeChild(go);
-    });
   }
 
   initLevel() {
@@ -75,11 +68,20 @@ export default class BattleManager extends Component {
         DataManager.Instance.fm.fadeOut(200);
       });
     } else {
-      game.loadScene({
-        scene: MenuScene(),
-      });
+      DataManager.Instance.fm.fadeIn(200).then(() => {
+        game.loadScene({
+          scene: MenuScene(),
+        });
+      })
     }
   }
+
+  clearLevel() {
+    this.childrens.forEach(go => {
+      this.gameObject.removeChild(go);
+    });
+  }
+
 
   generateBackground() {
     const background = Background();
