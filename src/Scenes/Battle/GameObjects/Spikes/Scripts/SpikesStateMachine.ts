@@ -20,7 +20,9 @@ export default class SpikesStateMachine extends StateMachine {
         speed: 1000 / 8,
       }),
     );
-    this.gameObject.addComponent(new Render());
+    this.gameObject.addComponent(new Render(    new Render({
+      zIndex: 0,
+    })));
 
     this.initParams();
   }

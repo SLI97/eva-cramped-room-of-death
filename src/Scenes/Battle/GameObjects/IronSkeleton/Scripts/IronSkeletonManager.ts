@@ -7,7 +7,9 @@ import { Render } from '@eva/plugin-renderer-render';
 export default class IronSkeletonManager extends EnemyManager {
   init(enemy: IEnemy) {
     this.gameObject.addComponent(new IronSkeletonStateMachine());
-    this.gameObject.addComponent(new Render());
+    this.gameObject.addComponent(new Render(    new Render({
+      zIndex: 1,
+    })));
     super.init(enemy);
     this.type = ENEMY_TYPE_ENUM.SKELETON_IRON;
   }

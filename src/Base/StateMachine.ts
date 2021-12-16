@@ -47,10 +47,6 @@ export default class StateMachine extends Component {
     this.resetTrigger();
   }
 
-  lateUpdate() {
-    // this.resetTrigger();
-  }
-
   getParams(paramsName: string) {
     if (this.params.has(paramsName)) {
       return this.params.get(paramsName).value;

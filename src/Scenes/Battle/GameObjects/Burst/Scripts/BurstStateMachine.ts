@@ -12,7 +12,9 @@ import DeathState from './DeathState';
 export default class BurstStateMachine extends StateMachine {
   init() {
     this.gameObject.addComponent(new SpriteAnimation());
-    this.gameObject.addComponent(new Render());
+    this.gameObject.addComponent(new Render(    new Render({
+      zIndex: 0,
+    })));
 
     this.initParams();
   }

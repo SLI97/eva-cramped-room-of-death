@@ -57,11 +57,11 @@ export default class BattleManager extends Component {
 
         this.generateBackground();
         this.generateDoor();
-        this.generateEnemy();
-        this.generatePlayer();
-
         this.generateBursts();
         this.generateSpikes();
+        this.generateEnemy();
+
+        this.generatePlayer();
         EventManager.Instance.emit(EVENT_ENUM.BATTLE_LOADED);
 
         this.fixPos();

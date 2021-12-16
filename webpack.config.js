@@ -89,7 +89,7 @@ module.exports = {
       title: 'cramped room of death',
     }),
     new webpack.ProgressPlugin(),
-    new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, './static'),
