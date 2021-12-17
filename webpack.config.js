@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 /*
  * SplitChunksPlugin is enabled by default and replaced
@@ -29,7 +30,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const target = path.resolve(__dirname, './docs');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/index.ts',
   devtool: 'inline-source-map',
   output: {
@@ -93,7 +94,7 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, './static'),
-        to: path.join(target,"static"),
+        to: path.join(target, 'static'),
         ignore: ['.*'],
       },
     ]),
@@ -103,6 +104,7 @@ module.exports = {
       new ESBuildMinifyPlugin({
         css: true,
       }),
+      new TerserPlugin(),
     ],
   },
 };

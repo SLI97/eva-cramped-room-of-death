@@ -25,6 +25,9 @@ export default class SubStateMachine {
   }
 
   set currentState(value) {
+    if (value === this._currentState) {
+      return;
+    }
     this._currentState = value;
     if (this._currentState instanceof State) {
       this._currentState.play();
@@ -33,11 +36,11 @@ export default class SubStateMachine {
 
   stop() {
     this.currentState = null;
-    // for (const [key, value] of this.states) {
-    //   if (value instanceof State) {
-    //     value.stop();
-    //   }
-    // }
+    for (const [_, value] of this.states) {
+      if (value instanceof State) {
+        value.stop();
+      }
+    }
   }
 
   /***

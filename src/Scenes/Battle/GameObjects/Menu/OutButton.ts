@@ -34,6 +34,9 @@ const OutButton = () => {
   eventManager.on('touchstart', () => {});
 
   const touchHandler = () => {
+    const obj = game.scene.gameObjects.find(e=>e.name === 'container')
+    obj.removeComponent(obj.getComponent("BattleManager"))
+    game.scene.removeChild(obj)
     game.loadScene({
       scene: MenuScene(),
     });

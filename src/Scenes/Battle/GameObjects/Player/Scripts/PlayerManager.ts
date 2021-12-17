@@ -216,7 +216,7 @@ export default class PlayerManager extends EntityManager {
    * @param type
    */
   attackEnemy(type: CONTROLLER_ENUM) {
-    const enemies = DataManager.Instance.enemies.filter((enemy: any) => enemy.state !== PLAYER_STATE.DEATH);
+    const enemies = DataManager.Instance.enemies.filter((enemy: EnemyManager) => enemy.state !== PLAYER_STATE.DEATH);
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       const { x: enemyX, y: enemyY, id: enemyId } = enemy;

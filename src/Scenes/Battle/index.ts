@@ -29,7 +29,7 @@ const Battle = () => {
   scene.addChild(BackgroundColor());
 
   const container = new GameObject('container', {
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   container.addComponent(new BattleManager());
