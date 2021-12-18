@@ -1,0 +1,20 @@
+{"frames": {
+
+"spikes (15).png":
+{
+	"frame": {"x":0,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "three_one.png",
+	"format": "RGBA8888",
+	"size": {"w":320,"h":320},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:215f1ca5b98f884f7d8d0149dda7efa3:6c0aeab2999feb62389f6eaa8011cbdb:1e9cf9c4822b674ba6706f17bd40bf6d$"
+}
+}

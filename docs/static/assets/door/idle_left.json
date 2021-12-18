@@ -1,0 +1,20 @@
+{"frames": {
+
+"idle_left.png":
+{
+	"frame": {"x":0,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "idle_left.png",
+	"format": "RGBA8888",
+	"size": {"w":320,"h":320},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:634416a47fafc50de1ef319426502fa8:390d1d938ecb3405b84e53e0dbf51946:57ac379229961393a5975fe5d7d338ee$"
+}
+}
