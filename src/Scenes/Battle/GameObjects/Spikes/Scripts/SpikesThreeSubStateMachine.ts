@@ -11,11 +11,11 @@ export default class SpikesThreeSubStateMachine extends SubStateMachine {
   }
 
   init() {
-    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new SpikesThreeState(this.go, 'spikes_three_zero',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new SpikesThreeState(this.go, 'spikes_three_one',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new SpikesThreeState(this.go, 'spikes_three_two',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.THREE, new SpikesThreeState(this.go, 'spikes_three_three',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.FOUR, new SpikesThreeState(this.go, 'spikes_three_four',1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new SpikesThreeState(this.go, 'spikes_three_zero', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new SpikesThreeState(this.go, 'spikes_three_one', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new SpikesThreeState(this.go, 'spikes_three_two', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.THREE, new SpikesThreeState(this.go, 'spikes_three_three', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.FOUR, new SpikesThreeState(this.go, 'spikes_three_four', 1));
   }
 
   update() {

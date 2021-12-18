@@ -7,7 +7,7 @@ const BG_COLOR = 0x140b28;
 
 const BackgroundColor = () => {
   const go = new GameObject('backgroundColor', {
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   const outterGraphics = go.addComponent(new Graphics());

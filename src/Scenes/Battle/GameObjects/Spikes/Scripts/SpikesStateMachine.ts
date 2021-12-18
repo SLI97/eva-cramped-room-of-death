@@ -16,13 +16,18 @@ export default class SpikesStateMachine extends StateMachine {
     this.gameObject.addComponent(
       new SpriteAnimation({
         autoPlay: true,
-        resource: '',
+        forwards: true,
+        resource: 'spikes_one_zero',
         speed: 1000 / 8,
       }),
     );
-    this.gameObject.addComponent(new Render(    new Render({
-      zIndex: 0,
-    })));
+    this.gameObject.addComponent(
+      new Render(
+        new Render({
+          zIndex: 0,
+        }),
+      ),
+    );
 
     this.initParams();
   }
@@ -47,7 +52,6 @@ export default class SpikesStateMachine extends StateMachine {
         (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_FOUR && spriteAnimation.resource.startsWith('spikes_four_five'))
       ) {
         //例如尖刺1的value为2，攻击动画有四帧，所以value+1代表最后一帧
-        spriteAnimation.gotoAndStop(value + 1);
         sm.backZero();
       }
     });

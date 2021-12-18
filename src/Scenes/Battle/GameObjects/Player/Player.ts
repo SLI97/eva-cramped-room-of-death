@@ -9,7 +9,7 @@ const PLAYER_HEIGHT = 128;
 const Player = (player: IPlayer) => {
   const go = new GameObject('player', {
     size: { width: PLAYER_WIDTH, height: PLAYER_HEIGHT },
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   go.addComponent(new PlayerManager(player));

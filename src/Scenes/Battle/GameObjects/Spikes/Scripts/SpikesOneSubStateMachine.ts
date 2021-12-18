@@ -11,9 +11,9 @@ export default class SpikesOneSubStateMachine extends SubStateMachine {
   }
 
   init() {
-    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new SpikesOneState(this.go, 'spikes_one_zero',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new SpikesOneState(this.go, 'spikes_one_one',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new SpikesOneState(this.go, 'spikes_one_two',1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new SpikesOneState(this.go, 'spikes_one_zero', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new SpikesOneState(this.go, 'spikes_one_one', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new SpikesOneState(this.go, 'spikes_one_two', 1));
   }
 
   update() {

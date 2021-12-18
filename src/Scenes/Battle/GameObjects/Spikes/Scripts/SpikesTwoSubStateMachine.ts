@@ -11,10 +11,10 @@ export default class SpikesTwoSubStateMachine extends SubStateMachine {
   }
 
   init() {
-    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new SpikesTwoState(this.go, 'spikes_two_zero',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new SpikesTwoState(this.go, 'spikes_two_one',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new SpikesTwoState(this.go, 'spikes_two_two',1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.THREE, new SpikesTwoState(this.go, 'spikes_two_three',1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new SpikesTwoState(this.go, 'spikes_two_zero', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new SpikesTwoState(this.go, 'spikes_two_one', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new SpikesTwoState(this.go, 'spikes_two_two', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.THREE, new SpikesTwoState(this.go, 'spikes_two_three', 1));
   }
 
   update() {
@@ -47,4 +47,3 @@ export default class SpikesTwoSubStateMachine extends SubStateMachine {
     this.currentState = this.states.get(SPIKES_POINT_MAP_NUMBER[value as number]);
   }
 }
-

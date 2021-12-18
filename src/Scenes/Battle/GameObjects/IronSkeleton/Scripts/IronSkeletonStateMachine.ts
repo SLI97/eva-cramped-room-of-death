@@ -12,7 +12,8 @@ export default class IronSkeletonStateMachine extends StateMachine {
     this.gameObject.addComponent(
       new SpriteAnimation({
         autoPlay: true,
-        resource: '',
+        forwards: true,
+        resource: 'ironskeleton_idle_top',
         speed: 1000 / 8,
       }),
     );
@@ -29,7 +30,6 @@ export default class IronSkeletonStateMachine extends StateMachine {
     spriteAnimation.on('complete', () => {
       //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
       if (spriteAnimation.resource.startsWith('ironskeleton_death')) {
-        spriteAnimation.gotoAndStop(13);
       }
     });
   }

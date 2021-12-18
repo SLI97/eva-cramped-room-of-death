@@ -14,7 +14,8 @@ export default class WoodenSkeletonStateMachine extends StateMachine {
     this.gameObject.addComponent(
       new SpriteAnimation({
         autoPlay: true,
-        resource: '',
+        forwards: true,
+        resource: 'woodenskeleton_idle_top',
         speed: 1000 / 8,
       }),
     );
@@ -32,10 +33,8 @@ export default class WoodenSkeletonStateMachine extends StateMachine {
     spriteAnimation.on('complete', () => {
       //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
       if (spriteAnimation.resource.startsWith('woodenskeleton_attack')) {
-        spriteAnimation.gotoAndStop(7);
         this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
       } else if (spriteAnimation.resource.startsWith('woodenskeleton_death')) {
-        spriteAnimation.gotoAndStop(13);
       }
     });
   }

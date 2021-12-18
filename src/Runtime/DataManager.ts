@@ -43,7 +43,7 @@ export default class DataManager extends Singleton {
 
   constructor() {
     super();
-    this.levelIndex = 1;
+    this.levelIndex = 2;
     this.reset();
   }
 
@@ -55,35 +55,11 @@ export default class DataManager extends Singleton {
     this.mapColumnCount = 0;
 
     //活动元素信息
-    if (this.player) {
-      this.player.unbind();
-    }
     this.player = null;
-
-    if (this.enemies instanceof Array && this.enemies.length) {
-      this.enemies.forEach(i => {
-        i.unbind();
-      });
-    }
     this.enemies = [];
-
-    if (this.spikes instanceof Array && this.spikes.length) {
-      this.spikes.forEach(i => {
-        i.unbind();
-      });
-    }
     this.spikes = [];
-
-    if (this.bursts instanceof Array && this.bursts.length) {
-      this.bursts.forEach(i => {
-        i.unbind();
-      });
-    }
     this.bursts = [];
 
-    if (this.door) {
-      this.door.unbind();
-    }
     this.door = null;
     this.smokes = [];
 

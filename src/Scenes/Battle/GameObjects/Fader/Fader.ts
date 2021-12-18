@@ -8,7 +8,7 @@ import { getInitPosition } from '../../../../Utils';
 
 const Fader = () => {
   const go = new GameObject('fader', {
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   const outterGraphics = go.addComponent(new Graphics());

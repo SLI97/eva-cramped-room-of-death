@@ -14,7 +14,7 @@ const PLAYER_HEIGHT = 128;
 const WoodenSkeleton = (enemy: IEnemy) => {
   const go = new GameObject('woodenSkeleton', {
     size: { width: PLAYER_WIDTH, height: PLAYER_HEIGHT },
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   go.addComponent(new WoodenSkeletonManager(enemy));

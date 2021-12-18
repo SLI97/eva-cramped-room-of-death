@@ -30,7 +30,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const target = path.resolve(__dirname, './docs');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/index.ts',
   devtool: 'inline-source-map',
   output: {
@@ -90,7 +90,7 @@ module.exports = {
       title: 'cramped room of death',
     }),
     new webpack.ProgressPlugin(),
-    // new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, './static'),

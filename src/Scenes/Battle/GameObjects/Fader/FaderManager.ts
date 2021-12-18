@@ -28,7 +28,7 @@ export default class FaderManager extends Component {
       if (fadePercent < 1) {
         this.render.alpha = fadePercent;
       } else {
-        this.render.alpha = 1
+        this.render.alpha = 1;
         this.isFadingIn = false;
         this.fadeInPromiseResolve(null);
       }
@@ -38,7 +38,7 @@ export default class FaderManager extends Component {
         this.render.alpha = 1 - fadePercent;
       } else {
         this.isFadingOut = false;
-        this.render.alpha = 0
+        this.render.alpha = 0;
         this.fadeOutPromiseResolve();
       }
     }

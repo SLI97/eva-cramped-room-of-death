@@ -4,7 +4,7 @@ import { getInitPosition } from '../../../../Utils';
 
 const Background = () => {
   const go = new GameObject('background', {
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   go.addComponent(new BackgroundManager());

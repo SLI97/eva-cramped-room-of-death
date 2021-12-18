@@ -14,7 +14,7 @@ export const SPIKES_HEIGHT = 128;
 const Spikes = (spikes: ISpikes) => {
   const go = new GameObject('spikes', {
     size: { width: SPIKES_WIDTH, height: SPIKES_HEIGHT },
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   go.addComponent(new SpikesManager(spikes));

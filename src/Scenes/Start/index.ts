@@ -34,6 +34,7 @@ const StartScene = () => {
 
   // 加载完成后，加载菜单场景
   resource.on(LOAD_EVENT.COMPLETE, () => {
+    game.scene.destroy();
     game.loadScene({
       scene: MenuScene(),
     });

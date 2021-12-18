@@ -9,7 +9,7 @@ export const DOOR_HEIGHT = 128;
 const Door = (door: IDoor) => {
   const go = new GameObject('door', {
     size: { width: DOOR_WIDTH, height: DOOR_HEIGHT },
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   go.addComponent(new DoorManager(door));

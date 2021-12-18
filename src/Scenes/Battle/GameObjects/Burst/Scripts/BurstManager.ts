@@ -16,7 +16,7 @@ export default class BurstManager extends EntityManager {
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onBurst, this);
   }
 
-  unbind() {
+  onDestroy() {
     EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.onBurst);
   }
 

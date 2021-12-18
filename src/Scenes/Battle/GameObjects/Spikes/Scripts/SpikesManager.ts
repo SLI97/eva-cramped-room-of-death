@@ -13,6 +13,7 @@ export type SPIKES_TYPE_ENUM = 'SPIKES_ONE' | 'SPIKES_TWO' | 'SPIKES_THREE' | 'S
  * 关卡门类
  */
 export default class SpikesManager extends Component {
+  static componentName = 'SpikesManager'; // 设置组件的名字
   totalPointCount: number;
   _curPointCount = 0;
   x: number;
@@ -50,7 +51,7 @@ export default class SpikesManager extends Component {
     this.gameObject.transform.position.y = this.y * TILE_HEIGHT - 16 * 3;
   }
 
-  unbind() {
+  onDestroy() {
     EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.onLoop);
   }
 

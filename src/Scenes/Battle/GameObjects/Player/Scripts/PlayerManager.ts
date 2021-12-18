@@ -29,7 +29,7 @@ export default class PlayerManager extends EntityManager {
     EventManager.Instance.on(EVENT_ENUM.ATTACK_PLAYER, this.onDead, this);
   }
 
-  unbind() {
+  onDestroy() {
     EventManager.Instance.off(EVENT_ENUM.PLAYER_CTRL, this.inputProcess);
     EventManager.Instance.off(EVENT_ENUM.ATTACK_PLAYER, this.onDead);
   }

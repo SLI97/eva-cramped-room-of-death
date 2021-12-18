@@ -22,7 +22,7 @@ export default class EventManager extends Singleton {
 
   on(event: string, func: Function, ctx?: any) {
     if (this.eventDic.has(event)) {
-        this.eventDic.get(event).push({ func, ctx });
+      this.eventDic.get(event).push({ func, ctx });
     } else {
       this.eventDic.set(event, [{ func, ctx }]);
     }

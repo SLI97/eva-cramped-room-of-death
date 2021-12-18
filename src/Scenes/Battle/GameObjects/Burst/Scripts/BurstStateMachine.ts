@@ -11,10 +11,21 @@ import DeathState from './DeathState';
  */
 export default class BurstStateMachine extends StateMachine {
   init() {
-    this.gameObject.addComponent(new SpriteAnimation());
-    this.gameObject.addComponent(new Render(    new Render({
-      zIndex: 0,
-    })));
+    this.gameObject.addComponent(
+      new SpriteAnimation({
+        autoPlay: true,
+        forwards: true,
+        resource: 'burst_idle',
+        speed: 1000 / 8,
+      }),
+    );
+    this.gameObject.addComponent(
+      new Render(
+        new Render({
+          zIndex: 0,
+        }),
+      ),
+    );
 
     this.initParams();
   }
@@ -29,7 +40,6 @@ export default class BurstStateMachine extends StateMachine {
     spriteAnimation.on('complete', () => {
       //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
       if (spriteAnimation.resource.startsWith('burst_death')) {
-        spriteAnimation.gotoAndStop(4);
       }
     });
   }

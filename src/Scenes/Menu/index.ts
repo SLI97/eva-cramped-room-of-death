@@ -39,6 +39,7 @@ const MenuScene = () => {
   //点击屏幕加载游戏场景
   evt.on('touchstart', () => {
     DataManager.Instance.fm.fadeIn(300).then(() => {
+      game.scene.destroy();
       game.loadScene({
         scene: Battle(),
       });

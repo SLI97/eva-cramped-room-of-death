@@ -40,7 +40,7 @@ export default class BattleManager extends Component {
     this.initLevel();
   }
 
-  onDestroy(){
+  onDestroy() {
     EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.checkFinishCurLevel, this);
     EventManager.Instance.off(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this);
     EventManager.Instance.off(EVENT_ENUM.RESTART_LEVEL, this.initLevel, this);
@@ -78,6 +78,7 @@ export default class BattleManager extends Component {
       });
     } else {
       DataManager.Instance.fm.fadeIn(200).then(() => {
+        game.scene.destroy();
         game.loadScene({
           scene: MenuScene(),
         });
@@ -87,8 +88,9 @@ export default class BattleManager extends Component {
 
   clearLevel() {
     this.childrens.forEach(go => {
-      this.gameObject.removeChild(go);
+      go.destroy();
     });
+    this.childrens = [];
   }
 
   generateBackground() {
@@ -298,9 +300,11 @@ export default class BattleManager extends Component {
         x: DataManager.Instance.player.targetX,
         y: DataManager.Instance.player.targetY,
         state:
-          DataManager.Instance.player.state === PLAYER_STATE.ATTACK
-            ? PLAYER_STATE.IDLE
-            : DataManager.Instance.player.state,
+          DataManager.Instance.player.state === PLAYER_STATE.IDLE ||
+          DataManager.Instance.player.state === PLAYER_STATE.DEATH ||
+          DataManager.Instance.player.state === PLAYER_STATE.AIRDEATH
+            ? DataManager.Instance.player.state
+            : PLAYER_STATE.IDLE,
         direction: DataManager.Instance.player.direction,
       },
       door: {

@@ -1,6 +1,5 @@
 import { GameObject } from '@eva/eva.js';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
-
 /***
  * 状态（每组动画的承载容器）
  */
@@ -13,7 +12,9 @@ export default class State {
 
   play() {
     this.spriteAnimation.resource = this.animationName;
-    this.spriteAnimation.play(this.times);
+    Promise.resolve().then(() => {
+      this.spriteAnimation.play(this.times);
+    });
   }
 
   stop() {

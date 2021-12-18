@@ -24,7 +24,8 @@ export default class PlayerStateMachine extends StateMachine {
     this.gameObject.addComponent(
       new SpriteAnimation({
         autoPlay: true,
-        resource: '',
+        forwards: true,
+        resource: 'player_idle_top',
         speed: 1000 / 8,
       }),
     );
@@ -55,20 +56,14 @@ export default class PlayerStateMachine extends StateMachine {
 
     const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
     spriteAnimation.on('complete', () => {
-      //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
       if (spriteAnimation.resource.startsWith('player_turn')) {
-        spriteAnimation.gotoAndStop(2);
         this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
       } else if (spriteAnimation.resource.startsWith('player_block')) {
-        spriteAnimation.gotoAndStop(3);
         this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
       } else if (spriteAnimation.resource.startsWith('player_attack')) {
-        spriteAnimation.gotoAndStop(7);
         this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
       } else if (spriteAnimation.resource.startsWith('player_death')) {
-        spriteAnimation.gotoAndStop(13);
       } else if (spriteAnimation.resource.startsWith('player_air_death')) {
-        spriteAnimation.gotoAndStop(10);
       }
     });
   }

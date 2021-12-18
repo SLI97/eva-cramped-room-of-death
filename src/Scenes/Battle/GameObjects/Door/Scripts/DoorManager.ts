@@ -13,7 +13,7 @@ export default class DoorManager extends EntityManager {
     super.init(door);
   }
 
-  unbind() {
+  onDestroy() {
     // EventManager.Instance.off(EVENT_ENUM.OPENDOOR, this.onOpenHandler)
   }
 

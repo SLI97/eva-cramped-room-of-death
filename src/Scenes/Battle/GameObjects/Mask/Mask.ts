@@ -8,7 +8,7 @@ import { getInitPosition } from '../../../../Utils';
 
 const Mask = (scene: Scene) => {
   const mask = new GameObject('backgroundColor', {
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   const outterGraphics = mask.addComponent(new Graphics());

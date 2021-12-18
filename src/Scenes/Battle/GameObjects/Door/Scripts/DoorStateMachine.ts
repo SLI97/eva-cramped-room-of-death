@@ -13,7 +13,8 @@ export default class DoorStateMachine extends StateMachine {
     this.gameObject.addComponent(
       new SpriteAnimation({
         autoPlay: true,
-        resource: '',
+        forwards: true,
+        resource: 'door_idle_top',
         speed: 1000,
       }),
     );

@@ -5,9 +5,9 @@ import { TILE_HEIGHT, TILE_WIDTH } from '../Tile/Tile';
 import { getInitPosition } from '../../../../Utils';
 
 const Burst = (burst: IBurst) => {
-  const go = new GameObject('door', {
+  const go = new GameObject('burst', {
     size: { width: TILE_WIDTH, height: TILE_HEIGHT },
-   ...getInitPosition(),
+    ...getInitPosition(),
   });
 
   go.addComponent(new BurstManager(burst));
