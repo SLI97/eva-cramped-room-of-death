@@ -38,12 +38,13 @@ export default class DataManager extends Singleton {
   frame: number = 0;
   mapInfo: Array<Array<ITile>> = []; //关卡的描述数据
   tileInfo: Array<Array<TileManager>> = []; //实例化出来的组件实例
+  volum: number = 0.1;
 
   fm: FaderManager;
 
   constructor() {
     super();
-    this.levelIndex = 2;
+    this.levelIndex = 1;
     this.reset();
   }
 

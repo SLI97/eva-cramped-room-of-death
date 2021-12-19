@@ -1,5 +1,5 @@
 import StateMachine from '../../../../../Base/StateMachine';
-import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME } from '../../../../../Enum';
+import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME} from '../../../../../Enum';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import { Render } from '@eva/plugin-renderer-render';
 import IdleState from './IdleState';
@@ -35,13 +35,6 @@ export default class BurstStateMachine extends StateMachine {
     this.states.set(PLAYER_STATE.ATTACK, new AttackState(this.gameObject, 'burst_attack', 1));
     this.states.set(PLAYER_STATE.DEATH, new DeathState(this.gameObject, 'burst_death', 1));
     this.currentState = this.states.get(PLAYER_STATE.IDLE);
-
-    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
-    spriteAnimation.on('complete', () => {
-      //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
-      if (spriteAnimation.resource.startsWith('burst_death')) {
-      }
-    });
   }
 
   initParams() {

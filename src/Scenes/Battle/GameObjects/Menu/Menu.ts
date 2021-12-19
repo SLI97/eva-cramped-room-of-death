@@ -4,14 +4,14 @@ import RestartButton from './RestartButton';
 import UndoButton from './UndoButton';
 import OutButton from './OutButton';
 
-export const START_BUTTON_WIDTH = 50;
-export const START_BUTTON_HEIGHT = 64;
+export const START_BUTTON_WIDTH = 50 * 1.1;
+export const START_BUTTON_HEIGHT = 64 * 1.1;
 
 const Menu = () => {
   const go = new GameObject('menu', {
     position: {
       x: 0,
-      y: 30,
+      y: 34,
     },
     origin: {
       x: 0.5,

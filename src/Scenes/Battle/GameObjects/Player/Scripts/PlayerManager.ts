@@ -1,4 +1,4 @@
-import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../../../../Enum';
+import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, MusicEnum, PLAYER_STATE, SHAKE_ENUM } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import DataManager from '../../../../../Runtime/DataManager';
 import { IPlayer } from '../../../../../Levels';
@@ -7,6 +7,7 @@ import PlayerStateMachine from './PlayerStateMachine';
 import BattleManager from '../../../BattleManager';
 import EnemyManager from '../../../../../Base/EnemyManager';
 import BurstManager from '../../Burst/Scripts/BurstManager';
+import { Sound } from '@eva/plugin-sound';
 
 export default class PlayerManager extends EntityManager {
   targetX: number;
@@ -17,6 +18,9 @@ export default class PlayerManager extends EntityManager {
 
   init(player: IPlayer) {
     this.gameObject.addComponent(new PlayerStateMachine());
+    this.sm = this.gameObject.addComponent(
+      new Sound({ resource: MusicEnum.SHAKE, loop: false, autoplay: false, volume: DataManager.Instance.volum }),
+    );
     super.init(player);
     this.targetX = this.x;
     this.targetY = this.y;
@@ -108,6 +112,7 @@ export default class PlayerManager extends EntityManager {
       return;
     }
 
+    //优化成四个方向的震动效果
     if (this.WillBlock(type)) {
       if (type === CONTROLLER_ENUM.TOP) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
@@ -134,18 +139,10 @@ export default class PlayerManager extends EntityManager {
       } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.RIGHT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
       }
-      //优化震动效果
-      // if (type === CONTROLLER_ENUM.TOP || type === CONTROLLER_ENUM.BOTTOM) {
-      //   EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.VERTICAL);
-      // } else if (type === CONTROLLER_ENUM.LEFT || type === CONTROLLER_ENUM.RIGHT) {
-      //   EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.HORIZONTAL);
-      // } else if (type === CONTROLLER_ENUM.TURNLEFT || type === CONTROLLER_ENUM.TURNRIGHT) {
-      //   if (this.direction === DIRECTION_ENUM.TOP || this.direction === DIRECTION_ENUM.BOTTOM) {
-      //     EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.HORIZONTAL);
-      //   } else if (this.direction === DIRECTION_ENUM.LEFT || this.direction === DIRECTION_ENUM.RIGHT) {
-      //     EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.VERTICAL);
-      //   }
-      // }
+      this.sm.config.resource = MusicEnum.SHAKE;
+      Promise.resolve().then(() => {
+        this.sm.play();
+      });
       return;
     }
 

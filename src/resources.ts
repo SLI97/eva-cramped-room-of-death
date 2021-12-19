@@ -1485,4 +1485,37 @@ export default [
     },
     preload: true,
   },
+  {
+    name: 'bg',
+    type: RESOURCE_TYPE.AUDIO,
+    src: {
+      audio: {
+        type: 'audio',
+        url: './static/audios/bg.mp3',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'door',
+    type: RESOURCE_TYPE.AUDIO,
+    src: {
+      audio: {
+        type: 'audio',
+        url: './static/audios/door.mp3',
+      },
+    },
+    preload: true,
+  },
+  {
+    name: 'shake',
+    type: RESOURCE_TYPE.AUDIO,
+    src: {
+      audio: {
+        type: 'audio',
+        url: './static/audios/shake.mp3',
+      },
+    },
+    preload: true,
+  },
 ];

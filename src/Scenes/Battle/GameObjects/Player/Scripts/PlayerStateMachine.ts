@@ -1,5 +1,5 @@
 import StateMachine from '../../../../../Base/StateMachine';
-import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME } from '../../../../../Enum';
+import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME, EVENT_ENUM, SHAKE_ENUM } from '../../../../../Enum';
 import IdleSubStateMachine from './IdleSubStateMachine';
 import AttackSubStateMachine from './AttackSubStateMachine';
 import TurnLeftSubStateMachine from './TurnLeftSubStateMachine';
@@ -15,6 +15,7 @@ import AirDeathSubStateMachine from './AirDeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import EnemyManager from '../../../../../Base/EnemyManager';
 import { Render } from '@eva/plugin-renderer-render';
+import EventManager from '../../../../../Runtime/EventManager';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -64,6 +65,28 @@ export default class PlayerStateMachine extends StateMachine {
         this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
       } else if (spriteAnimation.resource.startsWith('player_death')) {
       } else if (spriteAnimation.resource.startsWith('player_air_death')) {
+      }
+    });
+
+    spriteAnimation.on('frameChange', () => {
+      //攻击动画第五帧的时候震动屏幕
+      if (spriteAnimation.resource.startsWith('player_attack') && spriteAnimation.currentFrame === 4) {
+        switch (spriteAnimation.resource) {
+          case 'player_attack_top':
+            EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
+            break;
+          case 'player_attack_bottom':
+            EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
+            break;
+          case 'player_attack_left':
+            EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
+            break;
+          case 'player_attack_right':
+            EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
+            break;
+          default:
+            break;
+        }
       }
     });
   }

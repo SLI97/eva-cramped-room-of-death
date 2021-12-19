@@ -57,6 +57,7 @@
     "@eva/plugin-renderer-sprite": "^1.2.0",
     "@eva/plugin-renderer-sprite-animation": "^1.2.0",
     "@eva/plugin-renderer-text": "^1.2.0",
+    "@eva/plugin-sound": "^1.2.4",
     "@eva/plugin-stats": "^1.2.0",
     "@eva/plugin-transition": "^1.2.0",
     "@eva/renderer-adapter": "^1.2.0"

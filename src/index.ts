@@ -13,6 +13,7 @@ import StartScene from './Scenes/Start';
 import DataManager from './Runtime/DataManager';
 import { StatsSystem } from '@eva/plugin-stats';
 import { isMobile } from './Utils';
+import { SoundSystem } from '@eva/plugin-sound';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -38,6 +39,7 @@ export const game = new Game({
     new EventSystem(),
     new GraphicsSystem(),
     new TextSystem(),
+    new SoundSystem(),
   ],
 });
 
