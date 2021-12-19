@@ -11,12 +11,13 @@ import { TextSystem } from '@eva/plugin-renderer-text';
 import { SpriteSystem } from '@eva/plugin-renderer-sprite';
 import StartScene from './Scenes/Start';
 import DataManager from './Runtime/DataManager';
-// import { StatsSystem } from '@eva/plugin-stats';
+import { StatsSystem } from '@eva/plugin-stats';
+import { isMobile } from './Utils';
 
-// export const SCREEN_WIDTH = window.innerWidth;
-// export const SCREEN_HEIGHT = window.innerHeight;
-export const SCREEN_WIDTH = 375;
-export const SCREEN_HEIGHT = 667;
+const isDev = process.env.NODE_ENV === 'development';
+
+export const SCREEN_WIDTH = window.innerWidth;
+export const SCREEN_HEIGHT = window.innerHeight;
 
 resource.addResource(resources);
 
@@ -24,7 +25,7 @@ export const game = new Game({
   systems: [
     new RendererSystem({
       canvas: document.querySelector('#canvas'),
-      resolution: window.devicePixelRatio / 2,
+      resolution: isMobile() ? 1 : window.devicePixelRatio,
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT,
       antialias: true,
@@ -48,16 +49,21 @@ game.loadScene({
   scene: StartScene(),
 });
 
-// game.addSystem(new StatsSystem({
-//   show: true ,// 这里设置是否显示，设为 false 不会运行。
-//   style: { // 这里到数值全部都是宽度到百分比 vw 单位
-//     x: 50,
-//     y: 50,
-//     width: 200,
-//     height: 120
-//   }
-// }))
+if (isDev) {
+  game.addSystem(
+    new StatsSystem({
+      show: true, // 这里设置是否显示，设为 false 不会运行。
+      style: {
+        // 这里到数值全部都是宽度到百分比 vw 单位
+        x: 0,
+        y: 0,
+        width: 20,
+        height: 12,
+      },
+    }),
+  );
 
-window.game = game;
+  window.game = game;
+}
 
 // import  './test.ts'

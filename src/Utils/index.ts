@@ -37,6 +37,12 @@ export const getInitPosition = () => {
   };
 };
 
+export const isMobile = () => {
+  const userAgentInfo = navigator.userAgent;
+  const Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
+  return Agents.some(agent => userAgentInfo.indexOf(agent) > -1);
+};
+
 /***
  * 防抖
  * @param fn
