@@ -54,10 +54,9 @@ export default class EntityManager extends Component {
   set state(value) {
     this._state = value;
     if (this.fsm && this.fsm.params.has(value)) {
-      //同样类型的block不要覆盖
-      // if (this.fsm.currentState === this.fsm.states.get(value)) {
-      //   return;
-      // }
+      if (this.fsm.currentState === this.fsm.states.get(value)) {
+        return;
+      }
       this.fsm.setParams(value, true);
     }
   }

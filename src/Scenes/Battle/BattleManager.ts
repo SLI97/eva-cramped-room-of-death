@@ -27,7 +27,7 @@ export default class BattleManager extends Component {
   isShaking: boolean;
   shakeType: SHAKE_ENUM;
   oldFrame: number;
-  oldOffset: { x: number; y: number };
+  oldOffset: { x: number; y: number } = { x: 0, y: 0 };
   sm: Sound;
 
   level: ILevel;
@@ -232,7 +232,8 @@ export default class BattleManager extends Component {
     this.isShaking = true;
     this.shakeType = type;
     this.oldFrame = DataManager.Instance.frame;
-    this.oldOffset = this.gameObject.transform.position;
+    this.oldOffset.x = this.gameObject.transform.position.x;
+    this.oldOffset.y = this.gameObject.transform.position.y;
   }
 
   /***

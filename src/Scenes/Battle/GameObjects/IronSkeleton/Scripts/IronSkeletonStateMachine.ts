@@ -25,13 +25,6 @@ export default class IronSkeletonStateMachine extends StateMachine {
     this.states.set(PARAMS_NAME.IDLE, new IdleSubStateMachine(this.gameObject));
     this.states.set(PARAMS_NAME.DEATH, new DeathSubStateMachine(this.gameObject));
     this.currentState = this.states.get(PARAMS_NAME.IDLE);
-
-    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
-    spriteAnimation.on('complete', () => {
-      //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
-      if (spriteAnimation.resource.startsWith('ironskeleton_death')) {
-      }
-    });
   }
 
   initParams() {

@@ -57,14 +57,9 @@ export default class PlayerStateMachine extends StateMachine {
 
     const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
     spriteAnimation.on('complete', () => {
-      if (spriteAnimation.resource.startsWith('player_turn')) {
+      const list = ['player_turn', 'player_block', 'player_attack'];
+      if (list.some(item => spriteAnimation.resource.startsWith(item))) {
         this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
-      } else if (spriteAnimation.resource.startsWith('player_block')) {
-        this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
-      } else if (spriteAnimation.resource.startsWith('player_attack')) {
-        this.gameObject.getComponent(EnemyManager).state = PLAYER_STATE.IDLE;
-      } else if (spriteAnimation.resource.startsWith('player_death')) {
-      } else if (spriteAnimation.resource.startsWith('player_air_death')) {
       }
     });
 
@@ -184,8 +179,6 @@ export default class PlayerStateMachine extends StateMachine {
           this.currentState = this.states.get(PARAMS_NAME.TURNLEFT);
         } else if (this.params.get(PARAMS_NAME.TURNRIGHT).value) {
           this.currentState = this.states.get(PARAMS_NAME.TURNRIGHT);
-        } else if (this.params.get(PARAMS_NAME.IDLE).value) {
-          this.currentState = this.states.get(PARAMS_NAME.IDLE);
         } else if (this.params.get(PARAMS_NAME.BLOCKFRONT).value) {
           this.currentState = this.states.get(PARAMS_NAME.BLOCKFRONT);
         } else if (this.params.get(PARAMS_NAME.BLOCKBACK).value) {
@@ -200,6 +193,8 @@ export default class PlayerStateMachine extends StateMachine {
           this.currentState = this.states.get(PARAMS_NAME.BLOCKTURNRIGHT);
         } else if (this.params.get(PARAMS_NAME.ATTACK).value) {
           this.currentState = this.states.get(PARAMS_NAME.ATTACK);
+        } else if (this.params.get(PARAMS_NAME.IDLE).value) {
+          this.currentState = this.states.get(PARAMS_NAME.IDLE);
         }
         break;
       default:

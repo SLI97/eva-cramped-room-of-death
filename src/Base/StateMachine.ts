@@ -24,9 +24,6 @@ export default class StateMachine extends Component {
   }
 
   set currentState(value) {
-    if (value === this._currentState) {
-      return;
-    }
     this.stop();
     this._currentState = value;
     if (this._currentState instanceof State) {

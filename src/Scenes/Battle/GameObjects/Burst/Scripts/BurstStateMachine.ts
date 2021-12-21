@@ -65,10 +65,10 @@ export default class BurstStateMachine extends StateMachine {
         }
         break;
       case this.states.get(PLAYER_STATE.ATTACK):
-        if (this.params.get(PARAMS_NAME.IDLE).value) {
-          this.currentState = this.states.get(PLAYER_STATE.IDLE);
-        } else if (this.params.get(PARAMS_NAME.DEATH).value) {
+        if (this.params.get(PARAMS_NAME.DEATH).value) {
           this.currentState = this.states.get(PLAYER_STATE.DEATH);
+        } else if (this.params.get(PARAMS_NAME.IDLE).value) {
+          this.currentState = this.states.get(PLAYER_STATE.IDLE);
         }
         break;
       case this.states.get(PLAYER_STATE.DEATH):
