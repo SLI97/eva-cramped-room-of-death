@@ -1,7 +1,7 @@
-import BlockBackState from './BlockBack/BlockBackState';
 import DirectionStateMachine from '../../../../../Base/DirectionStateMachine';
 import { DIRECTION_ENUM } from '../../../../../Enum';
 import { GameObject } from '@eva/eva.js';
+import State from '../../../../../Base/State';
 
 export default class BlockBackSubStateMachine extends DirectionStateMachine {
   constructor(go: GameObject) {
@@ -11,9 +11,9 @@ export default class BlockBackSubStateMachine extends DirectionStateMachine {
   }
 
   init() {
-    this.states.set(DIRECTION_ENUM.TOP, new BlockBackState(this.go, 'player_block_back_top', 1));
-    this.states.set(DIRECTION_ENUM.BOTTOM, new BlockBackState(this.go, 'player_block_back_bottom', 1));
-    this.states.set(DIRECTION_ENUM.LEFT, new BlockBackState(this.go, 'player_block_back_left', 1));
-    this.states.set(DIRECTION_ENUM.RIGHT, new BlockBackState(this.go, 'player_block_back_right', 1));
+    this.states.set(DIRECTION_ENUM.TOP, new State(this.go, 'player_block_back_top', 1));
+    this.states.set(DIRECTION_ENUM.BOTTOM, new State(this.go, 'player_block_back_bottom', 1));
+    this.states.set(DIRECTION_ENUM.LEFT, new State(this.go, 'player_block_back_left', 1));
+    this.states.set(DIRECTION_ENUM.RIGHT, new State(this.go, 'player_block_back_right', 1));
   }
 }

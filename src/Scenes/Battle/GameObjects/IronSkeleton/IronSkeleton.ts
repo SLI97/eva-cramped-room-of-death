@@ -1,10 +1,7 @@
 import { GameObject } from '@eva/eva.js';
 import { IEnemy } from '../../../../Levels';
 import IronSkeletonManager from './Scripts/IronSkeletonManager';
-import { getInitPosition } from '../../../../Utils';
-
-const PLAYER_WIDTH = 128;
-const PLAYER_HEIGHT = 128;
+import { PLAYER_HEIGHT, PLAYER_WIDTH } from '../Player/Player';
 
 /***
  * 铁骷髅
@@ -14,7 +11,6 @@ const PLAYER_HEIGHT = 128;
 const IronSkeleton = (enemy: IEnemy) => {
   const go = new GameObject('ironSkeleton', {
     size: { width: PLAYER_WIDTH, height: PLAYER_HEIGHT },
-    ...getInitPosition(),
   });
 
   go.addComponent(new IronSkeletonManager(enemy));

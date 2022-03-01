@@ -7,7 +7,7 @@ const Controller = () => {
   const go = new GameObject('controller', {
     position: {
       x: 0,
-      y: 0,
+      y: -140,
     },
     origin: {
       x: 0.5,

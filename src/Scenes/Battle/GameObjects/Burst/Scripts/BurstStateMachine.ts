@@ -2,9 +2,7 @@ import StateMachine from '../../../../../Base/StateMachine';
 import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME } from '../../../../../Enum';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import { Render } from '@eva/plugin-renderer-render';
-import IdleState from './IdleState';
-import AttackState from './AttackState';
-import DeathState from './DeathState';
+import State from '../../../../../Base/State';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -20,20 +18,18 @@ export default class BurstStateMachine extends StateMachine {
       }),
     );
     this.gameObject.addComponent(
-      new Render(
-        new Render({
-          zIndex: 0,
-        }),
-      ),
+      new Render({
+        zIndex: 0,
+      }),
     );
 
     this.initParams();
   }
 
   start() {
-    this.states.set(PLAYER_STATE.IDLE, new IdleState(this.gameObject, 'burst_idle', 1));
-    this.states.set(PLAYER_STATE.ATTACK, new AttackState(this.gameObject, 'burst_attack', 1));
-    this.states.set(PLAYER_STATE.DEATH, new DeathState(this.gameObject, 'burst_death', 1));
+    this.states.set(PLAYER_STATE.IDLE, new State(this.gameObject, 'burst_idle', 1));
+    this.states.set(PLAYER_STATE.ATTACK, new State(this.gameObject, 'burst_attack', 1));
+    this.states.set(PLAYER_STATE.DEATH, new State(this.gameObject, 'burst_death', 1));
     this.currentState = this.states.get(PLAYER_STATE.IDLE);
   }
 

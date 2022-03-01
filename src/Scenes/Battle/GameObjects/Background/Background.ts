@@ -1,11 +1,8 @@
 import { GameObject } from '@eva/eva.js';
 import BackgroundManager from './BackgroundManager';
-import { getInitPosition } from '../../../../Utils';
 
 const Background = () => {
-  const go = new GameObject('background', {
-    ...getInitPosition(),
-  });
+  const go = new GameObject('background');
 
   go.addComponent(new BackgroundManager());
 

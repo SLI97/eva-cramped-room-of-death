@@ -1,7 +1,7 @@
-import IdleState from './Idle/IdleState';
 import DirectionStateMachine from '../../../../../Base/DirectionStateMachine';
 import { DIRECTION_ENUM } from '../../../../../Enum';
 import { GameObject } from '@eva/eva.js';
+import State from '../../../../../Base/State';
 
 export default class IdleSubStateMachine extends DirectionStateMachine {
   constructor(go: GameObject) {
@@ -11,9 +11,9 @@ export default class IdleSubStateMachine extends DirectionStateMachine {
   }
 
   init() {
-    this.states.set(DIRECTION_ENUM.TOP, new IdleState(this.go, 'door_idle_top'));
-    this.states.set(DIRECTION_ENUM.BOTTOM, new IdleState(this.go, 'door_idle_top'));
-    this.states.set(DIRECTION_ENUM.LEFT, new IdleState(this.go, 'door_idle_left'));
-    this.states.set(DIRECTION_ENUM.RIGHT, new IdleState(this.go, 'door_idle_left'));
+    this.states.set(DIRECTION_ENUM.TOP, new State(this.go, 'door_idle_top'));
+    this.states.set(DIRECTION_ENUM.BOTTOM, new State(this.go, 'door_idle_top'));
+    this.states.set(DIRECTION_ENUM.LEFT, new State(this.go, 'door_idle_left'));
+    this.states.set(DIRECTION_ENUM.RIGHT, new State(this.go, 'door_idle_left'));
   }
 }

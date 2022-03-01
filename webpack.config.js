@@ -5,7 +5,7 @@ const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const target = path.resolve(__dirname, './dist');
+const target = path.resolve(__dirname, './docs');
 
 const isDev = process.env.NODE_ENV === 'development';
 

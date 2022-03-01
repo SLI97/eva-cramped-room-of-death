@@ -4,12 +4,9 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../../../index';
 import { Render } from '@eva/plugin-renderer-render';
 import FaderManager from './FaderManager';
 import DataManager from '../../../../Runtime/DataManager';
-import { getInitPosition } from '../../../../Utils';
 
 const Fader = () => {
-  const go = new GameObject('fader', {
-    ...getInitPosition(),
-  });
+  const go = new GameObject('fader');
 
   const outterGraphics = go.addComponent(new Graphics());
   go.addComponent(

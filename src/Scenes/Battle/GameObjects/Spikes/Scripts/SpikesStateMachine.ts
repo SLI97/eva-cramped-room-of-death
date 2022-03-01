@@ -22,11 +22,9 @@ export default class SpikesStateMachine extends StateMachine {
       }),
     );
     this.gameObject.addComponent(
-      new Render(
-        new Render({
-          zIndex: 0,
-        }),
-      ),
+      new Render({
+        zIndex: 0,
+      }),
     );
 
     this.initParams();

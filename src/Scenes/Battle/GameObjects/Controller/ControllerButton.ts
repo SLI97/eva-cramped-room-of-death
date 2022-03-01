@@ -7,16 +7,14 @@ import { Transition } from '@eva/plugin-transition';
 
 const CTRL_WIDTH = 70;
 const CTRL_HEIGHT = 60;
-
 const GAP_HEIGHT = 3;
-const OFFSET_HEIGHT = 140;
 
 const getPosition = (index: number) => {
   const xAxis = Math.floor((index - 1) / 2);
   const yAxis = (index - 1) % 2;
   return {
     x: (xAxis - 1) * CTRL_WIDTH,
-    y: -OFFSET_HEIGHT + yAxis * (CTRL_HEIGHT + GAP_HEIGHT),
+    y: yAxis * (CTRL_HEIGHT + GAP_HEIGHT),
   };
 };
 

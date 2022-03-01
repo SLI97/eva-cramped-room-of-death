@@ -4,12 +4,9 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../../../index';
 import { Render } from '@eva/plugin-renderer-render';
 import EventManager from '../../../../Runtime/EventManager';
 import { EVENT_ENUM } from '../../../../Enum';
-import { getInitPosition } from '../../../../Utils';
 
 const Mask = (scene: Scene) => {
-  const mask = new GameObject('backgroundColor', {
-    ...getInitPosition(),
-  });
+  const mask = new GameObject('backgroundColor');
 
   const outterGraphics = mask.addComponent(new Graphics());
   mask.addComponent(

@@ -1,7 +1,7 @@
-import SpikesFourState from './SpikesFour/SpikesFourState';
 import { PARAMS_NAME, SPIKES_CUR_POINT_ENUM, SPIKES_POINT_MAP_NUMBER } from '../../../../../Enum';
 import { GameObject } from '@eva/eva.js';
 import SubStateMachine from '../../../../../Base/SubStateMachine';
+import State from '../../../../../Base/State';
 
 export default class SpikesFourSubStateMachine extends SubStateMachine {
   constructor(go: GameObject) {
@@ -11,12 +11,12 @@ export default class SpikesFourSubStateMachine extends SubStateMachine {
   }
 
   init() {
-    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new SpikesFourState(this.go, 'spikes_four_zero', 1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new SpikesFourState(this.go, 'spikes_four_one', 1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new SpikesFourState(this.go, 'spikes_four_two', 1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.THREE, new SpikesFourState(this.go, 'spikes_four_three', 1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.FOUR, new SpikesFourState(this.go, 'spikes_four_four', 1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.FIVE, new SpikesFourState(this.go, 'spikes_four_five', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new State(this.go, 'spikes_four_zero', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new State(this.go, 'spikes_four_one', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new State(this.go, 'spikes_four_two', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.THREE, new State(this.go, 'spikes_four_three', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.FOUR, new State(this.go, 'spikes_four_four', 1));
+    this.states.set(SPIKES_CUR_POINT_ENUM.FIVE, new State(this.go, 'spikes_four_five', 1));
   }
 
   update() {

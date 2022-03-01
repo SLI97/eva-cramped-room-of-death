@@ -8,7 +8,6 @@ import { Render } from '@eva/plugin-renderer-render';
 import Fader from './GameObjects/Fader/Fader';
 import Menu from './GameObjects/Menu/Menu';
 import Mask from './GameObjects/Mask/Mask';
-import { getInitPosition } from '../../Utils';
 
 /***
  * 游戏主场景
@@ -28,9 +27,7 @@ const Battle = () => {
   scene.addChild(Fader());
   scene.addChild(BackgroundColor());
 
-  const container = new GameObject('container', {
-    ...getInitPosition(),
-  });
+  const container = new GameObject('container');
 
   container.addComponent(new BattleManager());
   container.addComponent(

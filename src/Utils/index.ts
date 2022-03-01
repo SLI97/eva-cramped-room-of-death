@@ -18,68 +18,10 @@ export const randomByRange = (start: number, end: number) => {
 };
 
 /***
- * 初始化GameObject的时候使用
+ * 是否是移动端
  */
-export const getInitPosition = () => {
-  return {
-    position: {
-      x: 0,
-      y: 0,
-    },
-    origin: {
-      x: 0,
-      y: 0,
-    },
-    anchor: {
-      x: 0,
-      y: 0,
-    },
-  };
-};
-
 export const isMobile = () => {
   const userAgentInfo = navigator.userAgent;
   const Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
   return Agents.some(agent => userAgentInfo.indexOf(agent) > -1);
-};
-
-/***
- * 防抖
- * @param fn
- * @param ctx
- * @param delay
- */
-export const throttle = (fn: Function, ctx: any, delay = 100) => {
-  let flag: boolean = false;
-  return function () {
-    let args = arguments;
-    if (flag) {
-      return;
-    }
-    flag = true;
-    fn.apply(ctx, args);
-    setTimeout(() => {
-      flag = false;
-    }, delay);
-  };
-};
-
-/***
- * 节流
- * @param fn
- * @param ctx
- * @param delay
- */
-export const debounce = (fn: Function, ctx: any, delay = 1000) => {
-  let timer: any = null;
-  return function () {
-    let args = arguments;
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
-      fn.apply(ctx, args);
-      timer = null;
-    }, delay);
-  };
 };
