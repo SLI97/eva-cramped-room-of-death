@@ -185,9 +185,3 @@ export enum SHAKE_ENUM {
   LEFT = 2,
   RIGHT = 3,
 }
-
-export enum MusicEnum{
-  BG = 'bg',
-  DOOR = 'door',
-  SHAKE = 'shake',
-}

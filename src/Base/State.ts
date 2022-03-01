@@ -12,6 +12,7 @@ export default class State {
 
   play() {
     this.spriteAnimation.resource = this.animationName;
+    //更改了动画之后，必须下一帧再播放，不然会出现动画闪动
     Promise.resolve().then(() => {
       this.spriteAnimation.play(this.times);
     });

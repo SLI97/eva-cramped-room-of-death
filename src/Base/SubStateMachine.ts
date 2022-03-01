@@ -25,7 +25,7 @@ export default class SubStateMachine {
   }
 
   set currentState(value) {
-    this.stop()
+    this.stop();
     this._currentState = value;
     if (this._currentState instanceof State) {
       this._currentState.play();

@@ -7,7 +7,7 @@ import { game, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
 import { TILE_HEIGHT, TILE_WIDTH } from './GameObjects/Tile/Tile';
 import Door from './GameObjects/Door/Door';
 import EntityManager from '../../Base/EntityManager';
-import { DIRECTION_ENUM, ENEMY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM, MusicEnum } from '../../Enum';
+import { DIRECTION_ENUM, ENEMY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../Enum';
 import WoodenSkeleton from './GameObjects/WoodenSkeleton/WoodenSkeleton';
 import EventManager from '../../Runtime/EventManager';
 import IronSkeleton from './GameObjects/IronSkeleton/IronSkeleton';
@@ -19,7 +19,6 @@ import Spikes from './GameObjects/Spikes/Spikes';
 import SpikesManager from './GameObjects/Spikes/Scripts/SpikesManager';
 import EnemyManager from '../../Base/EnemyManager';
 import BurstManager from './GameObjects/Burst/Scripts/BurstManager';
-import { Sound } from '@eva/plugin-sound';
 
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
@@ -28,7 +27,6 @@ export default class BattleManager extends Component {
   shakeType: SHAKE_ENUM;
   oldFrame: number;
   oldOffset: { x: number; y: number } = { x: 0, y: 0 };
-  sm: Sound;
 
   level: ILevel;
 
@@ -40,17 +38,9 @@ export default class BattleManager extends Component {
     EventManager.Instance.on(EVENT_ENUM.REVOKE_STEP, this.revoke, this);
     EventManager.Instance.on(EVENT_ENUM.RECORD_STEP, this.record, this);
     this.initLevel();
-    this.sm = this.gameObject.addComponent(
-      new Sound({ resource: 'bg', loop: true, autoplay: true, volume: DataManager.Instance.volum }),
-    );
   }
 
-  start() {
-    this.sm.config.resource = MusicEnum.BG;
-    Promise.resolve().then(() => {
-      this.sm.play();
-    });
-  }
+  start() {}
 
   onDestroy() {
     EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.checkFinishCurLevel, this);
@@ -59,7 +49,6 @@ export default class BattleManager extends Component {
     EventManager.Instance.off(EVENT_ENUM.SCREEN_SHAKE, this.onShake, this);
     EventManager.Instance.off(EVENT_ENUM.REVOKE_STEP, this.revoke, this);
     EventManager.Instance.off(EVENT_ENUM.RECORD_STEP, this.record, this);
-    this.sm.stop();
   }
 
   initLevel() {

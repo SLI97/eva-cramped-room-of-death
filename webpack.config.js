@@ -5,9 +5,9 @@ const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const target = path.resolve(__dirname, './docs');
+const target = path.resolve(__dirname, './dist');
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development';
 
 const config = {
   mode: isDev ? 'development' : 'production',
@@ -87,8 +87,8 @@ const config = {
   },
 };
 
-if(!isDev){
-    config.plugins.push(new CleanWebpackPlugin())
+if (!isDev) {
+  config.plugins.push(new CleanWebpackPlugin());
 }
 
 module.exports = config;

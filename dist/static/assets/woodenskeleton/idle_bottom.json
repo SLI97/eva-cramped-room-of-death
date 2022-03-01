@@ -1,0 +1,44 @@
+{"frames": {
+
+"woodenskeleton (1).png":
+{
+	"frame": {"x":0,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+},
+"woodenskeleton (2).png":
+{
+	"frame": {"x":320,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+},
+"woodenskeleton (3).png":
+{
+	"frame": {"x":640,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+},
+"woodenskeleton (4).png":
+{
+	"frame": {"x":960,"y":0,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "idle_bottom.png",
+	"format": "RGBA8888",
+	"size": {"w":1280,"h":320},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:5383cfe52585aed6b4b7f718e3f73925:04eb7208c9c434454f95c292d5f03d1e:88a7c107516da4d444a19ce22e7453d0$"
+}
+}

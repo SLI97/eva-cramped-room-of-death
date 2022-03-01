@@ -36,6 +36,10 @@
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-triple-slash-reference": "off",
         "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/no-object-literal-type-assertion": "off",
+        "@typescript-eslint/array-type": "off",
+        "@typescript-eslint/no-parameter-properties": "off",
         "@typescript-eslint/no-var-requires": "off",
         "quotes": [
                 "error",

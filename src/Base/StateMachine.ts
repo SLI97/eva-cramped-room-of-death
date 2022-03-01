@@ -38,7 +38,7 @@ export default class StateMachine extends Component {
   }
 
   /***
-   * 子状态机的update由主状态机驱动
+   * 主状态机驱动子状态机的update函数执行
    */
   update() {
     if (this.currentState instanceof SubStateMachine) {

@@ -1,5 +1,5 @@
 import StateMachine from '../../../../../Base/StateMachine';
-import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME} from '../../../../../Enum';
+import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME } from '../../../../../Enum';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import { Render } from '@eva/plugin-renderer-render';
 import IdleState from './IdleState';

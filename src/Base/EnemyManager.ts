@@ -36,6 +36,8 @@ export default class EnemyManager extends EntityManager {
     const { x: playerX, y: playerY } = DataManager.Instance.player;
     const disX = Math.abs(playerX - this.x);
     const disY = Math.abs(playerY - this.y);
+
+    //确保敌人在初始化的时候调整一次direction
     if (disX === disY && check) {
       return;
     }
@@ -58,6 +60,10 @@ export default class EnemyManager extends EntityManager {
     }
   }
 
+  /***
+   * 所有敌人都会接收到死亡事件，不过只有跟id跟自己相同的才会死亡
+   * @param id
+   */
   onDead(id: string) {
     if (this.state === PLAYER_STATE.DEATH) {
       return;

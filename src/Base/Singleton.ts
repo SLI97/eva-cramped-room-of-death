@@ -1,5 +1,5 @@
 /***
- * 单例模式接口
+ * 泛型单例模式接口
  */
 export default abstract class Singleton {
   private static _instance: any = null;

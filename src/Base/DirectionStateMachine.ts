@@ -26,12 +26,14 @@ export default class DirectionStateMachine extends SubStateMachine {
     }
   }
 
-  switch(type: DIRECTION_ENUM) {
-    const { value } = this.params.get(PARAMS_NAME.DIRECTION);
-    if(DIRECTION_ORDER_ENUM[type] === value){
-      return
+  switch(oldDirection: DIRECTION_ENUM) {
+    const { value: newDirection } = this.params.get(PARAMS_NAME.DIRECTION);
+
+    //老方向跟新方向一致，不改变currentState
+    if (DIRECTION_ORDER_ENUM[oldDirection] === newDirection) {
+      return;
     }
 
-    this.currentState = this.states.get(DIRECTION_ORDER_ENUM[value as number]);
+    this.currentState = this.states.get(DIRECTION_ORDER_ENUM[newDirection as number]);
   }
 }

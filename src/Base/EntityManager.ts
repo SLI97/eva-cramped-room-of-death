@@ -4,7 +4,6 @@ import StateMachine from './StateMachine';
 import { randomByLength } from '../Utils';
 import { IDoor, IEnemy, IPlayer, ISmoke } from '../Levels';
 import { TILE_HEIGHT, TILE_WIDTH } from '../Scenes/Battle/GameObjects/Tile/Tile';
-import { Sound } from '@eva/plugin-sound';
 
 /***
  * 实体类，实体必须具备方向和状态
@@ -18,14 +17,12 @@ export default class EntityManager extends Component {
   _state: PLAYER_STATE;
   _direction: DIRECTION_ENUM;
   id: string = randomByLength(12);
-  sm: Sound;
 
-  init(dto: IPlayer | IEnemy | IDoor | ISmoke) {
-    this.x = dto.x;
-    this.y = dto.y;
-    this.state = dto.state;
-    this.fsm = this.gameObject.getComponent(StateMachine) || null;
-    this.direction = dto.direction;
+  init(params: IPlayer | IEnemy | IDoor | ISmoke) {
+    this.x = params.x;
+    this.y = params.y;
+    this.state = params.state;
+    this.direction = params.direction;
   }
 
   /***

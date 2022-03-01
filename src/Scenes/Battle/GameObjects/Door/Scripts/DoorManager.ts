@@ -2,18 +2,14 @@ import { IDoor } from '../../../../../Levels';
 import EntityManager from '../../../../../Base/EntityManager';
 import DoorStateMachine from './DoorStateMachine';
 import DataManager from '../../../../../Runtime/DataManager';
-import { MusicEnum, PLAYER_STATE } from '../../../../../Enum';
-import { Sound } from '@eva/plugin-sound';
+import { PLAYER_STATE } from '../../../../../Enum';
 
 /***
  * 关卡门类
  */
 export default class DoorManager extends EntityManager {
   init(door: IDoor) {
-    this.gameObject.addComponent(new DoorStateMachine());
-    this.sm = this.gameObject.addComponent(
-      new Sound({ resource: MusicEnum.DOOR, loop: false, autoplay: false, volume: DataManager.Instance.volum }),
-    );
+    this.fsm = this.gameObject.addComponent(new DoorStateMachine());
     super.init(door);
   }
 
@@ -37,10 +33,6 @@ export default class DoorManager extends EntityManager {
       this.state !== PLAYER_STATE.DEATH
     ) {
       this.state = PLAYER_STATE.DEATH;
-      this.sm.config.resource = MusicEnum.DOOR;
-      Promise.resolve().then(() => {
-        this.sm.play();
-      });
     }
   }
 }

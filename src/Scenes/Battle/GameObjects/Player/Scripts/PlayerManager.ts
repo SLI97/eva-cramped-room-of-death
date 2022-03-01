@@ -1,4 +1,4 @@
-import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, MusicEnum, PLAYER_STATE, SHAKE_ENUM } from '../../../../../Enum';
+import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import DataManager from '../../../../../Runtime/DataManager';
 import { IPlayer } from '../../../../../Levels';
@@ -7,7 +7,6 @@ import PlayerStateMachine from './PlayerStateMachine';
 import BattleManager from '../../../BattleManager';
 import EnemyManager from '../../../../../Base/EnemyManager';
 import BurstManager from '../../Burst/Scripts/BurstManager';
-import { Sound } from '@eva/plugin-sound';
 
 export default class PlayerManager extends EntityManager {
   targetX: number;
@@ -17,10 +16,7 @@ export default class PlayerManager extends EntityManager {
   speed = 1 / 10;
 
   init(player: IPlayer) {
-    this.gameObject.addComponent(new PlayerStateMachine());
-    this.sm = this.gameObject.addComponent(
-      new Sound({ resource: MusicEnum.SHAKE, loop: false, autoplay: false, volume: DataManager.Instance.volum }),
-    );
+    this.fsm = this.gameObject.addComponent(new PlayerStateMachine());
     super.init(player);
     this.targetX = this.x;
     this.targetY = this.y;
@@ -139,10 +135,6 @@ export default class PlayerManager extends EntityManager {
       } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.RIGHT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
       }
-      this.sm.config.resource = MusicEnum.SHAKE;
-      Promise.resolve().then(() => {
-        this.sm.play();
-      });
       return;
     }
 

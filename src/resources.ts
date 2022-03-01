@@ -6,11 +6,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ctrl/ctrl.png',
+        url: './static/assets/ctrl/ctrl.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ctrl/ctrl.json',
+        url: './static/assets/ctrl/ctrl.json',
       },
     },
     preload: true,
@@ -21,11 +21,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/bg/tile.png',
+        url: './static/assets/bg/tile.png',
       },
       json: {
         type: 'json',
-        url: './static/images/bg/tile.json',
+        url: './static/assets/bg/tile.json',
       },
     },
     preload: true,
@@ -36,11 +36,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/idle_top.png',
+        url: './static/assets/player/idle_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/idle_top.json',
+        url: './static/assets/player/idle_top.json',
       },
     },
     preload: true,
@@ -51,11 +51,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/idle_bottom.png',
+        url: './static/assets/player/idle_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/idle_bottom.json',
+        url: './static/assets/player/idle_bottom.json',
       },
     },
     preload: true,
@@ -66,11 +66,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/idle_left.png',
+        url: './static/assets/player/idle_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/idle_left.json',
+        url: './static/assets/player/idle_left.json',
       },
     },
     preload: true,
@@ -81,11 +81,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/idle_right.png',
+        url: './static/assets/player/idle_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/idle_right.json',
+        url: './static/assets/player/idle_right.json',
       },
     },
     preload: true,
@@ -96,11 +96,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/turn_left_top.png',
+        url: './static/assets/player/turn_left_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/turn_left_top.json',
+        url: './static/assets/player/turn_left_top.json',
       },
     },
     preload: true,
@@ -111,11 +111,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/turn_left_bottom.png',
+        url: './static/assets/player/turn_left_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/turn_left_bottom.json',
+        url: './static/assets/player/turn_left_bottom.json',
       },
     },
     preload: true,
@@ -126,11 +126,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/turn_left_left.png',
+        url: './static/assets/player/turn_left_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/turn_left_left.json',
+        url: './static/assets/player/turn_left_left.json',
       },
     },
     preload: true,
@@ -141,11 +141,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/turn_left_right.png',
+        url: './static/assets/player/turn_left_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/turn_left_right.json',
+        url: './static/assets/player/turn_left_right.json',
       },
     },
     preload: true,
@@ -156,11 +156,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/turn_right_top.png',
+        url: './static/assets/player/turn_right_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/turn_right_top.json',
+        url: './static/assets/player/turn_right_top.json',
       },
     },
     preload: true,
@@ -171,11 +171,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/turn_right_bottom.png',
+        url: './static/assets/player/turn_right_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/turn_right_bottom.json',
+        url: './static/assets/player/turn_right_bottom.json',
       },
     },
     preload: true,
@@ -186,11 +186,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/turn_right_left.png',
+        url: './static/assets/player/turn_right_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/turn_right_left.json',
+        url: './static/assets/player/turn_right_left.json',
       },
     },
     preload: true,
@@ -201,11 +201,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/turn_right_right.png',
+        url: './static/assets/player/turn_right_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/turn_right_right.json',
+        url: './static/assets/player/turn_right_right.json',
       },
     },
     preload: true,
@@ -216,11 +216,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_front_top.png',
+        url: './static/assets/player/block_front_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_front_top.json',
+        url: './static/assets/player/block_front_top.json',
       },
     },
     preload: true,
@@ -231,11 +231,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_front_bottom.png',
+        url: './static/assets/player/block_front_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_front_bottom.json',
+        url: './static/assets/player/block_front_bottom.json',
       },
     },
     preload: true,
@@ -246,11 +246,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_front_left.png',
+        url: './static/assets/player/block_front_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_front_left.json',
+        url: './static/assets/player/block_front_left.json',
       },
     },
     preload: true,
@@ -261,11 +261,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_front_right.png',
+        url: './static/assets/player/block_front_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_front_right.json',
+        url: './static/assets/player/block_front_right.json',
       },
     },
     preload: true,
@@ -276,11 +276,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_back_top.png',
+        url: './static/assets/player/block_back_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_back_top.json',
+        url: './static/assets/player/block_back_top.json',
       },
     },
     preload: true,
@@ -291,11 +291,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_back_bottom.png',
+        url: './static/assets/player/block_back_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_back_bottom.json',
+        url: './static/assets/player/block_back_bottom.json',
       },
     },
     preload: true,
@@ -306,11 +306,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_back_left.png',
+        url: './static/assets/player/block_back_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_back_left.json',
+        url: './static/assets/player/block_back_left.json',
       },
     },
     preload: true,
@@ -321,11 +321,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_back_right.png',
+        url: './static/assets/player/block_back_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_back_right.json',
+        url: './static/assets/player/block_back_right.json',
       },
     },
     preload: true,
@@ -336,11 +336,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_left_top.png',
+        url: './static/assets/player/block_left_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_left_top.json',
+        url: './static/assets/player/block_left_top.json',
       },
     },
     preload: true,
@@ -351,11 +351,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_left_bottom.png',
+        url: './static/assets/player/block_left_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_left_bottom.json',
+        url: './static/assets/player/block_left_bottom.json',
       },
     },
     preload: true,
@@ -366,11 +366,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_left_left.png',
+        url: './static/assets/player/block_left_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_left_left.json',
+        url: './static/assets/player/block_left_left.json',
       },
     },
     preload: true,
@@ -381,11 +381,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_left_right.png',
+        url: './static/assets/player/block_left_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_left_right.json',
+        url: './static/assets/player/block_left_right.json',
       },
     },
     preload: true,
@@ -396,11 +396,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_right_top.png',
+        url: './static/assets/player/block_right_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_right_top.json',
+        url: './static/assets/player/block_right_top.json',
       },
     },
     preload: true,
@@ -411,11 +411,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_right_bottom.png',
+        url: './static/assets/player/block_right_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_right_bottom.json',
+        url: './static/assets/player/block_right_bottom.json',
       },
     },
     preload: true,
@@ -426,11 +426,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_right_left.png',
+        url: './static/assets/player/block_right_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_right_left.json',
+        url: './static/assets/player/block_right_left.json',
       },
     },
     preload: true,
@@ -441,11 +441,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_right_right.png',
+        url: './static/assets/player/block_right_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_right_right.json',
+        url: './static/assets/player/block_right_right.json',
       },
     },
     preload: true,
@@ -456,11 +456,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_turn_left_top.png',
+        url: './static/assets/player/block_turn_left_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_turn_left_top.json',
+        url: './static/assets/player/block_turn_left_top.json',
       },
     },
     preload: true,
@@ -471,11 +471,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_turn_left_bottom.png',
+        url: './static/assets/player/block_turn_left_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_turn_left_bottom.json',
+        url: './static/assets/player/block_turn_left_bottom.json',
       },
     },
     preload: true,
@@ -486,11 +486,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_turn_left_left.png',
+        url: './static/assets/player/block_turn_left_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_turn_left_left.json',
+        url: './static/assets/player/block_turn_left_left.json',
       },
     },
     preload: true,
@@ -501,11 +501,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_turn_left_right.png',
+        url: './static/assets/player/block_turn_left_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_turn_left_right.json',
+        url: './static/assets/player/block_turn_left_right.json',
       },
     },
     preload: true,
@@ -516,11 +516,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_turn_right_top.png',
+        url: './static/assets/player/block_turn_right_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_turn_right_top.json',
+        url: './static/assets/player/block_turn_right_top.json',
       },
     },
     preload: true,
@@ -531,11 +531,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_turn_right_bottom.png',
+        url: './static/assets/player/block_turn_right_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_turn_right_bottom.json',
+        url: './static/assets/player/block_turn_right_bottom.json',
       },
     },
     preload: true,
@@ -546,11 +546,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_turn_right_left.png',
+        url: './static/assets/player/block_turn_right_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_turn_right_left.json',
+        url: './static/assets/player/block_turn_right_left.json',
       },
     },
     preload: true,
@@ -561,11 +561,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/block_turn_right_right.png',
+        url: './static/assets/player/block_turn_right_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/block_turn_right_right.json',
+        url: './static/assets/player/block_turn_right_right.json',
       },
     },
     preload: true,
@@ -576,11 +576,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/attack_top.png',
+        url: './static/assets/player/attack_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/attack_top.json',
+        url: './static/assets/player/attack_top.json',
       },
     },
     preload: true,
@@ -591,11 +591,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/attack_bottom.png',
+        url: './static/assets/player/attack_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/attack_bottom.json',
+        url: './static/assets/player/attack_bottom.json',
       },
     },
     preload: true,
@@ -606,11 +606,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/attack_left.png',
+        url: './static/assets/player/attack_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/attack_left.json',
+        url: './static/assets/player/attack_left.json',
       },
     },
     preload: true,
@@ -621,11 +621,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/attack_right.png',
+        url: './static/assets/player/attack_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/attack_right.json',
+        url: './static/assets/player/attack_right.json',
       },
     },
     preload: true,
@@ -636,11 +636,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/death_top.png',
+        url: './static/assets/player/death_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/death_top.json',
+        url: './static/assets/player/death_top.json',
       },
     },
     preload: true,
@@ -651,11 +651,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/death_bottom.png',
+        url: './static/assets/player/death_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/death_bottom.json',
+        url: './static/assets/player/death_bottom.json',
       },
     },
     preload: true,
@@ -666,11 +666,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/death_left.png',
+        url: './static/assets/player/death_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/death_left.json',
+        url: './static/assets/player/death_left.json',
       },
     },
     preload: true,
@@ -681,11 +681,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/death_right.png',
+        url: './static/assets/player/death_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/death_right.json',
+        url: './static/assets/player/death_right.json',
       },
     },
     preload: true,
@@ -696,11 +696,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/air_death_top.png',
+        url: './static/assets/player/air_death_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/air_death_top.json',
+        url: './static/assets/player/air_death_top.json',
       },
     },
     preload: true,
@@ -711,11 +711,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/air_death_bottom.png',
+        url: './static/assets/player/air_death_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/air_death_bottom.json',
+        url: './static/assets/player/air_death_bottom.json',
       },
     },
     preload: true,
@@ -726,11 +726,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/air_death_left.png',
+        url: './static/assets/player/air_death_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/air_death_left.json',
+        url: './static/assets/player/air_death_left.json',
       },
     },
     preload: true,
@@ -741,11 +741,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/player/air_death_right.png',
+        url: './static/assets/player/air_death_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/player/air_death_right.json',
+        url: './static/assets/player/air_death_right.json',
       },
     },
     preload: true,
@@ -756,11 +756,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/idle_top.png',
+        url: './static/assets/woodenskeleton/idle_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/idle_top.json',
+        url: './static/assets/woodenskeleton/idle_top.json',
       },
     },
     preload: true,
@@ -771,11 +771,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/idle_bottom.png',
+        url: './static/assets/woodenskeleton/idle_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/idle_bottom.json',
+        url: './static/assets/woodenskeleton/idle_bottom.json',
       },
     },
     preload: true,
@@ -786,11 +786,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/idle_left.png',
+        url: './static/assets/woodenskeleton/idle_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/idle_left.json',
+        url: './static/assets/woodenskeleton/idle_left.json',
       },
     },
     preload: true,
@@ -801,11 +801,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/idle_right.png',
+        url: './static/assets/woodenskeleton/idle_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/idle_right.json',
+        url: './static/assets/woodenskeleton/idle_right.json',
       },
     },
     preload: true,
@@ -816,11 +816,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/attack_top.png',
+        url: './static/assets/woodenskeleton/attack_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/attack_top.json',
+        url: './static/assets/woodenskeleton/attack_top.json',
       },
     },
     preload: true,
@@ -831,11 +831,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/attack_bottom.png',
+        url: './static/assets/woodenskeleton/attack_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/attack_bottom.json',
+        url: './static/assets/woodenskeleton/attack_bottom.json',
       },
     },
     preload: true,
@@ -846,11 +846,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/attack_left.png',
+        url: './static/assets/woodenskeleton/attack_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/attack_left.json',
+        url: './static/assets/woodenskeleton/attack_left.json',
       },
     },
     preload: true,
@@ -861,11 +861,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/attack_right.png',
+        url: './static/assets/woodenskeleton/attack_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/attack_right.json',
+        url: './static/assets/woodenskeleton/attack_right.json',
       },
     },
     preload: true,
@@ -876,11 +876,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/death_top.png',
+        url: './static/assets/woodenskeleton/death_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/death_top.json',
+        url: './static/assets/woodenskeleton/death_top.json',
       },
     },
     preload: true,
@@ -891,11 +891,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/death_bottom.png',
+        url: './static/assets/woodenskeleton/death_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/death_bottom.json',
+        url: './static/assets/woodenskeleton/death_bottom.json',
       },
     },
     preload: true,
@@ -906,11 +906,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/death_left.png',
+        url: './static/assets/woodenskeleton/death_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/death_left.json',
+        url: './static/assets/woodenskeleton/death_left.json',
       },
     },
     preload: true,
@@ -921,11 +921,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/woodenskeleton/death_right.png',
+        url: './static/assets/woodenskeleton/death_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/woodenskeleton/death_right.json',
+        url: './static/assets/woodenskeleton/death_right.json',
       },
     },
     preload: true,
@@ -936,11 +936,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ironskeleton/idle_top.png',
+        url: './static/assets/ironskeleton/idle_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ironskeleton/idle_top.json',
+        url: './static/assets/ironskeleton/idle_top.json',
       },
     },
     preload: true,
@@ -951,11 +951,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ironskeleton/idle_bottom.png',
+        url: './static/assets/ironskeleton/idle_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ironskeleton/idle_bottom.json',
+        url: './static/assets/ironskeleton/idle_bottom.json',
       },
     },
     preload: true,
@@ -966,11 +966,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ironskeleton/idle_left.png',
+        url: './static/assets/ironskeleton/idle_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ironskeleton/idle_left.json',
+        url: './static/assets/ironskeleton/idle_left.json',
       },
     },
     preload: true,
@@ -981,11 +981,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ironskeleton/idle_right.png',
+        url: './static/assets/ironskeleton/idle_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ironskeleton/idle_right.json',
+        url: './static/assets/ironskeleton/idle_right.json',
       },
     },
     preload: true,
@@ -996,11 +996,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ironskeleton/death_top.png',
+        url: './static/assets/ironskeleton/death_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ironskeleton/death_top.json',
+        url: './static/assets/ironskeleton/death_top.json',
       },
     },
     preload: true,
@@ -1011,11 +1011,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ironskeleton/death_bottom.png',
+        url: './static/assets/ironskeleton/death_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ironskeleton/death_bottom.json',
+        url: './static/assets/ironskeleton/death_bottom.json',
       },
     },
     preload: true,
@@ -1026,11 +1026,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ironskeleton/death_left.png',
+        url: './static/assets/ironskeleton/death_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ironskeleton/death_left.json',
+        url: './static/assets/ironskeleton/death_left.json',
       },
     },
     preload: true,
@@ -1041,11 +1041,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/ironskeleton/death_right.png',
+        url: './static/assets/ironskeleton/death_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/ironskeleton/death_right.json',
+        url: './static/assets/ironskeleton/death_right.json',
       },
     },
     preload: true,
@@ -1056,11 +1056,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/door/idle_top.png',
+        url: './static/assets/door/idle_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/door/idle_top.json',
+        url: './static/assets/door/idle_top.json',
       },
     },
     preload: true,
@@ -1071,11 +1071,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/door/idle_left.png',
+        url: './static/assets/door/idle_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/door/idle_left.json',
+        url: './static/assets/door/idle_left.json',
       },
     },
     preload: true,
@@ -1086,11 +1086,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/door/death.png',
+        url: './static/assets/door/death.png',
       },
       json: {
         type: 'json',
-        url: './static/images/door/death.json',
+        url: './static/assets/door/death.json',
       },
     },
     preload: true,
@@ -1101,11 +1101,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/smoke/idle_top.png',
+        url: './static/assets/smoke/idle_top.png',
       },
       json: {
         type: 'json',
-        url: './static/images/smoke/idle_top.json',
+        url: './static/assets/smoke/idle_top.json',
       },
     },
     preload: true,
@@ -1116,11 +1116,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/smoke/idle_bottom.png',
+        url: './static/assets/smoke/idle_bottom.png',
       },
       json: {
         type: 'json',
-        url: './static/images/smoke/idle_bottom.json',
+        url: './static/assets/smoke/idle_bottom.json',
       },
     },
     preload: true,
@@ -1131,11 +1131,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/smoke/idle_left.png',
+        url: './static/assets/smoke/idle_left.png',
       },
       json: {
         type: 'json',
-        url: './static/images/smoke/idle_left.json',
+        url: './static/assets/smoke/idle_left.json',
       },
     },
     preload: true,
@@ -1146,11 +1146,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/smoke/idle_right.png',
+        url: './static/assets/smoke/idle_right.png',
       },
       json: {
         type: 'json',
-        url: './static/images/smoke/idle_right.json',
+        url: './static/assets/smoke/idle_right.json',
       },
     },
     preload: true,
@@ -1161,11 +1161,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/door/death.png',
+        url: './static/assets/door/death.png',
       },
       json: {
         type: 'json',
-        url: './static/images/door/death.json',
+        url: './static/assets/door/death.json',
       },
     },
     preload: true,
@@ -1176,11 +1176,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/burst/idle.png',
+        url: './static/assets/burst/idle.png',
       },
       json: {
         type: 'json',
-        url: './static/images/burst/idle.json',
+        url: './static/assets/burst/idle.json',
       },
     },
     preload: true,
@@ -1191,11 +1191,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/burst/attack.png',
+        url: './static/assets/burst/attack.png',
       },
       json: {
         type: 'json',
-        url: './static/images/burst/attack.json',
+        url: './static/assets/burst/attack.json',
       },
     },
     preload: true,
@@ -1206,11 +1206,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/burst/death.png',
+        url: './static/assets/burst/death.png',
       },
       json: {
         type: 'json',
-        url: './static/images/burst/death.json',
+        url: './static/assets/burst/death.json',
       },
     },
     preload: true,
@@ -1221,11 +1221,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/one_zero.png',
+        url: './static/assets/spikes/one_zero.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/one_zero.json',
+        url: './static/assets/spikes/one_zero.json',
       },
     },
     preload: true,
@@ -1236,11 +1236,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/one_one.png',
+        url: './static/assets/spikes/one_one.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/one_one.json',
+        url: './static/assets/spikes/one_one.json',
       },
     },
     preload: true,
@@ -1251,11 +1251,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/one_two.png',
+        url: './static/assets/spikes/one_two.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/one_two.json',
+        url: './static/assets/spikes/one_two.json',
       },
     },
     preload: true,
@@ -1266,11 +1266,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/two_zero.png',
+        url: './static/assets/spikes/two_zero.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/two_zero.json',
+        url: './static/assets/spikes/two_zero.json',
       },
     },
     preload: true,
@@ -1281,11 +1281,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/two_one.png',
+        url: './static/assets/spikes/two_one.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/two_one.json',
+        url: './static/assets/spikes/two_one.json',
       },
     },
     preload: true,
@@ -1296,11 +1296,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/two_two.png',
+        url: './static/assets/spikes/two_two.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/two_two.json',
+        url: './static/assets/spikes/two_two.json',
       },
     },
     preload: true,
@@ -1311,11 +1311,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/two_three.png',
+        url: './static/assets/spikes/two_three.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/two_three.json',
+        url: './static/assets/spikes/two_three.json',
       },
     },
     preload: true,
@@ -1326,11 +1326,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/three_zero.png',
+        url: './static/assets/spikes/three_zero.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/three_zero.json',
+        url: './static/assets/spikes/three_zero.json',
       },
     },
     preload: true,
@@ -1341,11 +1341,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/three_one.png',
+        url: './static/assets/spikes/three_one.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/three_one.json',
+        url: './static/assets/spikes/three_one.json',
       },
     },
     preload: true,
@@ -1356,11 +1356,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/three_two.png',
+        url: './static/assets/spikes/three_two.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/three_two.json',
+        url: './static/assets/spikes/three_two.json',
       },
     },
     preload: true,
@@ -1371,11 +1371,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/three_three.png',
+        url: './static/assets/spikes/three_three.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/three_three.json',
+        url: './static/assets/spikes/three_three.json',
       },
     },
     preload: true,
@@ -1386,11 +1386,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/three_four.png',
+        url: './static/assets/spikes/three_four.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/three_four.json',
+        url: './static/assets/spikes/three_four.json',
       },
     },
     preload: true,
@@ -1401,11 +1401,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/four_zero.png',
+        url: './static/assets/spikes/four_zero.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/four_zero.json',
+        url: './static/assets/spikes/four_zero.json',
       },
     },
     preload: true,
@@ -1416,11 +1416,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/four_one.png',
+        url: './static/assets/spikes/four_one.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/four_one.json',
+        url: './static/assets/spikes/four_one.json',
       },
     },
     preload: true,
@@ -1431,11 +1431,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/four_two.png',
+        url: './static/assets/spikes/four_two.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/four_two.json',
+        url: './static/assets/spikes/four_two.json',
       },
     },
     preload: true,
@@ -1446,11 +1446,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/four_three.png',
+        url: './static/assets/spikes/four_three.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/four_three.json',
+        url: './static/assets/spikes/four_three.json',
       },
     },
     preload: true,
@@ -1461,11 +1461,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/four_four.png',
+        url: './static/assets/spikes/four_four.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/four_four.json',
+        url: './static/assets/spikes/four_four.json',
       },
     },
     preload: true,
@@ -1476,44 +1476,11 @@ export default [
     src: {
       image: {
         type: 'png',
-        url: './static/images/spikes/four_five.png',
+        url: './static/assets/spikes/four_five.png',
       },
       json: {
         type: 'json',
-        url: './static/images/spikes/four_five.json',
-      },
-    },
-    preload: true,
-  },
-  {
-    name: 'bg',
-    type: RESOURCE_TYPE.AUDIO,
-    src: {
-      audio: {
-        type: 'audio',
-        url: './static/audios/bg.mp3',
-      },
-    },
-    preload: true,
-  },
-  {
-    name: 'door',
-    type: RESOURCE_TYPE.AUDIO,
-    src: {
-      audio: {
-        type: 'audio',
-        url: './static/audios/door.mp3',
-      },
-    },
-    preload: true,
-  },
-  {
-    name: 'shake',
-    type: RESOURCE_TYPE.AUDIO,
-    src: {
-      audio: {
-        type: 'audio',
-        url: './static/audios/shake.mp3',
+        url: './static/assets/spikes/four_five.json',
       },
     },
     preload: true,

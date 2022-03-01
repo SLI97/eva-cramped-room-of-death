@@ -1,5 +1,5 @@
 import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENEMY_TYPE_ENUM, PLAYER_STATE } from '../Enum';
-import { IBurst, IDoor, IEnemy, IPlayer, ISpikes } from './index';
+import { IBurst, IDoor, IEnemy, ILevel, IPlayer, ISpikes } from './index';
 
 const mapInfo = [
   [
@@ -360,7 +360,7 @@ const door: IDoor = {
   type: ENEMY_TYPE_ENUM.DOOR,
 };
 
-const level9 = {
+const level: ILevel = {
   mapInfo,
   player,
   enemies,
@@ -369,4 +369,4 @@ const level9 = {
   door,
 };
 
-export { level9 };
+export default level;

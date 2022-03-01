@@ -8,7 +8,7 @@ import { Render } from '@eva/plugin-renderer-render';
 
 export default class WoodenSkeletonManager extends EnemyManager {
   init(enemy: IEnemy) {
-    this.gameObject.addComponent(new WoodenSkeletonStateMachine());
+    this.fsm = this.gameObject.addComponent(new WoodenSkeletonStateMachine());
     this.gameObject.addComponent(
       new Render(
         new Render({
