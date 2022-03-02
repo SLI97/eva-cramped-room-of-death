@@ -1,7 +1,6 @@
 import StateMachine from '../../../../../Base/StateMachine';
 import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME } from '../../../../../Enum';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
-import { Render } from '@eva/plugin-renderer-render';
 import State from '../../../../../Base/State';
 
 /***
@@ -15,11 +14,6 @@ export default class BurstStateMachine extends StateMachine {
         forwards: true,
         resource: 'burst_idle',
         speed: 1000 / 8,
-      }),
-    );
-    this.gameObject.addComponent(
-      new Render({
-        zIndex: 0,
       }),
     );
 

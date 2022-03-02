@@ -5,18 +5,20 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../index';
 import Controller from './GameObjects/Controller/Controller';
 import Footer from './GameObjects/Footer/index';
 import { Render } from '@eva/plugin-renderer-render';
-import Fader from './GameObjects/Fader/Fader';
 import Menu from './GameObjects/Menu/Menu';
-import Mask from './GameObjects/Mask/Mask';
+import FaderManager from '../../Runtime/FaderManager';
 
 /***
  * 游戏主场景
  * @constructor
  */
-const Battle = () => {
-  const scene = new Scene('battle');
-  scene.transform.size.width = SCREEN_WIDTH;
-  scene.transform.size.height = SCREEN_HEIGHT;
+const BattleScene = () => {
+  const scene = new Scene('BattleScene', {
+    size: {
+      width: SCREEN_WIDTH,
+      height: SCREEN_HEIGHT,
+    },
+  });
 
   scene.addComponent(
     new Render({
@@ -24,27 +26,26 @@ const Battle = () => {
     }),
   );
 
-  scene.addChild(Fader());
   scene.addChild(BackgroundColor());
 
-  const container = new GameObject('container');
-
-  container.addComponent(new BattleManager());
-  container.addComponent(
+  const stage = new GameObject('stage');
+  stage.addComponent(
     new Render({
       sortableChildren: true,
     }),
   );
-  scene.addChild(container);
+  stage.addComponent(new BattleManager());
 
+  scene.addChild(stage);
   scene.addChild(Controller());
   scene.addChild(Menu());
   scene.addChild(Footer());
+  scene.addChild(FaderManager.Instance.createFader());
 
   //当Battle加载完成，才去掉mask，防止场景的物体和fader闪烁的问题
-  scene.addChild(Mask(scene));
+  // scene.addChild(Mask(scene));
 
   return scene;
 };
 
-export default Battle;
+export default BattleScene;

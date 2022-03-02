@@ -1,5 +1,5 @@
-import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENEMY_TYPE_ENUM, PLAYER_STATE } from '../Enum';
-import { IBurst, IDoor, IEnemy, ILevel, IPlayer, ISpikes } from './index';
+import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, PLAYER_STATE, TILE_TYPE_ENUM } from '../Enum';
+import { IEntity, ILevel, ISpikes } from './index';
 
 const mapInfo = [
   [
@@ -344,78 +344,84 @@ const mapInfo = [
   ],
 ];
 
-const player: IPlayer = {
+const player: IEntity = {
   x: 0,
   y: 4,
   direction: DIRECTION_ENUM.RIGHT,
   state: PLAYER_STATE.IDLE,
+  type: ENTITY_TYPE_ENUM.PLAYER,
 };
 
-const enemies: Array<IEnemy> = [
+const enemies: Array<IEntity> = [
   {
     x: 9,
     y: 1,
     direction: DIRECTION_ENUM.LEFT,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.SKELETON_WOODEN,
+    type: ENTITY_TYPE_ENUM.SKELETON_WOODEN,
   },
   {
     x: 9,
     y: 3,
     direction: DIRECTION_ENUM.LEFT,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.SKELETON_IRON,
+    type: ENTITY_TYPE_ENUM.SKELETON_IRON,
   },
   {
     x: 9,
     y: 4,
     direction: DIRECTION_ENUM.LEFT,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.SKELETON_IRON,
+    type: ENTITY_TYPE_ENUM.SKELETON_IRON,
   },
 ];
 
 const spikes: Array<ISpikes> = [];
 
-const bursts: Array<IBurst> = [
+const bursts: Array<IEntity> = [
   {
     x: 1,
     y: 2,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.BURST_FLOOR,
+    type: ENTITY_TYPE_ENUM.BURST,
+    direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 1,
     y: 3,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.BURST_FLOOR,
+    type: ENTITY_TYPE_ENUM.BURST,
+    direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 2,
     y: 3,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.BURST_FLOOR,
+    type: ENTITY_TYPE_ENUM.BURST,
+    direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 2,
     y: 4,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.BURST_FLOOR,
+    type: ENTITY_TYPE_ENUM.BURST,
+    direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 7,
     y: 4,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.BURST_FLOOR,
+    type: ENTITY_TYPE_ENUM.BURST,
+    direction: DIRECTION_ENUM.TOP,
   },
 ];
 
-const door: IDoor = {
+const door: IEntity = {
   x: 9,
   y: 0,
   direction: DIRECTION_ENUM.BOTTOM,
   state: PLAYER_STATE.IDLE,
-  type: ENEMY_TYPE_ENUM.DOOR,
+  type: ENTITY_TYPE_ENUM.DOOR,
 };
 
 const level: ILevel = {

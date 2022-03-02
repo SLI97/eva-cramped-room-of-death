@@ -1,4 +1,4 @@
-import { IDoor } from '../../../../../Levels';
+import { IEntity } from '../../../../../Levels';
 import EntityManager from '../../../../../Base/EntityManager';
 import DataManager from '../../../../../Runtime/DataManager';
 import { EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../../../../Enum';
@@ -7,12 +7,12 @@ import BurstStateMachine from './BurstStateMachine';
 import { TILE_HEIGHT, TILE_WIDTH } from '../../Tile/Tile';
 
 /***
- * 关卡门类
+ * 地裂类
  */
 export default class BurstManager extends EntityManager {
-  init(door: IDoor) {
+  init(burst: IEntity) {
     this.fsm = this.gameObject.addComponent(new BurstStateMachine());
-    super.init(door);
+    super.init(burst);
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onBurst, this);
   }
 

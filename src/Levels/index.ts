@@ -19,7 +19,8 @@ import level18 from './level18';
 import level19 from './level19';
 import level20 from './level20';
 import level21 from './level21';
-import { DIRECTION_ENUM, ENEMY_TYPE_ENUM, PLAYER_STATE, TILE_TYPE_ENUM } from '../Enum';
+import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, PLAYER_STATE, TILE_TYPE_ENUM } from '../Enum';
+import { SPIKES_TYPE_ENUM } from '../Scenes/Battle/GameObjects/Spikes/Scripts/SpikesManager';
 
 export interface ITile {
   src: number | null;
@@ -28,56 +29,26 @@ export interface ITile {
 
 export interface ILevel {
   mapInfo: Array<Array<ITile>>;
-  player: IPlayer;
-  enemies: Array<IEnemy>;
+  player: IEntity;
+  enemies: Array<IEntity>;
   spikes: Array<ISpikes>;
-  bursts: Array<IBurst>;
-  door: IDoor;
+  bursts: Array<IEntity>;
+  door: IEntity;
 }
 
-export interface IPlayer {
+export interface IEntity {
   x: number;
   y: number;
   direction: DIRECTION_ENUM;
   state: PLAYER_STATE;
-}
-
-export interface IEnemy {
-  x: number;
-  y: number;
-  direction: DIRECTION_ENUM;
-  state: PLAYER_STATE;
-  type: ENEMY_TYPE_ENUM;
+  type: ENTITY_TYPE_ENUM;
 }
 
 export interface ISpikes {
   x: number;
   y: number;
-  type: ENEMY_TYPE_ENUM;
+  type: SPIKES_TYPE_ENUM;
   count: number;
-}
-
-export interface IBurst {
-  x: number;
-  y: number;
-  state: PLAYER_STATE;
-  type: ENEMY_TYPE_ENUM;
-}
-
-export interface IDoor {
-  x: number;
-  y: number;
-  direction: DIRECTION_ENUM;
-  state: PLAYER_STATE;
-  type?: ENEMY_TYPE_ENUM;
-}
-
-export interface ISmoke {
-  x: number;
-  y: number;
-  direction: DIRECTION_ENUM;
-  state: PLAYER_STATE;
-  // type: ENEMY_TYPE_ENUM;
 }
 
 const levels: Record<string, ILevel> = {

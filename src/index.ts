@@ -13,6 +13,7 @@ import StartScene from './Scenes/Start';
 import DataManager from './Runtime/DataManager';
 import { StatsSystem } from '@eva/plugin-stats';
 import { isMobile } from './Utils';
+import FaderManager from './Runtime/FaderManager';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -44,6 +45,7 @@ export const game = new Game({
 
 game.ticker.add(() => {
   DataManager.Instance.frame++;
+  FaderManager.Instance.update();
 });
 
 game.loadScene({
@@ -66,5 +68,3 @@ if (isDev) {
 
   window.game = game;
 }
-
-// import  './test.ts'

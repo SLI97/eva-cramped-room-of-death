@@ -1,6 +1,7 @@
 import { GameObject } from '@eva/eva.js';
 import { ISpikes } from '../../../../Levels';
 import SpikesManager from './Scripts/SpikesManager';
+import { Render } from '@eva/plugin-renderer-render';
 
 export const SPIKES_WIDTH = 128;
 export const SPIKES_HEIGHT = 128;
@@ -15,6 +16,7 @@ const Spikes = (spikes: ISpikes) => {
     size: { width: SPIKES_WIDTH, height: SPIKES_HEIGHT },
   });
 
+  go.addComponent(new Render());
   go.addComponent(new SpikesManager(spikes));
 
   return go;

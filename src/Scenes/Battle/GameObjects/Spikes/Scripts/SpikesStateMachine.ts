@@ -1,7 +1,6 @@
 import StateMachine from '../../../../../Base/StateMachine';
-import { FSM_PARAM_TYPE_ENUM, PARAMS_NAME, ENEMY_TYPE_ENUM, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
+import { FSM_PARAM_TYPE_ENUM, PARAMS_NAME, ENTITY_TYPE_ENUM, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
-import { Render } from '@eva/plugin-renderer-render';
 import SpikesOneSubStateMachine from './SpikesOneSubStateMachine';
 import SpikesTwoSubStateMachine from './SpikesTwoSubStateMachine';
 import SpikesThreeSubStateMachine from './SpikesThreeSubStateMachine';
@@ -21,20 +20,15 @@ export default class SpikesStateMachine extends StateMachine {
         speed: 1000 / 8,
       }),
     );
-    this.gameObject.addComponent(
-      new Render({
-        zIndex: 0,
-      }),
-    );
 
     this.initParams();
   }
 
   start() {
-    this.states.set(ENEMY_TYPE_ENUM.SPIKES_ONE, new SpikesOneSubStateMachine(this.gameObject));
-    this.states.set(ENEMY_TYPE_ENUM.SPIKES_TWO, new SpikesTwoSubStateMachine(this.gameObject));
-    this.states.set(ENEMY_TYPE_ENUM.SPIKES_THREE, new SpikesThreeSubStateMachine(this.gameObject));
-    this.states.set(ENEMY_TYPE_ENUM.SPIKES_FOUR, new SpikesFourSubStateMachine(this.gameObject));
+    this.states.set(ENTITY_TYPE_ENUM.SPIKES_ONE, new SpikesOneSubStateMachine(this.gameObject));
+    this.states.set(ENTITY_TYPE_ENUM.SPIKES_TWO, new SpikesTwoSubStateMachine(this.gameObject));
+    this.states.set(ENTITY_TYPE_ENUM.SPIKES_THREE, new SpikesThreeSubStateMachine(this.gameObject));
+    this.states.set(ENTITY_TYPE_ENUM.SPIKES_FOUR, new SpikesFourSubStateMachine(this.gameObject));
 
     const value = this.params.get(PARAMS_NAME.SPIKES_TYPE).value;
     this.currentState = this.states.get(SPIKES_TYPE_TOTAL_POINT[value as number]);
@@ -70,47 +64,47 @@ export default class SpikesStateMachine extends StateMachine {
   update() {
     // const currentState = this.currentState;
     // switch (currentState) {
-    //   case this.states.get(ENEMY_TYPE_ENUM.SPIKES_ONE):
+    //   case this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE):
     //     // if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 2) {
-    //     // 	this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_ONE)
+    //     // 	this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE)
     //     // }else
     //     if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 3) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_TWO);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_TWO);
     //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 4) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_THREE);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_THREE);
     //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 5) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_FOUR);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_FOUR);
     //     }
     //     break;
-    //   case this.states.get(ENEMY_TYPE_ENUM.SPIKES_TWO):
+    //   case this.states.get(ENTITY_TYPE_ENUM.SPIKES_TWO):
     //     if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 2) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_ONE);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
     //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 4) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_THREE);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_THREE);
     //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 5) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_FOUR);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_FOUR);
     //     }
     //     break;
-    //   case this.states.get(ENEMY_TYPE_ENUM.SPIKES_THREE):
+    //   case this.states.get(ENTITY_TYPE_ENUM.SPIKES_THREE):
     //     if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 2) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_ONE);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
     //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 3) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_TWO);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_TWO);
     //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 5) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_FOUR);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_FOUR);
     //     }
     //     break;
-    //   case this.states.get(ENEMY_TYPE_ENUM.SPIKES_FOUR):
+    //   case this.states.get(ENTITY_TYPE_ENUM.SPIKES_FOUR):
     //     if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 2) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_ONE);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
     //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 3) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_TWO);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_TWO);
     //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 4) {
-    //       this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_THREE);
+    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_THREE);
     //     }
     //     break;
     //   default:
-    //     this.currentState = this.states.get(ENEMY_TYPE_ENUM.SPIKES_ONE);
+    //     this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
     //     break;
     // }
     super.update();

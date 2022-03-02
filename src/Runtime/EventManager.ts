@@ -2,7 +2,7 @@ import Singleton from '../Base/Singleton';
 
 interface IItem {
   func: Function;
-  ctx: any;
+  ctx: unknown;
 }
 
 /***
@@ -10,17 +10,12 @@ interface IItem {
  */
 export default class EventManager extends Singleton {
   static get Instance() {
-    return super.GetInstance(EventManager);
+    return super.GetInstance<EventManager>();
   }
 
-  eventDic: Map<string, Array<IItem>>;
+  eventDic: Map<string, Array<IItem>> = new Map();
 
-  constructor() {
-    super();
-    this.eventDic = new Map();
-  }
-
-  on(event: string, func: Function, ctx?: any) {
+  on(event: string, func: Function, ctx?: unknown) {
     if (this.eventDic.has(event)) {
       this.eventDic.get(event).push({ func, ctx });
     } else {
@@ -35,7 +30,7 @@ export default class EventManager extends Singleton {
     }
   }
 
-  emit(event: string, ...params: any) {
+  emit(event: string, ...params: unknown[]) {
     if (this.eventDic.has(event)) {
       this.eventDic.get(event).forEach(({ func, ctx }) => {
         ctx ? func.apply(ctx, params) : func(...params);

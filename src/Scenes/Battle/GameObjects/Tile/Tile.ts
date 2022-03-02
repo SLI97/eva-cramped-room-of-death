@@ -13,14 +13,6 @@ const Tile = (type: TILE_TYPE_ENUM, imgSrc: string, i: number, j: number) => {
       x: i * TILE_WIDTH,
       y: j * TILE_HEIGHT,
     },
-    origin: {
-      x: 0,
-      y: 0,
-    },
-    anchor: {
-      x: 0,
-      y: 0,
-    },
   });
 
   go.addComponent(

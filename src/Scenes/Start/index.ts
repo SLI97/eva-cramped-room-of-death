@@ -8,9 +8,17 @@ import MenuScene from '../Menu';
  * @constructor
  */
 const StartScene = () => {
-  const scene = new Scene('menu');
-  scene.transform.size.width = SCREEN_WIDTH;
-  scene.transform.size.height = SCREEN_HEIGHT;
+  const StartX = 60;
+  const StartY = SCREEN_HEIGHT / 2 - 50;
+  const WIDTH = SCREEN_WIDTH - 120;
+  const HEIGHT = 50;
+
+  const scene = new Scene('StartScene', {
+    size: {
+      width: SCREEN_WIDTH,
+      height: SCREEN_HEIGHT,
+    },
+  });
 
   const outer = new GameObject('outer');
   const inner = new GameObject('inner');
@@ -18,7 +26,7 @@ const StartScene = () => {
   const innerGraphics = inner.addComponent(new Graphics());
 
   outterGraphics.graphics.beginFill(0xffffff, 1);
-  outterGraphics.graphics.drawRect(60, SCREEN_HEIGHT / 2 - 50, SCREEN_WIDTH - 120, 50);
+  outterGraphics.graphics.drawRect(StartX, StartY, WIDTH, HEIGHT);
   outterGraphics.graphics.endFill();
 
   scene.addChild(outer);
@@ -28,11 +36,11 @@ const StartScene = () => {
   resource.on(LOAD_EVENT.PROGRESS, e => {
     const percent = e.resourceLoadedCount / e.resourceTotal;
     innerGraphics.graphics.beginFill(0xfeca2f, 1);
-    innerGraphics.graphics.drawRect(60, SCREEN_HEIGHT / 2 - 50, (SCREEN_WIDTH - 120) * percent, 50);
+    innerGraphics.graphics.drawRect(StartX, StartY, WIDTH * percent, HEIGHT);
     innerGraphics.graphics.endFill();
   });
 
-  // 加载完成后，加载菜单场景
+  // 资源加载完成后，加载菜单场景
   resource.on(LOAD_EVENT.COMPLETE, () => {
     game.scene.destroy();
     game.loadScene({
@@ -40,6 +48,7 @@ const StartScene = () => {
     });
   });
 
+  //加载资源
   resource.preload();
 
   return scene;

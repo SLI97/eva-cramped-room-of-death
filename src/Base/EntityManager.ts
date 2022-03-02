@@ -1,9 +1,9 @@
 import { Component } from '@eva/eva.js';
-import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, PLAYER_STATE, PARAMS_NAME } from '../Enum';
+import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, PLAYER_STATE, PARAMS_NAME, ENTITY_TYPE_ENUM } from '../Enum';
 import StateMachine from './StateMachine';
 import { randomByLength } from '../Utils';
-import { IDoor, IEnemy, IPlayer, ISmoke } from '../Levels';
 import { TILE_HEIGHT, TILE_WIDTH } from '../Scenes/Battle/GameObjects/Tile/Tile';
+import { IEntity } from '../Levels';
 
 /***
  * 实体类，实体必须具备方向和状态
@@ -11,14 +11,15 @@ import { TILE_HEIGHT, TILE_WIDTH } from '../Scenes/Battle/GameObjects/Tile/Tile'
 export default class EntityManager extends Component {
   static componentName = 'EntityManager'; // 设置组件的名字
 
-  x: number;
+  id: string = randomByLength(12);
+  x: number; //坐标
   y: number;
-  fsm: StateMachine;
+  type: ENTITY_TYPE_ENUM;
   _state: PLAYER_STATE;
   _direction: DIRECTION_ENUM;
-  id: string = randomByLength(12);
+  fsm: StateMachine;
 
-  init(params: IPlayer | IEnemy | IDoor | ISmoke) {
+  init(params: IEntity) {
     this.x = params.x;
     this.y = params.y;
     this.state = params.state;
@@ -29,8 +30,8 @@ export default class EntityManager extends Component {
    * 更新人物位置，把虚拟坐标（1,1）转为屏幕实际位置
    */
   update() {
-    this.gameObject.transform.position.x = this.x * TILE_WIDTH - 16 * 3;
-    this.gameObject.transform.position.y = this.y * TILE_HEIGHT - 16 * 3;
+    this.gameObject.transform.position.x = this.x * TILE_WIDTH - TILE_WIDTH * 1.5;
+    this.gameObject.transform.position.y = this.y * TILE_HEIGHT - TILE_WIDTH * 1.5;
   }
 
   get direction() {

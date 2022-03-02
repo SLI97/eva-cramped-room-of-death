@@ -3,7 +3,6 @@ import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME } from '../../../../../E
 import IdleSubStateMachine from './IdleSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
-import { Render } from '@eva/plugin-renderer-render';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -18,7 +17,6 @@ export default class DoorStateMachine extends StateMachine {
         speed: 1000,
       }),
     );
-    this.gameObject.addComponent(new Render());
 
     this.initParams();
   }

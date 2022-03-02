@@ -1,7 +1,7 @@
 import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import DataManager from '../../../../../Runtime/DataManager';
-import { IPlayer } from '../../../../../Levels';
+import { IEntity } from '../../../../../Levels';
 import EntityManager from '../../../../../Base/EntityManager';
 import PlayerStateMachine from './PlayerStateMachine';
 import BattleManager from '../../../BattleManager';
@@ -15,7 +15,7 @@ export default class PlayerManager extends EntityManager {
   isMoveEndY: boolean = true;
   speed = 1 / 10;
 
-  init(player: IPlayer) {
+  init(player: IEntity) {
     this.fsm = this.gameObject.addComponent(new PlayerStateMachine());
     super.init(player);
     this.targetX = this.x;

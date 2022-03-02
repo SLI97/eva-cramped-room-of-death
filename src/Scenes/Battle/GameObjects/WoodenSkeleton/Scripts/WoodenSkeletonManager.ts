@@ -1,22 +1,23 @@
-import { IEnemy } from '../../../../../Levels';
+import { IEntity } from '../../../../../Levels';
 import EventManager from '../../../../../Runtime/EventManager';
-import { ENEMY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE } from '../../../../../Enum';
+import { EVENT_ENUM, PLAYER_STATE } from '../../../../../Enum';
 import EnemyManager from '../../../../../Base/EnemyManager';
 import DataManager from '../../../../../Runtime/DataManager';
 import WoodenSkeletonStateMachine from './WoodenSkeletonStateMachine';
-import { Render } from '@eva/plugin-renderer-render';
 
+/***
+ * 木骷髅管理器
+ */
 export default class WoodenSkeletonManager extends EnemyManager {
-  init(enemy: IEnemy) {
+  init(enemy: IEntity) {
     this.fsm = this.gameObject.addComponent(new WoodenSkeletonStateMachine());
-    this.gameObject.addComponent(
-      new Render({
-        zIndex: 1,
-      }),
-    );
     super.init(enemy);
-    this.type = ENEMY_TYPE_ENUM.SKELETON_WOODEN;
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onAttack, this);
+  }
+
+  onDestroy() {
+    super.onDestroy();
+    EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.onAttack);
   }
 
   onAttack() {
@@ -33,10 +34,5 @@ export default class WoodenSkeletonManager extends EnemyManager {
       this.state = PLAYER_STATE.ATTACK;
       EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, PLAYER_STATE.DEATH);
     }
-  }
-
-  onDestroy() {
-    super.onDestroy();
-    EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.onAttack);
   }
 }

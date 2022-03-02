@@ -1,5 +1,5 @@
-import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENEMY_TYPE_ENUM, PLAYER_STATE } from '../Enum';
-import { IBurst, IDoor, IEnemy, ILevel, IPlayer, ISpikes } from './index';
+import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENTITY_TYPE_ENUM, PLAYER_STATE } from '../Enum';
+import { IEntity, ILevel, ISpikes } from './index';
 
 const mapInfo = [
   [
@@ -158,33 +158,34 @@ const mapInfo = [
   ],
 ];
 
-const player: IPlayer = {
+const player: IEntity = {
   x: 1,
   y: 3,
   direction: DIRECTION_ENUM.TOP,
   state: PLAYER_STATE.IDLE,
+  type: ENTITY_TYPE_ENUM.PLAYER,
 };
 
-const enemies: Array<IEnemy> = [
+const enemies: Array<IEntity> = [
   {
     x: 5,
     y: 1,
     direction: DIRECTION_ENUM.LEFT,
     state: PLAYER_STATE.IDLE,
-    type: ENEMY_TYPE_ENUM.SKELETON_WOODEN,
+    type: ENTITY_TYPE_ENUM.SKELETON_WOODEN,
   },
 ];
 
 const spikes: Array<ISpikes> = [];
 
-const bursts: Array<IBurst> = [];
+const bursts: Array<IEntity> = [];
 
-const door: IDoor = {
+const door: IEntity = {
   x: 6,
   y: 1,
   direction: DIRECTION_ENUM.LEFT,
   state: PLAYER_STATE.IDLE,
-  type: ENEMY_TYPE_ENUM.DOOR,
+  type: ENTITY_TYPE_ENUM.DOOR,
 };
 
 const level: ILevel = {

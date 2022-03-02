@@ -1,7 +1,7 @@
 import EntityManager from './EntityManager';
-import { IEnemy } from '../Levels';
+import { IEntity } from '../Levels';
 import EventManager from '../Runtime/EventManager';
-import { ENEMY_TYPE_ENUM, EVENT_ENUM } from '../Enum';
+import { EVENT_ENUM } from '../Enum';
 import { DIRECTION_ENUM, PLAYER_STATE } from '../Enum';
 import DataManager from '../Runtime/DataManager';
 
@@ -9,9 +9,7 @@ import DataManager from '../Runtime/DataManager';
  * 敌人基类，实现面朝人物和死亡
  */
 export default class EnemyManager extends EntityManager {
-  type: ENEMY_TYPE_ENUM;
-
-  init(dto: IEnemy) {
+  init(dto: IEntity) {
     super.init(dto);
     EventManager.Instance.on(EVENT_ENUM.ATTACK_ENEMY, this.onDead, this);
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onChangeDirection, this);

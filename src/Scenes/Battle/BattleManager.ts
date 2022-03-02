@@ -1,13 +1,12 @@
-import { Component, GameObject } from '@eva/eva.js';
+import { Component } from '@eva/eva.js';
 import DataManager, { IRecord } from '../../Runtime/DataManager';
-import Levels, { ILevel, ISmoke } from '../../Levels/index';
-import Background from './GameObjects/Background/Background';
+import Levels, { ILevel } from '../../Levels/index';
 import Player from './GameObjects/Player/Player';
 import { game, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
 import { TILE_HEIGHT, TILE_WIDTH } from './GameObjects/Tile/Tile';
 import Door from './GameObjects/Door/Door';
 import EntityManager from '../../Base/EntityManager';
-import { DIRECTION_ENUM, ENEMY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../Enum';
+import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../Enum';
 import WoodenSkeleton from './GameObjects/WoodenSkeleton/WoodenSkeleton';
 import EventManager from '../../Runtime/EventManager';
 import IronSkeleton from './GameObjects/IronSkeleton/IronSkeleton';
@@ -19,15 +18,17 @@ import Spikes from './GameObjects/Spikes/Spikes';
 import SpikesManager from './GameObjects/Spikes/Scripts/SpikesManager';
 import EnemyManager from '../../Base/EnemyManager';
 import BurstManager from './GameObjects/Burst/Scripts/BurstManager';
+import FaderManager, { DEFAULT_FADE_DURATION } from '../../Runtime/FaderManager';
+import TileMap from './GameObjects/TileMap/TileMap';
+import PlayerManager from './GameObjects/Player/Scripts/PlayerManager';
+import DoorManager from './GameObjects/Door/Scripts/DoorManager';
 
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
-  childrens: Array<GameObject> = [];
   isShaking: boolean;
   shakeType: SHAKE_ENUM;
   oldFrame: number;
   oldOffset: { x: number; y: number } = { x: 0, y: 0 };
-
   level: ILevel;
 
   init() {
@@ -40,65 +41,61 @@ export default class BattleManager extends Component {
     this.initLevel();
   }
 
-  start() {}
-
   onDestroy() {
-    EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.checkFinishCurLevel, this);
-    EventManager.Instance.off(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this);
-    EventManager.Instance.off(EVENT_ENUM.RESTART_LEVEL, this.initLevel, this);
-    EventManager.Instance.off(EVENT_ENUM.SCREEN_SHAKE, this.onShake, this);
-    EventManager.Instance.off(EVENT_ENUM.REVOKE_STEP, this.revoke, this);
-    EventManager.Instance.off(EVENT_ENUM.RECORD_STEP, this.record, this);
+    EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.checkFinishCurLevel);
+    EventManager.Instance.off(EVENT_ENUM.NEXT_LEVEL, this.nextLevel);
+    EventManager.Instance.off(EVENT_ENUM.RESTART_LEVEL, this.initLevel);
+    EventManager.Instance.off(EVENT_ENUM.SCREEN_SHAKE, this.onShake);
+    EventManager.Instance.off(EVENT_ENUM.REVOKE_STEP, this.revoke);
+    EventManager.Instance.off(EVENT_ENUM.RECORD_STEP, this.record);
   }
 
-  initLevel() {
+  async initLevel() {
     const level = Levels['level' + DataManager.Instance.levelIndex];
     if (level) {
-      DataManager.Instance.fm.fadeIn(200).then(() => {
-        this.clearLevel();
-        console.log('level' + DataManager.Instance.levelIndex);
-        // 防止把抖动效果带到下一关，导致下一关错位
-        this.isShaking = false;
-        DataManager.Instance.reset();
-        this.level = level;
-        // //地图信息
-        DataManager.Instance.mapInfo = this.level.mapInfo.concat();
-        DataManager.Instance.mapRowCount = this.level.mapInfo.length || 0;
-        DataManager.Instance.mapColumnCount = this.level.mapInfo[0].length || 0;
+      if (DataManager.Instance.levelIndex === 1) {
+        await FaderManager.Instance.mask();
+      } else {
+        await FaderManager.Instance.fadeIn(DEFAULT_FADE_DURATION);
+      }
+      this.clearLevel();
+      console.log('level' + DataManager.Instance.levelIndex);
+      // 防止把抖动效果带到下一关，导致下一关错位
+      this.isShaking = false;
+      DataManager.Instance.reset();
+      this.level = level;
+      // //地图信息
+      DataManager.Instance.mapInfo = this.level.mapInfo;
+      DataManager.Instance.mapRowCount = this.level.mapInfo.length || 0;
+      DataManager.Instance.mapColumnCount = this.level.mapInfo[0]?.length || 0;
 
-        this.generateBackground();
-        this.generateDoor();
-        this.generateBursts();
-        this.generateSpikes();
-        this.generateEnemy();
-
-        this.generatePlayer();
-        EventManager.Instance.emit(EVENT_ENUM.BATTLE_LOADED);
-
-        this.fixPos();
-        DataManager.Instance.fm.fadeOut(200);
-      });
+      this.generateTileMap();
+      this.generateDoor();
+      this.generateBursts();
+      this.generateSpikes();
+      this.generateEnemies();
+      this.generatePlayer();
+      await FaderManager.Instance.fadeOut(DEFAULT_FADE_DURATION);
     } else {
-      DataManager.Instance.fm.fadeIn(200).then(() => {
-        game.scene.destroy();
-        game.loadScene({
-          scene: MenuScene(),
-        });
+      await FaderManager.Instance.fadeIn(DEFAULT_FADE_DURATION);
+      game.scene.destroy();
+      game.loadScene({
+        scene: MenuScene(),
       });
     }
   }
 
   clearLevel() {
-    this.childrens.forEach(go => {
-      go.destroy();
+    Array.from(this.gameObject.transform.children).forEach(({ gameObject }) => {
+      gameObject.destroy();
     });
-    this.childrens = [];
   }
 
-  generateBackground() {
-    const background = Background();
-    this.gameObject.addChild(background);
-    this.childrens.push(background);
+  generateTileMap() {
+    const map = TileMap();
+    this.gameObject.addChild(map);
+    //根据地图的大小，适配到屏幕中间
+    this.adaptMapPos();
   }
 
   generatePlayer() {
@@ -108,27 +105,24 @@ export default class BattleManager extends Component {
     }
     const player = Player(this.level.player);
     this.gameObject.addChild(player);
-    this.childrens.push(player);
-    DataManager.Instance.player = player.getComponent(EntityManager);
+    DataManager.Instance.player = player.getComponent(EntityManager) as PlayerManager;
   }
 
-  generateEnemy() {
+  generateEnemies() {
     if (!this.level.enemies) {
       DataManager.Instance.enemies = [];
       return;
     }
-    const list = this.level.enemies.map(item => {
+    DataManager.Instance.enemies = this.level.enemies.map(item => {
       let enemy = null;
-      if (item.type === ENEMY_TYPE_ENUM.SKELETON_WOODEN) {
+      if (item.type === ENTITY_TYPE_ENUM.SKELETON_WOODEN) {
         enemy = WoodenSkeleton(item);
-      } else if (item.type === ENEMY_TYPE_ENUM.SKELETON_IRON) {
+      } else if (item.type === ENTITY_TYPE_ENUM.SKELETON_IRON) {
         enemy = IronSkeleton(item);
       }
       this.gameObject.addChild(enemy);
-      this.childrens.push(enemy);
-      return enemy.getComponent(EntityManager);
+      return enemy.getComponent(EntityManager) as EnemyManager;
     });
-    DataManager.Instance.enemies = list;
   }
 
   generateBursts() {
@@ -136,16 +130,11 @@ export default class BattleManager extends Component {
       DataManager.Instance.bursts = [];
       return;
     }
-    const list = this.level.bursts.map(item => {
-      let enemy = null;
-      if (item.type === ENEMY_TYPE_ENUM.BURST_FLOOR) {
-        enemy = Burst(item);
-      }
+    DataManager.Instance.bursts = this.level.bursts.map(item => {
+      const enemy = Burst(item);
       this.gameObject.addChild(enemy);
-      this.childrens.push(enemy);
-      return enemy.getComponent(EntityManager);
+      return enemy.getComponent(EntityManager) as BurstManager;
     });
-    DataManager.Instance.bursts = list;
   }
 
   generateSpikes() {
@@ -153,13 +142,11 @@ export default class BattleManager extends Component {
       DataManager.Instance.spikes = [];
       return;
     }
-    const list = this.level.spikes.map(item => {
+    DataManager.Instance.spikes = this.level.spikes.map(item => {
       const enemy = Spikes(item);
       this.gameObject.addChild(enemy);
-      this.childrens.push(enemy);
       return enemy.getComponent(SpikesManager);
     });
-    DataManager.Instance.spikes = list;
   }
 
   generateDoor() {
@@ -169,11 +156,11 @@ export default class BattleManager extends Component {
     }
     const door = Door(this.level.door);
     this.gameObject.addChild(door);
-    this.childrens.push(door);
-    DataManager.Instance.door = door.getComponent(EntityManager);
+    DataManager.Instance.door = door.getComponent(EntityManager) as DoorManager;
   }
 
   generateSmoke(x: number, y: number, type: DIRECTION_ENUM) {
+    //把死了的烟雾拿出来循环利用
     const item = DataManager.Instance.smokes.find((smoke: SmokeManager) => smoke.state === PLAYER_STATE.DEATH);
     if (item) {
       item.x = x;
@@ -186,9 +173,8 @@ export default class BattleManager extends Component {
         y: y,
         direction: type,
         state: PLAYER_STATE.IDLE,
-      } as ISmoke);
+      });
       this.gameObject.addChild(smoke);
-      this.childrens.push(smoke);
       DataManager.Instance.smokes.push(smoke.getComponent(SmokeManager));
     }
   }
@@ -206,7 +192,7 @@ export default class BattleManager extends Component {
     this.initLevel();
   }
 
-  fixPos() {
+  adaptMapPos() {
     const { mapRowCount, mapColumnCount } = DataManager.Instance;
     const disX = (SCREEN_WIDTH - TILE_WIDTH * mapRowCount) / 2;
     const disY = (SCREEN_HEIGHT - TILE_HEIGHT * mapColumnCount) / 2 - 50;
@@ -277,8 +263,7 @@ export default class BattleManager extends Component {
         const item = data.spikes[i];
         DataManager.Instance.spikes[i].x = item.x;
         DataManager.Instance.spikes[i].y = item.y;
-        DataManager.Instance.spikes[i].curPointCount = item.curPointCount;
-        DataManager.Instance.spikes[i].direction = item.direction;
+        DataManager.Instance.spikes[i].count = item.count;
       }
 
       for (let i = 0; i < data.bursts.length; i++) {
@@ -309,33 +294,39 @@ export default class BattleManager extends Component {
             ? DataManager.Instance.player.state
             : PLAYER_STATE.IDLE,
         direction: DataManager.Instance.player.direction,
+        type: DataManager.Instance.player.type,
       },
       door: {
         x: DataManager.Instance.door.x,
         y: DataManager.Instance.door.y,
         state: DataManager.Instance.door.state,
         direction: DataManager.Instance.door.direction,
+        type: DataManager.Instance.door.type,
       },
-      enemies: DataManager.Instance.enemies.map((i: EnemyManager) => {
+      enemies: DataManager.Instance.enemies.map(({ x, y, state, direction, type }) => {
         return {
-          x: i.x,
-          y: i.y,
-          state: i.state,
-          direction: i.direction,
+          x,
+          y,
+          state,
+          direction,
+          type,
         };
       }),
-      spikes: DataManager.Instance.spikes.map((i: SpikesManager) => {
+      spikes: DataManager.Instance.spikes.map(({ x, y, count, type }) => {
         return {
-          x: i.x,
-          y: i.y,
-          curPointCount: i.curPointCount,
+          x,
+          y,
+          count,
+          type,
         };
       }),
-      bursts: DataManager.Instance.bursts.map((i: BurstManager) => {
+      bursts: DataManager.Instance.bursts.map(({ x, y, state, direction, type }) => {
         return {
-          x: i.x,
-          y: i.y,
-          state: i.state,
+          x,
+          y,
+          state,
+          direction,
+          type,
         };
       }),
     };

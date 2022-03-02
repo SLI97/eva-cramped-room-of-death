@@ -4,7 +4,6 @@ import IdleSubStateMachine from './IdleSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import EnemyManager from '../../../../../Base/EnemyManager';
-import { Render } from '@eva/plugin-renderer-render';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -19,8 +18,6 @@ export default class SmokeStateMachine extends StateMachine {
         speed: 1000 / 12,
       }),
     );
-
-    this.gameObject.addComponent(new Render());
 
     this.initParams();
   }
