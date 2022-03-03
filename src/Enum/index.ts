@@ -59,7 +59,7 @@ export enum CONTROLLER_ENUM {
 /***
  * 角色状态枚举
  */
-export enum PLAYER_STATE {
+export enum ENTITY_STATE {
   IDLE = 'IDLE',
   ATTACK = 'ATTACK',
   TURNLEFT = 'TURNLEFT',
@@ -98,25 +98,8 @@ export enum EVENT_ENUM {
  */
 export enum FSM_PARAM_TYPE_ENUM {
   NUMBER = 'NUMBER',
-  BOOLEAN = 'BOOLEAN',
   TRIGGER = 'TRIGGER',
 }
-
-/***
- * UI枚举
- */
-export const UI_ENUM = {
-  GAME_START: 'GAME_START',
-  CTRL_TOP: 'CTRL_TOP',
-  CTRL_BOTTOM: 'CTRL_BOTTOM',
-  CTRL_LEFT: 'CTRL_LEFT',
-  CTRL_RIGHT: 'CTRL_RIGHT',
-  CTRL_TURN_LEFT: 'CTRL_TURN_LEFT',
-  CTRL_TURN_RIGHT: 'CTRL_TURN_RIGHT',
-  RESTART: 'RESTART',
-  REVOKE: 'REVOKE',
-  Menu: 'Menu',
-};
 
 /***
  * 方向顺序
@@ -176,13 +159,13 @@ export enum PARAMS_NAME {
   DEATH = 'DEATH',
   AIRDEATH = 'AIRDEATH',
   DIRECTION = 'DIRECTION',
-  SPIKES_TYPE = 'SPIKES_TYPE',
-  CUR_POINT_COUNT = 'CUR_POINT_COUNT',
+  SPIKES_TOTAL_COUNT = 'SPIKES_TOTAL_COUNT',
+  SPIKES_CUR_COUNT = 'SPIKES_CUR_COUNT',
 }
 
 export enum SHAKE_ENUM {
-  TOP = 0,
-  BOTTOM = 1,
-  LEFT = 2,
-  RIGHT = 3,
+  TOP = 'TOP',
+  BOTTOM = 'BOTTOM',
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
 }

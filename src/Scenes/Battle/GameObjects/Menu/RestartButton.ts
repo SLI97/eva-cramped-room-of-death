@@ -25,20 +25,15 @@ const RestartButton = () => {
   go.addComponent(
     new Sprite({
       resource: 'ctrl',
-      spriteName: `ctrl (8).png`,
+      spriteName: 'ctrl (8).png',
     }),
   );
 
   const eventManager = go.addComponent(new Event());
-
-  eventManager.on('touchstart', () => {});
-
   const touchHandler = () => {
     EventManager.Instance.emit(EVENT_ENUM.RESTART_LEVEL);
   };
-
   eventManager.on('touchend', touchHandler);
-
   eventManager.on('touchendoutside', touchHandler);
 
   return go;

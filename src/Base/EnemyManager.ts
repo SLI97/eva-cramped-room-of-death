@@ -2,21 +2,17 @@ import EntityManager from './EntityManager';
 import { IEntity } from '../Levels';
 import EventManager from '../Runtime/EventManager';
 import { EVENT_ENUM } from '../Enum';
-import { DIRECTION_ENUM, PLAYER_STATE } from '../Enum';
+import { DIRECTION_ENUM, ENTITY_STATE } from '../Enum';
 import DataManager from '../Runtime/DataManager';
 
 /***
  * 敌人基类，实现面朝人物和死亡
  */
-export default class EnemyManager extends EntityManager {
-  init(dto: IEntity) {
-    super.init(dto);
+export default abstract class EnemyManager extends EntityManager {
+  init(params: IEntity) {
+    super.init(params);
     EventManager.Instance.on(EVENT_ENUM.ATTACK_ENEMY, this.onDead, this);
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onChangeDirection, this);
-  }
-
-  start() {
-    this.onChangeDirection(false);
   }
 
   onDestroy() {
@@ -24,11 +20,15 @@ export default class EnemyManager extends EntityManager {
     EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.onChangeDirection);
   }
 
+  start() {
+    this.onChangeDirection(false);
+  }
+
   /***
    * 根据玩家在敌人的方位方便敌人的朝向
    */
   onChangeDirection(check = true) {
-    if (this.state === PLAYER_STATE.DEATH || !DataManager.Instance.player) {
+    if (this.state === ENTITY_STATE.DEATH || !DataManager.Instance.player) {
       return;
     }
     const { x: playerX, y: playerY } = DataManager.Instance.player;
@@ -63,11 +63,11 @@ export default class EnemyManager extends EntityManager {
    * @param id
    */
   onDead(id: string) {
-    if (this.state === PLAYER_STATE.DEATH) {
+    if (this.state === ENTITY_STATE.DEATH) {
       return;
     }
     if (this.id === id) {
-      this.state = PLAYER_STATE.DEATH;
+      this.state = ENTITY_STATE.DEATH;
     }
   }
 }

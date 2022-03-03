@@ -1,19 +1,16 @@
 import DirectionStateMachine from '../../../../../Base/DirectionStateMachine';
 import { DIRECTION_ENUM } from '../../../../../Enum';
-import { GameObject } from '@eva/eva.js';
 import State from '../../../../../Base/State';
+import StateMachine from '../../../../../Base/StateMachine';
+import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 
 export default class IdleSubStateMachine extends DirectionStateMachine {
-  constructor(go: GameObject) {
-    super(go);
+  constructor(fsm: StateMachine, spriteAnimation: SpriteAnimation) {
+    super(fsm);
 
-    this.init();
-  }
-
-  init() {
-    this.states.set(DIRECTION_ENUM.TOP, new State(this.go, 'ironskeleton_idle_top'));
-    this.states.set(DIRECTION_ENUM.BOTTOM, new State(this.go, 'ironskeleton_idle_bottom'));
-    this.states.set(DIRECTION_ENUM.LEFT, new State(this.go, 'ironskeleton_idle_left'));
-    this.states.set(DIRECTION_ENUM.RIGHT, new State(this.go, 'ironskeleton_idle_right'));
+    this.stateMachines.set(DIRECTION_ENUM.TOP, new State(spriteAnimation, 'ironskeleton_idle_top'));
+    this.stateMachines.set(DIRECTION_ENUM.BOTTOM, new State(spriteAnimation, 'ironskeleton_idle_bottom'));
+    this.stateMachines.set(DIRECTION_ENUM.LEFT, new State(spriteAnimation, 'ironskeleton_idle_left'));
+    this.stateMachines.set(DIRECTION_ENUM.RIGHT, new State(spriteAnimation, 'ironskeleton_idle_right'));
   }
 }

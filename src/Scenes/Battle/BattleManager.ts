@@ -6,7 +6,7 @@ import { game, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
 import { TILE_HEIGHT, TILE_WIDTH } from './GameObjects/Tile/Tile';
 import Door from './GameObjects/Door/Door';
 import EntityManager from '../../Base/EntityManager';
-import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, EVENT_ENUM, PLAYER_STATE, SHAKE_ENUM } from '../../Enum';
+import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, EVENT_ENUM, ENTITY_STATE, SHAKE_ENUM } from '../../Enum';
 import WoodenSkeleton from './GameObjects/WoodenSkeleton/WoodenSkeleton';
 import EventManager from '../../Runtime/EventManager';
 import IronSkeleton from './GameObjects/IronSkeleton/IronSkeleton';
@@ -30,9 +30,12 @@ export default class BattleManager extends Component {
   oldFrame: number;
   oldOffset: { x: number; y: number } = { x: 0, y: 0 };
   level: ILevel;
+  hasInit = false;
 
   init() {
-    EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.checkFinishCurLevel, this);
+    DataManager.Instance.levelIndex = 1;
+
+    EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.checkArrived, this);
     EventManager.Instance.on(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this);
     EventManager.Instance.on(EVENT_ENUM.RESTART_LEVEL, this.initLevel, this);
     EventManager.Instance.on(EVENT_ENUM.SCREEN_SHAKE, this.onShake, this);
@@ -42,7 +45,7 @@ export default class BattleManager extends Component {
   }
 
   onDestroy() {
-    EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.checkFinishCurLevel);
+    EventManager.Instance.off(EVENT_ENUM.PLAYER_MOVE_END, this.checkArrived);
     EventManager.Instance.off(EVENT_ENUM.NEXT_LEVEL, this.nextLevel);
     EventManager.Instance.off(EVENT_ENUM.RESTART_LEVEL, this.initLevel);
     EventManager.Instance.off(EVENT_ENUM.SCREEN_SHAKE, this.onShake);
@@ -53,13 +56,15 @@ export default class BattleManager extends Component {
   async initLevel() {
     const level = Levels['level' + DataManager.Instance.levelIndex];
     if (level) {
-      if (DataManager.Instance.levelIndex === 1) {
-        await FaderManager.Instance.mask();
-      } else {
+      if (this.hasInit) {
         await FaderManager.Instance.fadeIn(DEFAULT_FADE_DURATION);
+      } else {
+        await FaderManager.Instance.mask();
       }
+      this.hasInit = true;
+      //触发舞台上一关元素的onDestory方法执行
       this.clearLevel();
-      console.log('level' + DataManager.Instance.levelIndex);
+      console.log('当前level:' + DataManager.Instance.levelIndex);
       // 防止把抖动效果带到下一关，导致下一关错位
       this.isShaking = false;
       DataManager.Instance.reset();
@@ -159,30 +164,31 @@ export default class BattleManager extends Component {
     DataManager.Instance.door = door.getComponent(EntityManager) as DoorManager;
   }
 
-  generateSmoke(x: number, y: number, type: DIRECTION_ENUM) {
+  generateSmoke(x: number, y: number, direction: DIRECTION_ENUM) {
     //把死了的烟雾拿出来循环利用
-    const item = DataManager.Instance.smokes.find((smoke: SmokeManager) => smoke.state === PLAYER_STATE.DEATH);
+    const item = DataManager.Instance.smokes.find((smoke: SmokeManager) => smoke.state === ENTITY_STATE.DEATH);
     if (item) {
       item.x = x;
       item.y = y;
-      item.state = PLAYER_STATE.IDLE;
-      item.direction = type;
+      item.state = ENTITY_STATE.IDLE;
+      item.direction = direction;
     } else {
       const smoke = Smoke({
-        x: x,
-        y: y,
-        direction: type,
-        state: PLAYER_STATE.IDLE,
+        x,
+        y,
+        direction,
+        state: ENTITY_STATE.IDLE,
+        type: ENTITY_TYPE_ENUM.SMOKE,
       });
       this.gameObject.addChild(smoke);
       DataManager.Instance.smokes.push(smoke.getComponent(SmokeManager));
     }
   }
 
-  checkFinishCurLevel() {
+  checkArrived() {
     const { x: doorX, y: doorY, state: doorState } = DataManager.Instance.door;
     const { x: playerX, y: playerY } = DataManager.Instance.player;
-    if (doorX === playerX && doorY === playerY && doorState === PLAYER_STATE.DEATH) {
+    if (doorX === playerX && doorY === playerY && doorState === ENTITY_STATE.DEATH) {
       EventManager.Instance.emit(EVENT_ENUM.NEXT_LEVEL);
     }
   }
@@ -288,11 +294,11 @@ export default class BattleManager extends Component {
         x: DataManager.Instance.player.targetX,
         y: DataManager.Instance.player.targetY,
         state:
-          DataManager.Instance.player.state === PLAYER_STATE.IDLE ||
-          DataManager.Instance.player.state === PLAYER_STATE.DEATH ||
-          DataManager.Instance.player.state === PLAYER_STATE.AIRDEATH
+          DataManager.Instance.player.state === ENTITY_STATE.IDLE ||
+          DataManager.Instance.player.state === ENTITY_STATE.DEATH ||
+          DataManager.Instance.player.state === ENTITY_STATE.AIRDEATH
             ? DataManager.Instance.player.state
-            : PLAYER_STATE.IDLE,
+            : ENTITY_STATE.IDLE,
         direction: DataManager.Instance.player.direction,
         type: DataManager.Instance.player.type,
       },

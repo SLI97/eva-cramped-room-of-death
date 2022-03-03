@@ -25,21 +25,17 @@ const OutButton = () => {
   go.addComponent(
     new Sprite({
       resource: 'ctrl',
-      spriteName: `ctrl (10).png`,
+      spriteName: 'ctrl (10).png',
     }),
   );
 
   const eventManager = go.addComponent(new Event());
-
-  eventManager.on('touchstart', () => {});
-
   const touchHandler = () => {
     game.scene.destroy();
     game.loadScene({
       scene: MenuScene(),
     });
   };
-
   eventManager.on('touchend', touchHandler);
   eventManager.on('touchendoutside', touchHandler);
 

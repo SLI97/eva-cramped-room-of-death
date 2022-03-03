@@ -6,7 +6,6 @@ import Tips from './GameObjects/Tips';
 import { SCREEN_WIDTH, SCREEN_HEIGHT, game } from '../../index';
 import { Render } from '@eva/plugin-renderer-render';
 import FaderManager from '../../Runtime/FaderManager';
-import DataManager from '../../Runtime/DataManager';
 import { Event } from '@eva/plugin-renderer-event';
 import Battle from '../Battle';
 
@@ -37,17 +36,19 @@ const MenuScene = () => {
   //屏幕渐入
   FaderManager.Instance.fadeOut(1000);
 
-  DataManager.Instance.levelIndex = 1;
-
   //点击屏幕加载游戏场景
-  scene.addComponent(new Event()).on('touchstart', () => {
+  const touchHandle = () => {
     FaderManager.Instance.fadeIn(300).then(() => {
       game.scene.destroy();
       game.loadScene({
         scene: Battle(),
       });
     });
-  });
+  };
+  const evt = scene.addComponent(new Event());
+  //防止用户疯狂点击，不断触发touchHandle函数形成不断fading
+  evt.once('touchend', touchHandle);
+  evt.once('touchendoutside', touchHandle);
 
   return scene;
 };

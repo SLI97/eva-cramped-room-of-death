@@ -1,3 +1,5 @@
+import { FSM_PARAM_TYPE_ENUM } from '../Enum';
+
 /***
  * 生成指定长度随机uuid
  * @param n

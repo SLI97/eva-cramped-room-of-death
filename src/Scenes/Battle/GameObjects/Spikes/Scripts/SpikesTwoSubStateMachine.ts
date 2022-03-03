@@ -1,49 +1,21 @@
 import { PARAMS_NAME, SPIKES_CUR_POINT_ENUM, SPIKES_POINT_MAP_NUMBER } from '../../../../../Enum';
-import { GameObject } from '@eva/eva.js';
 import SubStateMachine from '../../../../../Base/SubStateMachine';
 import State from '../../../../../Base/State';
+import StateMachine from '../../../../../Base/StateMachine';
+import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 
 export default class SpikesTwoSubStateMachine extends SubStateMachine {
-  constructor(go: GameObject) {
-    super(go);
+  constructor(fsm: StateMachine, spriteAnimation: SpriteAnimation) {
+    super(fsm);
 
-    this.init();
+    this.stateMachines.set(SPIKES_CUR_POINT_ENUM.ZERO, new State(spriteAnimation, 'spikes_two_zero', 1));
+    this.stateMachines.set(SPIKES_CUR_POINT_ENUM.ONE, new State(spriteAnimation, 'spikes_two_one', 1));
+    this.stateMachines.set(SPIKES_CUR_POINT_ENUM.TWO, new State(spriteAnimation, 'spikes_two_two', 1));
+    this.stateMachines.set(SPIKES_CUR_POINT_ENUM.THREE, new State(spriteAnimation, 'spikes_two_three', 1));
   }
 
-  init() {
-    this.states.set(SPIKES_CUR_POINT_ENUM.ZERO, new State(this.go, 'spikes_two_zero', 1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.ONE, new State(this.go, 'spikes_two_one', 1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.TWO, new State(this.go, 'spikes_two_two', 1));
-    this.states.set(SPIKES_CUR_POINT_ENUM.THREE, new State(this.go, 'spikes_two_three', 1));
-  }
-
-  update() {
-    const currentState = this.currentState;
-    switch (currentState) {
-      case this.states.get(SPIKES_CUR_POINT_ENUM.ZERO):
-        this.switch(SPIKES_CUR_POINT_ENUM.ZERO);
-        break;
-      case this.states.get(SPIKES_CUR_POINT_ENUM.ONE):
-        this.switch(SPIKES_CUR_POINT_ENUM.ONE);
-        break;
-      case this.states.get(SPIKES_CUR_POINT_ENUM.TWO):
-        this.switch(SPIKES_CUR_POINT_ENUM.TWO);
-        break;
-      case this.states.get(SPIKES_CUR_POINT_ENUM.THREE):
-        this.switch(SPIKES_CUR_POINT_ENUM.THREE);
-        break;
-      default:
-        this.currentState = this.states.get(SPIKES_CUR_POINT_ENUM.ZERO);
-        break;
-    }
-  }
-
-  switch(curCount: SPIKES_CUR_POINT_ENUM) {
-    const value = this.params.get(PARAMS_NAME.CUR_POINT_COUNT).value;
-    if (SPIKES_POINT_MAP_NUMBER[curCount] === value) {
-      return;
-    }
-
-    this.currentState = this.states.get(SPIKES_POINT_MAP_NUMBER[value as number]);
+  run() {
+    const { value: newCount } = this.fsm.params.get(PARAMS_NAME.SPIKES_CUR_COUNT);
+    this.currentState = this.stateMachines.get(SPIKES_POINT_MAP_NUMBER[newCount as number]);
   }
 }

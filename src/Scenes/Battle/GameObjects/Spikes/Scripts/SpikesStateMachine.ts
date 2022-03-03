@@ -1,5 +1,5 @@
-import StateMachine from '../../../../../Base/StateMachine';
-import { FSM_PARAM_TYPE_ENUM, PARAMS_NAME, ENTITY_TYPE_ENUM, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
+import StateMachine, { getInitParamsNumber } from '../../../../../Base/StateMachine';
+import { PARAMS_NAME, ENTITY_TYPE_ENUM, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import SpikesOneSubStateMachine from './SpikesOneSubStateMachine';
 import SpikesTwoSubStateMachine from './SpikesTwoSubStateMachine';
@@ -12,7 +12,7 @@ import SpikesManager from './SpikesManager';
  */
 export default class SpikesStateMachine extends StateMachine {
   init() {
-    this.gameObject.addComponent(
+    const spriteAnimation = this.gameObject.addComponent(
       new SpriteAnimation({
         autoPlay: true,
         forwards: true,
@@ -22,91 +22,57 @@ export default class SpikesStateMachine extends StateMachine {
     );
 
     this.initParams();
-  }
+    this.initStateMachines();
 
-  start() {
-    this.states.set(ENTITY_TYPE_ENUM.SPIKES_ONE, new SpikesOneSubStateMachine(this.gameObject));
-    this.states.set(ENTITY_TYPE_ENUM.SPIKES_TWO, new SpikesTwoSubStateMachine(this.gameObject));
-    this.states.set(ENTITY_TYPE_ENUM.SPIKES_THREE, new SpikesThreeSubStateMachine(this.gameObject));
-    this.states.set(ENTITY_TYPE_ENUM.SPIKES_FOUR, new SpikesFourSubStateMachine(this.gameObject));
-
-    const value = this.params.get(PARAMS_NAME.SPIKES_TYPE).value;
-    this.currentState = this.states.get(SPIKES_TYPE_TOTAL_POINT[value as number]);
-
-    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
-    const sm = this.gameObject.getComponent(SpikesManager);
     spriteAnimation.on('complete', () => {
-      //由于帧动画组件在不循环的情况下播放完会回到第一帧，所以手动停在最后一帧
+      const { value } = this.params.get(PARAMS_NAME.SPIKES_TOTAL_COUNT);
+      //例如1个刺的地裂，在播放完1刺之后，回到0的状态
       if (
         (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_ONE && spriteAnimation.resource.startsWith('spikes_one_two')) ||
         (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_TWO && spriteAnimation.resource.startsWith('spikes_two_three')) ||
         (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_THREE && spriteAnimation.resource.startsWith('spikes_three_four')) ||
         (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_FOUR && spriteAnimation.resource.startsWith('spikes_four_five'))
       ) {
-        //例如尖刺1的value为2，攻击动画有四帧，所以value+1代表最后一帧
-        sm.backZero();
+        this.gameObject.getComponent(SpikesManager).backZero();
       }
     });
   }
 
   initParams() {
-    this.params.set(PARAMS_NAME.SPIKES_TYPE, {
-      type: FSM_PARAM_TYPE_ENUM.NUMBER,
-      value: 0,
-    });
-
-    this.params.set(PARAMS_NAME.CUR_POINT_COUNT, {
-      type: FSM_PARAM_TYPE_ENUM.NUMBER,
-      value: 1,
-    });
+    this.params.set(PARAMS_NAME.SPIKES_TOTAL_COUNT, getInitParamsNumber());
+    this.params.set(PARAMS_NAME.SPIKES_CUR_COUNT, getInitParamsNumber());
   }
 
-  update() {
-    // const currentState = this.currentState;
-    // switch (currentState) {
-    //   case this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE):
-    //     // if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 2) {
-    //     // 	this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE)
-    //     // }else
-    //     if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 3) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_TWO);
-    //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 4) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_THREE);
-    //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 5) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_FOUR);
-    //     }
-    //     break;
-    //   case this.states.get(ENTITY_TYPE_ENUM.SPIKES_TWO):
-    //     if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 2) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
-    //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 4) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_THREE);
-    //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 5) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_FOUR);
-    //     }
-    //     break;
-    //   case this.states.get(ENTITY_TYPE_ENUM.SPIKES_THREE):
-    //     if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 2) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
-    //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 3) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_TWO);
-    //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 5) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_FOUR);
-    //     }
-    //     break;
-    //   case this.states.get(ENTITY_TYPE_ENUM.SPIKES_FOUR):
-    //     if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 2) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
-    //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 3) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_TWO);
-    //     } else if (this.params.get(PARAMS_NAME.SPIKES_TYPE).value === 4) {
-    //       this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_THREE);
-    //     }
-    //     break;
-    //   default:
-    //     this.currentState = this.states.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
-    //     break;
-    // }
-    super.update();
+  initStateMachines() {
+    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
+    this.stateMachines.set(ENTITY_TYPE_ENUM.SPIKES_ONE, new SpikesOneSubStateMachine(this, spriteAnimation));
+    this.stateMachines.set(ENTITY_TYPE_ENUM.SPIKES_TWO, new SpikesTwoSubStateMachine(this, spriteAnimation));
+    this.stateMachines.set(ENTITY_TYPE_ENUM.SPIKES_THREE, new SpikesThreeSubStateMachine(this, spriteAnimation));
+    this.stateMachines.set(ENTITY_TYPE_ENUM.SPIKES_FOUR, new SpikesFourSubStateMachine(this, spriteAnimation));
+  }
+
+  run() {
+    const { value } = this.params.get(PARAMS_NAME.SPIKES_TOTAL_COUNT);
+    switch (this.currentState) {
+      case this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_ONE):
+      case this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_TWO):
+      case this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_THREE):
+      case this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_FOUR):
+        if (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_ONE) {
+          this.currentState = this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
+        } else if (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_TWO) {
+          this.currentState = this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_TWO);
+        } else if (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_THREE) {
+          this.currentState = this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_THREE);
+        } else if (value === SPIKES_TYPE_TOTAL_POINT.SPIKES_FOUR) {
+          this.currentState = this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_FOUR);
+        } else {
+          this.currentState = this.currentState;
+        }
+        break;
+      default:
+        this.currentState = this.stateMachines.get(ENTITY_TYPE_ENUM.SPIKES_ONE);
+        break;
+    }
   }
 }

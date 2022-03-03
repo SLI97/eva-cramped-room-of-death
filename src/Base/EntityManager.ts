@@ -1,5 +1,5 @@
 import { Component } from '@eva/eva.js';
-import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, PLAYER_STATE, PARAMS_NAME, ENTITY_TYPE_ENUM } from '../Enum';
+import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, ENTITY_STATE, PARAMS_NAME, ENTITY_TYPE_ENUM } from '../Enum';
 import StateMachine from './StateMachine';
 import { randomByLength } from '../Utils';
 import { TILE_HEIGHT, TILE_WIDTH } from '../Scenes/Battle/GameObjects/Tile/Tile';
@@ -15,7 +15,7 @@ export default class EntityManager extends Component {
   x: number; //坐标
   y: number;
   type: ENTITY_TYPE_ENUM;
-  _state: PLAYER_STATE;
+  _state: ENTITY_STATE;
   _direction: DIRECTION_ENUM;
   fsm: StateMachine;
 
@@ -38,24 +38,21 @@ export default class EntityManager extends Component {
     return this._direction;
   }
 
-  set direction(value) {
-    this._direction = value;
-    if (this.fsm) {
-      this.fsm.setParams(PARAMS_NAME.DIRECTION, DIRECTION_ORDER_ENUM[this._direction]);
-    }
+  set direction(newDirection) {
+    this._direction = newDirection;
+    this.fsm.setParams(PARAMS_NAME.DIRECTION, DIRECTION_ORDER_ENUM[this._direction]);
   }
 
   get state() {
     return this._state;
   }
 
-  set state(value) {
-    this._state = value;
-    if (this.fsm && this.fsm.params.has(value)) {
-      if (this.fsm.currentState === this.fsm.states.get(value)) {
-        return;
-      }
-      this.fsm.setParams(value, true);
-    }
+  set state(newState) {
+    this._state = newState;
+    //想要跳转的状态跟当前状态一致，就不需要重新触发动画了
+    // if (this.fsm.currentState === this.fsm.stateMachines.get(newState)) {
+    //   return;
+    // }
+    this.fsm.setParams(newState, true);
   }
 }

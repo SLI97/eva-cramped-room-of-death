@@ -1,5 +1,5 @@
-import StateMachine from '../../../../../Base/StateMachine';
-import { FSM_PARAM_TYPE_ENUM, PLAYER_STATE, PARAMS_NAME } from '../../../../../Enum';
+import StateMachine, { getInitParamsNumber, getInitParamsTrigger } from '../../../../../Base/StateMachine';
+import { PARAMS_NAME } from '../../../../../Enum';
 import IdleSubStateMachine from './IdleSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
@@ -19,49 +19,36 @@ export default class DoorStateMachine extends StateMachine {
     );
 
     this.initParams();
-  }
-
-  start() {
-    this.states.set(PARAMS_NAME.IDLE, new IdleSubStateMachine(this.gameObject));
-    this.states.set(PARAMS_NAME.DEATH, new DeathSubStateMachine(this.gameObject));
-    this.currentState = this.states.get(PARAMS_NAME.IDLE);
+    this.initStateMachines();
   }
 
   initParams() {
-    this.params.set(PARAMS_NAME.IDLE, {
-      type: FSM_PARAM_TYPE_ENUM.TRIGGER,
-      value: false,
-    });
-
-    this.params.set(PARAMS_NAME.DEATH, {
-      type: FSM_PARAM_TYPE_ENUM.TRIGGER,
-      value: false,
-    });
-
-    this.params.set(PARAMS_NAME.DIRECTION, {
-      type: FSM_PARAM_TYPE_ENUM.NUMBER,
-      value: 0,
-    });
+    this.params.set(PARAMS_NAME.IDLE, getInitParamsTrigger());
+    this.params.set(PARAMS_NAME.DEATH, getInitParamsTrigger());
+    this.params.set(PARAMS_NAME.DIRECTION, getInitParamsNumber());
   }
 
-  update() {
-    const currentState = this.currentState;
-    switch (currentState) {
-      case this.states.get(PLAYER_STATE.IDLE):
+  initStateMachines() {
+    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
+    this.stateMachines.set(PARAMS_NAME.IDLE, new IdleSubStateMachine(this, spriteAnimation));
+    this.stateMachines.set(PARAMS_NAME.DEATH, new DeathSubStateMachine(this, spriteAnimation));
+  }
+
+  run() {
+    switch (this.currentState) {
+      case this.stateMachines.get(PARAMS_NAME.IDLE):
+      case this.stateMachines.get(PARAMS_NAME.DEATH):
         if (this.params.get(PARAMS_NAME.DEATH).value) {
-          this.currentState = this.states.get(PLAYER_STATE.DEATH);
-        }
-        break;
-      case this.states.get(PLAYER_STATE.DEATH):
-        if (this.params.get(PARAMS_NAME.IDLE).value) {
-          this.currentState = this.states.get(PARAMS_NAME.IDLE);
+          this.currentState = this.stateMachines.get(PARAMS_NAME.DEATH);
+        } else if (this.params.get(PARAMS_NAME.IDLE).value) {
+          this.currentState = this.stateMachines.get(PARAMS_NAME.IDLE);
+        } else {
+          this.currentState = this.currentState;
         }
         break;
       default:
-        this.currentState = this.states.get(PLAYER_STATE.IDLE);
+        this.currentState = this.stateMachines.get(PARAMS_NAME.IDLE);
         break;
     }
-
-    super.update();
   }
 }

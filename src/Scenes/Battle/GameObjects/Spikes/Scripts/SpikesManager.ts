@@ -1,6 +1,6 @@
 import { ISpikes } from '../../../../../Levels';
 import DataManager from '../../../../../Runtime/DataManager';
-import { EVENT_ENUM, PARAMS_NAME, PLAYER_STATE, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
+import { EVENT_ENUM, PARAMS_NAME, ENTITY_STATE, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import { Component } from '@eva/eva.js';
 import StateMachine from '../../../../../Base/StateMachine';
@@ -17,7 +17,7 @@ export default class SpikesManager extends Component {
   static componentName = 'SpikesManager'; // 设置组件的名字
 
   id: string = randomByLength(12);
-  totalCount: number;
+  _totalCount: number;
   _count = 0;
   x: number;
   y: number;
@@ -28,11 +28,18 @@ export default class SpikesManager extends Component {
     return this._count;
   }
 
-  set count(value) {
-    this._count = value;
-    if (this.fsm) {
-      this.fsm.setParams(PARAMS_NAME.CUR_POINT_COUNT, value);
-    }
+  set count(newCount) {
+    this._count = newCount;
+    this.fsm.setParams(PARAMS_NAME.SPIKES_CUR_COUNT, newCount);
+  }
+
+  get totalCount() {
+    return this._totalCount;
+  }
+
+  set totalCount(newCount) {
+    this._totalCount = newCount;
+    this.fsm.setParams(PARAMS_NAME.SPIKES_TOTAL_COUNT, newCount);
   }
 
   init(spikes: ISpikes) {
@@ -40,9 +47,8 @@ export default class SpikesManager extends Component {
     this.x = spikes.x;
     this.y = spikes.y;
     const type = spikes.type;
-    this.fsm.setParams(PARAMS_NAME.SPIKES_TYPE, SPIKES_TYPE_TOTAL_POINT[type]);
-    this.count = spikes.count;
     this.totalCount = SPIKES_TYPE_TOTAL_POINT[type];
+    this.count = spikes.count;
 
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onLoop, this);
   }
@@ -76,7 +82,7 @@ export default class SpikesManager extends Component {
   onAttack() {
     const { x: playerX, y: playerY } = DataManager.Instance.player;
     if (playerX === this.x && playerY === this.y && this.count === this.totalCount) {
-      EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, PLAYER_STATE.DEATH);
+      EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, ENTITY_STATE.DEATH);
     }
   }
 }
