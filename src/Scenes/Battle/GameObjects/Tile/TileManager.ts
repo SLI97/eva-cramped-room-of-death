@@ -15,7 +15,7 @@ export default class TileManager extends Component {
       this.type === TILE_TYPE_ENUM.WALL_ROW ||
       this.type === TILE_TYPE_ENUM.WALL_RIGHT_TOP ||
       this.type === TILE_TYPE_ENUM.WALL_LEFT_BOTTOM ||
-      this.type === TILE_TYPE_ENUM.WALL_RIGHT_BOOTM ||
+      this.type === TILE_TYPE_ENUM.WALL_RIGHT_BOTTOM ||
       this.type === TILE_TYPE_ENUM.WALL_COLUMN
     ) {
       this.moveable = false;

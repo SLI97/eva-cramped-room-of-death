@@ -43,7 +43,7 @@ const mapInfo = [
   [
     {
       src: 21,
-      type: TILE_TYPE_ENUM.WALL_RIGHT_BOOTM,
+      type: TILE_TYPE_ENUM.WALL_RIGHT_BOTTOM,
     },
     {
       src: 1,
@@ -185,7 +185,7 @@ const mapInfo = [
     },
     {
       src: 14,
-      type: TILE_TYPE_ENUM.WALL_RIGHT_BOOTM,
+      type: TILE_TYPE_ENUM.WALL_RIGHT_BOTTOM,
     },
     {
       src: 19,
