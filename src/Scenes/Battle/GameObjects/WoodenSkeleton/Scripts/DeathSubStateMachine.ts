@@ -12,6 +12,5 @@ export default class DeathSubStateMachine extends DirectionStateMachine {
     this.stateMachines.set(DIRECTION_ENUM.BOTTOM, new State(spriteAnimation, 'woodenskeleton_death_bottom', 1));
     this.stateMachines.set(DIRECTION_ENUM.LEFT, new State(spriteAnimation, 'woodenskeleton_death_left', 1));
     this.stateMachines.set(DIRECTION_ENUM.RIGHT, new State(spriteAnimation, 'woodenskeleton_death_right', 1));
-    this.currentState = this.stateMachines.get(DIRECTION_ENUM.TOP);
   }
 }

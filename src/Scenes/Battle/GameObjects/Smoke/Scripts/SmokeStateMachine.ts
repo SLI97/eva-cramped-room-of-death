@@ -11,9 +11,9 @@ import { ANIMATION_SPEED } from '../../../../../Base/State';
  */
 export default class SmokeStateMachine extends StateMachine {
   init() {
-    const spriteAnimation = this.gameObject.addComponent(
+    this.gameObject.addComponent(
       new SpriteAnimation({
-        autoPlay: true,
+        autoPlay: false,
         forwards: true,
         resource: '',
         speed: ANIMATION_SPEED * (2 / 3),
@@ -22,15 +22,7 @@ export default class SmokeStateMachine extends StateMachine {
 
     this.initParams();
     this.initStateMachines();
-
-    spriteAnimation.on('complete', () => {
-      if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
-        return;
-      }
-      if (spriteAnimation.resource.startsWith('smoke_idle')) {
-        this.gameObject.getComponent(EntityManager).state = ENTITY_STATE.DEATH;
-      }
-    });
+    this.initAnimationEvent();
   }
 
   initParams() {
@@ -43,6 +35,18 @@ export default class SmokeStateMachine extends StateMachine {
     const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
     this.stateMachines.set(PARAMS_NAME.IDLE, new IdleSubStateMachine(this, spriteAnimation));
     this.stateMachines.set(PARAMS_NAME.DEATH, new DeathSubStateMachine(this, spriteAnimation));
+  }
+
+  initAnimationEvent() {
+    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
+    spriteAnimation.on('complete', () => {
+      if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
+        return;
+      }
+      if (spriteAnimation.resource.startsWith('smoke_idle')) {
+        this.gameObject.getComponent(EntityManager).state = ENTITY_STATE.DEATH;
+      }
+    });
   }
 
   run() {

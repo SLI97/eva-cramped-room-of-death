@@ -61,8 +61,8 @@ export default class SpikesManager extends Component {
    * 更新位置，把虚拟坐标（1,1）转为屏幕实际位置
    */
   update() {
-    this.gameObject.transform.position.x = this.x * TILE_WIDTH - 16 * 3;
-    this.gameObject.transform.position.y = this.y * TILE_HEIGHT - 16 * 3;
+    this.gameObject.transform.position.x = this.x * TILE_WIDTH - TILE_WIDTH * 1.5;
+    this.gameObject.transform.position.y = this.y * TILE_HEIGHT - TILE_HEIGHT * 1.5;
   }
 
   onLoop() {

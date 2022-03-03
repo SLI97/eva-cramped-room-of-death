@@ -21,13 +21,13 @@ export default abstract class EnemyManager extends EntityManager {
   }
 
   start() {
-    this.onChangeDirection(false);
+    this.onChangeDirection(true);
   }
 
   /***
-   * 根据玩家在敌人的方位方便敌人的朝向
+   * 根据玩家在敌人的象限改变敌人的朝向
    */
-  onChangeDirection(check = true) {
+  onChangeDirection(init = false) {
     if (this.state === ENTITY_STATE.DEATH || !DataManager.Instance.player) {
       return;
     }
@@ -36,7 +36,7 @@ export default abstract class EnemyManager extends EntityManager {
     const disY = Math.abs(playerY - this.y);
 
     //确保敌人在初始化的时候调整一次direction
-    if (disX === disY && check) {
+    if (disX === disY && !init) {
       return;
     }
 

@@ -30,13 +30,13 @@ export default class DataManager extends Singleton {
   bursts: BurstManager[];
   door: DoorManager;
   smokes: SmokeManager[];
-  records: IRecord[];
   mapRowCount: number;
   mapColumnCount: number;
   levelIndex: number = 1;
   frame: number = 0;
   mapInfo: Array<Array<ITile>> = []; //关卡的描述数据
-  tileInfo: Array<Array<TileManager>> = []; //实例化出来的组件实例
+  tileInfo: Array<Array<TileManager>> = []; //实例化出来的tileManager实例
+  records: IRecord[]; //撤回数据za
 
   constructor() {
     super();

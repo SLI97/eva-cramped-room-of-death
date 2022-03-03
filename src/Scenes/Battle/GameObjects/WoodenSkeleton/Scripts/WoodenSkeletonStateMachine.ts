@@ -12,9 +12,9 @@ import { ANIMATION_SPEED } from '../../../../../Base/State';
  */
 export default class WoodenSkeletonStateMachine extends StateMachine {
   init() {
-    const spriteAnimation = this.gameObject.addComponent(
+    this.gameObject.addComponent(
       new SpriteAnimation({
-        autoPlay: true,
+        autoPlay: false,
         forwards: true,
         resource: '',
         speed: ANIMATION_SPEED,
@@ -23,15 +23,17 @@ export default class WoodenSkeletonStateMachine extends StateMachine {
 
     this.initParams();
     this.initStateMachines();
+    this.initAnimationEvent();
+  }
 
+  initAnimationEvent() {
+    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
     spriteAnimation.on('complete', () => {
       if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
         return;
       }
       if (spriteAnimation.resource.startsWith('woodenskeleton_attack')) {
-        if (spriteAnimation.resource.startsWith('smoke_idle')) {
-          this.gameObject.getComponent(EntityManager).state = ENTITY_STATE.IDLE;
-        }
+        this.gameObject.getComponent(EntityManager).state = ENTITY_STATE.IDLE;
       }
     });
   }

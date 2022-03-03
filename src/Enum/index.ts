@@ -94,7 +94,7 @@ export enum EVENT_ENUM {
 }
 
 /***
- * 有限状态机参数枚举
+ * 有限状态机参数类型枚举
  */
 export enum FSM_PARAM_TYPE_ENUM {
   NUMBER = 'NUMBER',

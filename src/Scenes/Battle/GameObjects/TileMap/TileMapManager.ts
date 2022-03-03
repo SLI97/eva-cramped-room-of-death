@@ -26,7 +26,7 @@ export default class TileMapManager extends Component {
 
         //number为1、5、9的tile有多种图片，随机挑一张图来渲染
         //i%2和j%2仅仅是为了让随机的个数少一点，这样就保留更多的纯色砖块，地面看出来不会太突兀
-        let number = parseInt(item.src);
+        let number = item.src;
         if (number === 1 && i % 2 === 0 && j % 2 === 1) {
           number += randomByRange(0, 4);
         } else if (number === 5 && i % 2 === 0 && j % 2 === 1) {
@@ -39,8 +39,8 @@ export default class TileMapManager extends Component {
         const type = item.type;
 
         const tile = Tile(type, imgSrc, i, j);
-        DataManager.Instance.tileInfo[i][j] = tile.getComponent(TileManager);
         this.gameObject.addChild(tile);
+        DataManager.Instance.tileInfo[i][j] = tile.getComponent(TileManager);
       }
     }
   }

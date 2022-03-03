@@ -30,14 +30,14 @@ export default class BurstManager extends EntityManager {
     if (this.state === ENTITY_STATE.DEATH) {
       return;
     }
-    const { targetX: curPlayerX, targetY: curPlayerY } = DataManager.Instance.player;
-    if (this.x === curPlayerX && this.y === curPlayerY && this.state === ENTITY_STATE.IDLE) {
+    const { targetX: playerX, targetY: playerY } = DataManager.Instance.player;
+    if (this.x === playerX && this.y === playerY && this.state === ENTITY_STATE.IDLE) {
       this.state = ENTITY_STATE.ATTACK;
     } else if (this.state === ENTITY_STATE.ATTACK) {
       this.state = ENTITY_STATE.DEATH;
       EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
       //如果我裂开的时候你人在我上面，你直接狗带吧
-      if (this.x === curPlayerX && this.y === curPlayerY) {
+      if (this.x === playerX && this.y === playerY) {
         EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, ENTITY_STATE.AIRDEATH);
       }
     }

@@ -12,6 +12,5 @@ export default class BlockBackSubStateMachine extends DirectionStateMachine {
     this.stateMachines.set(DIRECTION_ENUM.BOTTOM, new State(spriteAnimation, 'player_block_back_bottom', 1));
     this.stateMachines.set(DIRECTION_ENUM.LEFT, new State(spriteAnimation, 'player_block_back_left', 1));
     this.stateMachines.set(DIRECTION_ENUM.RIGHT, new State(spriteAnimation, 'player_block_back_right', 1));
-    this.currentState = this.stateMachines.get(DIRECTION_ENUM.TOP);
   }
 }

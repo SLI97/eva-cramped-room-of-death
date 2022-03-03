@@ -41,10 +41,6 @@ const BattleScene = () => {
   scene.addChild(Menu());
   scene.addChild(Footer());
   scene.addChild(FaderManager.Instance.createFader());
-
-  //当Battle加载完成，才去掉mask，防止场景的物体和fader闪烁的问题
-  // scene.addChild(Mask(scene));
-
   return scene;
 };
 

@@ -31,7 +31,7 @@ export default class EntityManager extends Component {
    */
   update() {
     this.gameObject.transform.position.x = this.x * TILE_WIDTH - TILE_WIDTH * 1.5;
-    this.gameObject.transform.position.y = this.y * TILE_HEIGHT - TILE_WIDTH * 1.5;
+    this.gameObject.transform.position.y = this.y * TILE_HEIGHT - TILE_HEIGHT * 1.5;
   }
 
   get direction() {

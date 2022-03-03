@@ -13,8 +13,8 @@ export default class DoorManager extends EntityManager {
     super.init(door);
   }
 
-  //放在lateUpdate中，防止被resetTrigger
-  lateUpdate() {
+  update() {
+    super.update();
     if (
       DataManager.Instance.enemies &&
       DataManager.Instance.enemies.every((enemy: EntityManager) => enemy.state === ENTITY_STATE.DEATH) &&

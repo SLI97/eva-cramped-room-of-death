@@ -12,6 +12,5 @@ export default class IdleSubStateMachine extends DirectionStateMachine {
     this.stateMachines.set(DIRECTION_ENUM.BOTTOM, new State(spriteAnimation, 'woodenskeleton_idle_bottom'));
     this.stateMachines.set(DIRECTION_ENUM.LEFT, new State(spriteAnimation, 'woodenskeleton_idle_left'));
     this.stateMachines.set(DIRECTION_ENUM.RIGHT, new State(spriteAnimation, 'woodenskeleton_idle_right'));
-    this.currentState = this.stateMachines.get(DIRECTION_ENUM.TOP);
   }
 }

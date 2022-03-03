@@ -23,9 +23,9 @@ import { ANIMATION_SPEED } from '../../../../../Base/State';
  */
 export default class PlayerStateMachine extends StateMachine {
   init() {
-    const spriteAnimation = this.gameObject.addComponent(
+    this.gameObject.addComponent(
       new SpriteAnimation({
-        autoPlay: true,
+        autoPlay: false,
         forwards: true,
         resource: '',
         speed: ANIMATION_SPEED,
@@ -40,7 +40,11 @@ export default class PlayerStateMachine extends StateMachine {
 
     this.initParams();
     this.initStateMachines();
+    this.initAnimationEvent();
+  }
 
+  initAnimationEvent() {
+    const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
     spriteAnimation.on('complete', () => {
       if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
         return;

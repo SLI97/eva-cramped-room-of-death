@@ -27,10 +27,10 @@ export const getInitParamsNumber = () => {
  * 流动图
  * 1.entity的state或者direction改变触发setter
  * 2.setter里触发fsm的setParams方法
- * 3.setParams执行run方法
- * 4.run方法由子类重写，run方法会更改currentState，然后触发currentState的setter
- * 5-1.如果currentState是子状态机，继续执行他的run方法
- * 5-2.如果是子状态，直接播放动画
+ * 3.setParams执行run方法（run方法由子类重写）
+ * 4.run方法会更改currentState，然后触发currentState的setter
+ * 5-1.如果currentState是子状态机，继续执行他的run方法，run方法又会设置子状态机的currentState，触发子状态run方法
+ * 5-2.如果是子状态，run方法就是播放动画
  */
 
 /***
@@ -57,6 +57,22 @@ export default abstract class StateMachine extends Component {
     }
   }
 
+  /***
+   * 由子类重写，方法目标是根据当前状态和参数修改currentState
+   */
+  run() {}
+
+  /***
+   * 清空所有trigger
+   */
+  resetTrigger() {
+    for (const [_, value] of this.params) {
+      if (value.type === FSM_PARAM_TYPE_ENUM.TRIGGER) {
+        value.value = false;
+      }
+    }
+  }
+
   get currentState() {
     return this._currentState;
   }
@@ -64,18 +80,5 @@ export default abstract class StateMachine extends Component {
   set currentState(newState) {
     this._currentState = newState;
     this._currentState.run();
-  }
-
-  /***
-   * 由子类重写，方法目标是根据当前状态和参数修改currentState
-   */
-  run() {}
-
-  resetTrigger() {
-    for (const [_, value] of this.params) {
-      if (value.type === FSM_PARAM_TYPE_ENUM.TRIGGER) {
-        value.value = false;
-      }
-    }
   }
 }

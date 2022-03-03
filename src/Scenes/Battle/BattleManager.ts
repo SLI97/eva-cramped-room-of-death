@@ -1,6 +1,6 @@
 import { Component } from '@eva/eva.js';
 import DataManager, { IRecord } from '../../Runtime/DataManager';
-import Levels, { ILevel } from '../../Levels/index';
+import Levels, { ILevel } from '../../Levels';
 import Player from './GameObjects/Player/Player';
 import { game, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
 import { TILE_HEIGHT, TILE_WIDTH } from './GameObjects/Tile/Tile';
@@ -30,10 +30,11 @@ export default class BattleManager extends Component {
   oldFrame: number;
   oldOffset: { x: number; y: number } = { x: 0, y: 0 };
   level: ILevel;
-  hasInit = false;
+  hasInited = false; //第一次从菜单进来的时候，入场fade效果不一样，特殊处理一下
 
   init() {
-    DataManager.Instance.levelIndex = 10;
+    //想跳转到哪关做测试可以修改这里
+    DataManager.Instance.levelIndex = 1;
 
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.checkArrived, this);
     EventManager.Instance.on(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this);
@@ -53,21 +54,32 @@ export default class BattleManager extends Component {
     EventManager.Instance.off(EVENT_ENUM.RECORD_STEP, this.record);
   }
 
+  update() {
+    this.onShakeUpdate();
+  }
+
   async initLevel() {
     const level = Levels['level' + DataManager.Instance.levelIndex];
     if (level) {
-      if (this.hasInit) {
+      console.log('当前level:' + DataManager.Instance.levelIndex);
+
+      //过场fade
+      if (this.hasInited) {
         await FaderManager.Instance.fadeIn(DEFAULT_FADE_DURATION);
       } else {
         await FaderManager.Instance.mask();
       }
-      this.hasInit = true;
-      //触发舞台上一关元素的onDestory方法执行
-      this.clearLevel();
-      console.log('当前level:' + DataManager.Instance.levelIndex);
-      // 防止把抖动效果带到下一关，导致下一关错位
+      /***
+       * 在过门的时候撞墙，会出现先执行initLEvel再执行onShake的情况
+       * 导致下一关执行了错误的震动，导致关卡错位
+       * 所以在黑屏之后，停止震动（黑屏之前震动会显得很突兀）
+       */
       this.isShaking = false;
-      DataManager.Instance.reset();
+
+      //清空元素和数据中心
+      this.clearLevel();
+
+      //生成新关卡数据
       this.level = level;
       // //地图信息
       DataManager.Instance.mapInfo = this.level.mapInfo;
@@ -81,6 +93,7 @@ export default class BattleManager extends Component {
       this.generateEnemies();
       this.generatePlayer();
       await FaderManager.Instance.fadeOut(DEFAULT_FADE_DURATION);
+      this.hasInited = true;
     } else {
       await FaderManager.Instance.fadeIn(DEFAULT_FADE_DURATION);
       game.scene.destroy();
@@ -90,12 +103,19 @@ export default class BattleManager extends Component {
     }
   }
 
+  /***
+   * 触发舞台上一关元素的onDestory方法执行
+   */
   clearLevel() {
     Array.from(this.gameObject.transform.children).forEach(({ gameObject }) => {
       gameObject.destroy();
     });
+    DataManager.Instance.reset();
   }
 
+  /***
+   * 生成TileMap
+   */
   generateTileMap() {
     const map = TileMap();
     this.gameObject.addChild(map);
@@ -103,6 +123,9 @@ export default class BattleManager extends Component {
     this.adaptMapPos();
   }
 
+  /***
+   * 生成Player
+   */
   generatePlayer() {
     if (!this.level.player) {
       DataManager.Instance.player = null;
@@ -113,6 +136,9 @@ export default class BattleManager extends Component {
     DataManager.Instance.player = player.getComponent(EntityManager) as PlayerManager;
   }
 
+  /***
+   * 生成Enemies
+   */
   generateEnemies() {
     if (!this.level.enemies) {
       DataManager.Instance.enemies = [];
@@ -130,6 +156,9 @@ export default class BattleManager extends Component {
     });
   }
 
+  /***
+   * 生成地裂
+   */
   generateBursts() {
     if (!this.level.bursts) {
       DataManager.Instance.bursts = [];
@@ -142,6 +171,9 @@ export default class BattleManager extends Component {
     });
   }
 
+  /***
+   * 生成地刺
+   */
   generateSpikes() {
     if (!this.level.spikes) {
       DataManager.Instance.spikes = [];
@@ -154,6 +186,9 @@ export default class BattleManager extends Component {
     });
   }
 
+  /***
+   * 生成门
+   */
   generateDoor() {
     if (!this.level.door) {
       DataManager.Instance.door = null;
@@ -164,6 +199,9 @@ export default class BattleManager extends Component {
     DataManager.Instance.door = door.getComponent(EntityManager) as DoorManager;
   }
 
+  /***
+   * 生成烟雾
+   */
   generateSmoke(x: number, y: number, direction: DIRECTION_ENUM) {
     //把死了的烟雾拿出来循环利用
     const item = DataManager.Instance.smokes.find((smoke: SmokeManager) => smoke.state === ENTITY_STATE.DEATH);
@@ -185,6 +223,9 @@ export default class BattleManager extends Component {
     }
   }
 
+  /***
+   * 检查玩家是否到达门的位置
+   */
   checkArrived() {
     const { x: doorX, y: doorY, state: doorState } = DataManager.Instance.door;
     const { x: playerX, y: playerY } = DataManager.Instance.player;
@@ -198,6 +239,9 @@ export default class BattleManager extends Component {
     this.initLevel();
   }
 
+  /***
+   * 居中地图
+   */
   adaptMapPos() {
     const { mapRowCount, mapColumnCount } = DataManager.Instance;
     const disX = (SCREEN_WIDTH - TILE_WIDTH * mapRowCount) / 2;
@@ -218,16 +262,16 @@ export default class BattleManager extends Component {
   }
 
   /***
-   *
+   * 正弦震动
    * @param shakeAmount 振幅
    * @param duration 持续时间
    * @param frequency 频率
    */
   onShakeUpdate(shakeAmount = 0.8, duration = 200, frequency = 6) {
     if (this.isShaking) {
-      const frameOffset = ((DataManager.Instance.frame - this.oldFrame) / 60) * 1000;
-      const Phase = ((DataManager.Instance.frame - this.oldFrame) / 60) * 2 * Math.PI * frequency;
-      const offset = shakeAmount * Math.sin(Phase);
+      const passTime = ((DataManager.Instance.frame - this.oldFrame) / 60) * 1000; //当前持续时长（unit:millisecond）
+      const phase = ((DataManager.Instance.frame - this.oldFrame) / 60) * 2 * Math.PI * frequency;
+      const offset = shakeAmount * Math.sin(phase);
       if (this.shakeType === SHAKE_ENUM.TOP) {
         this.gameObject.transform.position.y = this.oldOffset.y - offset;
       } else if (this.shakeType === SHAKE_ENUM.BOTTOM) {
@@ -237,54 +281,11 @@ export default class BattleManager extends Component {
       } else if (this.shakeType === SHAKE_ENUM.RIGHT) {
         this.gameObject.transform.position.x = this.oldOffset.x + offset;
       }
-      if (frameOffset > duration) {
+      if (passTime > duration) {
+        this.isShaking = false;
         this.gameObject.transform.position.x = this.oldOffset.x;
         this.gameObject.transform.position.y = this.oldOffset.y;
-        this.isShaking = false;
       }
-    }
-  }
-
-  update() {
-    this.onShakeUpdate();
-  }
-
-  revoke() {
-    const data = DataManager.Instance.records.pop();
-    if (data) {
-      DataManager.Instance.player.x = DataManager.Instance.player.targetX = data.player.x;
-      DataManager.Instance.player.y = DataManager.Instance.player.targetY = data.player.y;
-      DataManager.Instance.player.state = data.player.state;
-      DataManager.Instance.player.direction = data.player.direction;
-
-      for (let i = 0; i < data.enemies.length; i++) {
-        const item = data.enemies[i];
-        DataManager.Instance.enemies[i].x = item.x;
-        DataManager.Instance.enemies[i].y = item.y;
-        DataManager.Instance.enemies[i].state = item.state;
-        DataManager.Instance.enemies[i].direction = item.direction;
-      }
-
-      for (let i = 0; i < data.spikes.length; i++) {
-        const item = data.spikes[i];
-        DataManager.Instance.spikes[i].x = item.x;
-        DataManager.Instance.spikes[i].y = item.y;
-        DataManager.Instance.spikes[i].count = item.count;
-      }
-
-      for (let i = 0; i < data.bursts.length; i++) {
-        const item = data.bursts[i];
-        DataManager.Instance.bursts[i].x = item.x;
-        DataManager.Instance.bursts[i].y = item.y;
-        DataManager.Instance.bursts[i].state = item.state;
-      }
-
-      DataManager.Instance.door.x = data.door.x;
-      DataManager.Instance.door.y = data.door.y;
-      DataManager.Instance.door.state = data.door.state;
-      DataManager.Instance.door.direction = data.door.direction;
-    } else {
-      //TODO 播放游戏音频
     }
   }
 
@@ -338,5 +339,44 @@ export default class BattleManager extends Component {
     };
 
     DataManager.Instance.records.push(item);
+  }
+
+  revoke() {
+    const data = DataManager.Instance.records.pop();
+    if (data) {
+      DataManager.Instance.player.x = DataManager.Instance.player.targetX = data.player.x;
+      DataManager.Instance.player.y = DataManager.Instance.player.targetY = data.player.y;
+      DataManager.Instance.player.state = data.player.state;
+      DataManager.Instance.player.direction = data.player.direction;
+
+      for (let i = 0; i < data.enemies.length; i++) {
+        const item = data.enemies[i];
+        DataManager.Instance.enemies[i].x = item.x;
+        DataManager.Instance.enemies[i].y = item.y;
+        DataManager.Instance.enemies[i].state = item.state;
+        DataManager.Instance.enemies[i].direction = item.direction;
+      }
+
+      for (let i = 0; i < data.spikes.length; i++) {
+        const item = data.spikes[i];
+        DataManager.Instance.spikes[i].x = item.x;
+        DataManager.Instance.spikes[i].y = item.y;
+        DataManager.Instance.spikes[i].count = item.count;
+      }
+
+      for (let i = 0; i < data.bursts.length; i++) {
+        const item = data.bursts[i];
+        DataManager.Instance.bursts[i].x = item.x;
+        DataManager.Instance.bursts[i].y = item.y;
+        DataManager.Instance.bursts[i].state = item.state;
+      }
+
+      DataManager.Instance.door.x = data.door.x;
+      DataManager.Instance.door.y = data.door.y;
+      DataManager.Instance.door.state = data.door.state;
+      DataManager.Instance.door.direction = data.door.direction;
+    } else {
+      //TODO 播放游戏音频嘟嘟嘟
+    }
   }
 }

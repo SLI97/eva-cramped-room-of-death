@@ -2,13 +2,11 @@ import { GameObject } from '@eva/eva.js';
 import { IEntity } from '../../../../Levels';
 import DoorManager from './Scripts/DoorManager';
 import { Render } from '@eva/plugin-renderer-render';
-
-export const DOOR_WIDTH = 128;
-export const DOOR_HEIGHT = 128;
+import { ENTITY_HEIGHT, ENTITY_WIDTH } from '../Player/Player';
 
 const Door = (door: IEntity) => {
   const go = new GameObject('door', {
-    size: { width: DOOR_WIDTH, height: DOOR_HEIGHT },
+    size: { width: ENTITY_WIDTH, height: ENTITY_HEIGHT },
   });
 
   go.addComponent(new Render());

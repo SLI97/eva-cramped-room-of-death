@@ -153,6 +153,7 @@ export default class PlayerManager extends EntityManager {
       this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.RIGHT);
     } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT) {
+      this.state = ENTITY_STATE.TURNLEFT;
       if (this.direction === DIRECTION_ENUM.TOP) {
         this.direction = DIRECTION_ENUM.LEFT;
       } else if (this.direction === DIRECTION_ENUM.LEFT) {
@@ -162,9 +163,9 @@ export default class PlayerManager extends EntityManager {
       } else if (this.direction === DIRECTION_ENUM.RIGHT) {
         this.direction = DIRECTION_ENUM.TOP;
       }
-      this.state = ENTITY_STATE.TURNLEFT;
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
     } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT) {
+      this.state = ENTITY_STATE.TURNRIGHT;
       if (this.direction === DIRECTION_ENUM.TOP) {
         this.direction = DIRECTION_ENUM.RIGHT;
       } else if (this.direction === DIRECTION_ENUM.LEFT) {
@@ -174,7 +175,7 @@ export default class PlayerManager extends EntityManager {
       } else if (this.direction === DIRECTION_ENUM.RIGHT) {
         this.direction = DIRECTION_ENUM.BOTTOM;
       }
-      this.state = ENTITY_STATE.TURNRIGHT;
+
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
     }
   }
