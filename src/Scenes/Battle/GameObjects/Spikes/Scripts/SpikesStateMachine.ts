@@ -6,6 +6,7 @@ import SpikesTwoSubStateMachine from './SpikesTwoSubStateMachine';
 import SpikesThreeSubStateMachine from './SpikesThreeSubStateMachine';
 import SpikesFourSubStateMachine from './SpikesFourSubStateMachine';
 import SpikesManager from './SpikesManager';
+import { ANIMATION_SPEED } from '../../../../../Base/State';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -16,8 +17,8 @@ export default class SpikesStateMachine extends StateMachine {
       new SpriteAnimation({
         autoPlay: true,
         forwards: true,
-        resource: 'spikes_one_zero',
-        speed: 1000 / 8,
+        resource: '',
+        speed: ANIMATION_SPEED,
       }),
     );
 
@@ -25,6 +26,9 @@ export default class SpikesStateMachine extends StateMachine {
     this.initStateMachines();
 
     spriteAnimation.on('complete', () => {
+      if (!this.gameObject || !this.gameObject.getComponent(SpikesManager)) {
+        return;
+      }
       const { value } = this.params.get(PARAMS_NAME.SPIKES_TOTAL_COUNT);
       //例如1个刺的地裂，在播放完1刺之后，回到0的状态
       if (

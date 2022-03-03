@@ -16,6 +16,7 @@ import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import { Render } from '@eva/plugin-renderer-render';
 import EventManager from '../../../../../Runtime/EventManager';
 import EntityManager from '../../../../../Base/EntityManager';
+import { ANIMATION_SPEED } from '../../../../../Base/State';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -26,8 +27,8 @@ export default class PlayerStateMachine extends StateMachine {
       new SpriteAnimation({
         autoPlay: true,
         forwards: true,
-        resource: 'player_idle_top',
-        speed: 1000 / 8,
+        resource: '',
+        speed: ANIMATION_SPEED,
       }),
     );
 
@@ -41,12 +42,12 @@ export default class PlayerStateMachine extends StateMachine {
     this.initStateMachines();
 
     spriteAnimation.on('complete', () => {
+      if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
+        return;
+      }
       const list = ['player_turn', 'player_block', 'player_attack'];
       if (list.some(item => spriteAnimation.resource.startsWith(item))) {
-        const em = this.gameObject.getComponent(EntityManager);
-        if (em) {
-          em.state = ENTITY_STATE.IDLE;
-        }
+        this.gameObject.getComponent(EntityManager).state = ENTITY_STATE.IDLE;
       }
     });
 

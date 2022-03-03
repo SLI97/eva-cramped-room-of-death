@@ -3,6 +3,7 @@ import { PARAMS_NAME } from '../../../../../Enum';
 import IdleSubStateMachine from './IdleSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
+import { ANIMATION_SPEED } from '../../../../../Base/State';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -13,8 +14,8 @@ export default class IronSkeletonStateMachine extends StateMachine {
       new SpriteAnimation({
         autoPlay: true,
         forwards: true,
-        resource: 'ironskeleton_idle_top',
-        speed: 1000 / 8,
+        resource: '',
+        speed: ANIMATION_SPEED,
       }),
     );
 
@@ -41,10 +42,14 @@ export default class IronSkeletonStateMachine extends StateMachine {
   run() {
     switch (this.currentState) {
       case this.stateMachines.get(PARAMS_NAME.IDLE):
-      case this.stateMachines.get(PARAMS_NAME.DEATH):
         if (this.params.get(PARAMS_NAME.DEATH).value) {
           this.currentState = this.stateMachines.get(PARAMS_NAME.DEATH);
-        } else if (this.params.get(PARAMS_NAME.IDLE).value) {
+        } else {
+          this.currentState = this.currentState;
+        }
+        break;
+      case this.stateMachines.get(PARAMS_NAME.DEATH):
+        if (this.params.get(PARAMS_NAME.IDLE).value) {
           this.currentState = this.stateMachines.get(PARAMS_NAME.IDLE);
         } else {
           this.currentState = this.currentState;

@@ -33,7 +33,7 @@ export default class BattleManager extends Component {
   hasInit = false;
 
   init() {
-    DataManager.Instance.levelIndex = 1;
+    DataManager.Instance.levelIndex = 10;
 
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.checkArrived, this);
     EventManager.Instance.on(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this);

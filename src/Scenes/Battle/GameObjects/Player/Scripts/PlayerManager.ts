@@ -11,8 +11,7 @@ import BurstManager from '../../Burst/Scripts/BurstManager';
 export default class PlayerManager extends EntityManager {
   targetX: number;
   targetY: number;
-  isMoveEndX: boolean = true;
-  isMoveEndY: boolean = true;
+  isMoveing = false;
   speed = 1 / 10;
 
   init(player: IEntity) {
@@ -20,9 +19,6 @@ export default class PlayerManager extends EntityManager {
     super.init(player);
     this.targetX = this.x;
     this.targetY = this.y;
-  }
-
-  start() {
     EventManager.Instance.on(EVENT_ENUM.PLAYER_CTRL, this.inputProcess, this);
     EventManager.Instance.on(EVENT_ENUM.ATTACK_PLAYER, this.onDead, this);
   }
@@ -38,37 +34,28 @@ export default class PlayerManager extends EntityManager {
   }
 
   /***
-   * 更新人物坐标
+   * 把x、y向targetX和targetY逼近
    */
   updateXY() {
+    //逼近targetX
     if (this.targetX < this.x) {
       this.x -= this.speed;
     } else if (this.targetX > this.x) {
       this.x += this.speed;
     }
 
+    //逼近targetY
     if (this.targetY < this.y) {
       this.y -= this.speed;
     } else if (this.targetY > this.y) {
       this.y += this.speed;
     }
 
-    if (Math.abs(this.targetX - this.x) < 0.01) {
+    //两者近似就触发结束
+    if (Math.abs(this.targetX - this.x) < 0.01 && Math.abs(this.targetY - this.y) < 0.01 && this.isMoveing) {
       this.x = this.targetX;
-      this.onMoveEnd('X');
-    }
-    if (Math.abs(this.targetY - this.y) < 0.01) {
       this.y = this.targetY;
-      this.onMoveEnd('Y');
-    }
-  }
-
-  onMoveEnd(type: string) {
-    if (type === 'X' && !this.isMoveEndX) {
-      this.isMoveEndX = true;
-      EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
-    } else if (type === 'Y' && !this.isMoveEndY) {
-      this.isMoveEndY = true;
+      this.isMoveing = false;
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
     }
   }
@@ -82,10 +69,10 @@ export default class PlayerManager extends EntityManager {
 
   /***
    * 响应玩家操作
-   * @param type
+   * @param inputDirection
    */
-  inputProcess(type: CONTROLLER_ENUM) {
-    if (!this.isMoveEndX || !this.isMoveEndY) {
+  inputProcess(inputDirection: CONTROLLER_ENUM) {
+    if (this.isMoveing) {
       return;
     }
 
@@ -97,76 +84,75 @@ export default class PlayerManager extends EntityManager {
       return;
     }
 
-    const id = this.attackEnemy(type);
-    if (id !== -1) {
+    const id = this.willAttack(inputDirection);
+    if (id) {
       EventManager.Instance.emit(EVENT_ENUM.RECORD_STEP);
-      EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
       this.state = ENTITY_STATE.ATTACK;
       EventManager.Instance.emit(EVENT_ENUM.ATTACK_ENEMY, id);
+      EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
       return;
     }
 
     //优化成四个方向的震动效果
-    if (this.WillBlock(type)) {
-      if (type === CONTROLLER_ENUM.TOP) {
+    if (this.willBlock(inputDirection)) {
+      if (inputDirection === CONTROLLER_ENUM.TOP) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
-      } else if (type === CONTROLLER_ENUM.BOTTOM) {
+      } else if (inputDirection === CONTROLLER_ENUM.BOTTOM) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
-      } else if (type === CONTROLLER_ENUM.LEFT) {
+      } else if (inputDirection === CONTROLLER_ENUM.LEFT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
-      } else if (type === CONTROLLER_ENUM.RIGHT) {
+      } else if (inputDirection === CONTROLLER_ENUM.RIGHT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
-      } else if (type === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.TOP) {
+      } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.TOP) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
-      } else if (type === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.LEFT) {
+      } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.LEFT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
-      } else if (type === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.BOTTOM) {
+      } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.BOTTOM) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
-      } else if (type === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.RIGHT) {
+      } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.RIGHT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
-      } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.TOP) {
+      } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.TOP) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
-      } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.LEFT) {
+      } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.LEFT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
-      } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.BOTTOM) {
+      } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.BOTTOM) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
-      } else if (type === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.RIGHT) {
+      } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.RIGHT) {
         EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
       }
       return;
     }
 
-    this.move(type);
+    this.move(inputDirection);
   }
 
   /***
    * 根据type玩家移动
-   * @param type 控制类型CONTROLLER_ENUM之一
+   * @param inputDirection 控制类型CONTROLLER_ENUM之一
    */
-  move(type: CONTROLLER_ENUM) {
+  move(inputDirection: CONTROLLER_ENUM) {
     EventManager.Instance.emit(EVENT_ENUM.RECORD_STEP);
-    if (type === CONTROLLER_ENUM.TOP) {
+    if (inputDirection === CONTROLLER_ENUM.TOP) {
       this.targetY -= 1;
       this.state = ENTITY_STATE.IDLE;
-      this.isMoveEndY = false;
+      this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.TOP);
-    } else if (type === CONTROLLER_ENUM.BOTTOM) {
+    } else if (inputDirection === CONTROLLER_ENUM.BOTTOM) {
       this.targetY += 1;
       this.state = ENTITY_STATE.IDLE;
-      this.isMoveEndY = false;
+      this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.BOTTOM);
-    } else if (type === CONTROLLER_ENUM.LEFT) {
+    } else if (inputDirection === CONTROLLER_ENUM.LEFT) {
       this.targetX -= 1;
       this.state = ENTITY_STATE.IDLE;
-      this.isMoveEndX = false;
+      this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.LEFT);
-    } else if (type === CONTROLLER_ENUM.RIGHT) {
+    } else if (inputDirection === CONTROLLER_ENUM.RIGHT) {
       this.targetX += 1;
       this.state = ENTITY_STATE.IDLE;
-      this.isMoveEndX = false;
+      this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.RIGHT);
-    } else if (type === CONTROLLER_ENUM.TURNLEFT) {
-      this.state = ENTITY_STATE.TURNLEFT;
+    } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT) {
       if (this.direction === DIRECTION_ENUM.TOP) {
         this.direction = DIRECTION_ENUM.LEFT;
       } else if (this.direction === DIRECTION_ENUM.LEFT) {
@@ -178,8 +164,7 @@ export default class PlayerManager extends EntityManager {
       }
       this.state = ENTITY_STATE.TURNLEFT;
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
-    } else if (type === CONTROLLER_ENUM.TURNRIGHT) {
-      this.state = ENTITY_STATE.TURNRIGHT;
+    } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT) {
       if (this.direction === DIRECTION_ENUM.TOP) {
         this.direction = DIRECTION_ENUM.RIGHT;
       } else if (this.direction === DIRECTION_ENUM.LEFT) {
@@ -200,37 +185,37 @@ export default class PlayerManager extends EntityManager {
 
   /***
    * 检查枪所在方向是否有敌人，有则攻击
-   * @param type
+   * @param inputDirection
    */
-  attackEnemy(type: CONTROLLER_ENUM) {
+  willAttack(inputDirection: CONTROLLER_ENUM) {
     const enemies = DataManager.Instance.enemies.filter((enemy: EnemyManager) => enemy.state !== ENTITY_STATE.DEATH);
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       const { x: enemyX, y: enemyY, id: enemyId } = enemy;
       if (
         this.direction === DIRECTION_ENUM.TOP &&
-        type === CONTROLLER_ENUM.TOP &&
+        inputDirection === CONTROLLER_ENUM.TOP &&
         enemyY === this.targetY - 2 &&
         enemyX === this.x
       ) {
         return enemyId;
       } else if (
         this.direction === DIRECTION_ENUM.BOTTOM &&
-        type === CONTROLLER_ENUM.BOTTOM &&
+        inputDirection === CONTROLLER_ENUM.BOTTOM &&
         enemyY === this.targetY + 2 &&
         enemyX === this.x
       ) {
         return enemyId;
       } else if (
         this.direction === DIRECTION_ENUM.LEFT &&
-        type === CONTROLLER_ENUM.LEFT &&
+        inputDirection === CONTROLLER_ENUM.LEFT &&
         enemyX === this.targetX - 2 &&
         enemyY === this.y
       ) {
         return enemyId;
       } else if (
         this.direction === DIRECTION_ENUM.RIGHT &&
-        type === CONTROLLER_ENUM.RIGHT &&
+        inputDirection === CONTROLLER_ENUM.RIGHT &&
         enemyX === this.targetX + 2 &&
         enemyY === this.y
       ) {
@@ -238,14 +223,14 @@ export default class PlayerManager extends EntityManager {
       }
     }
 
-    return -1;
+    return '';
   }
 
   /***
    * 判断角色是否能按预期进行移动
    * @param type
    */
-  WillBlock(type: CONTROLLER_ENUM) {
+  willBlock(type: CONTROLLER_ENUM) {
     const { targetX: x, targetY: y, direction } = this;
     const { tileInfo: tileInfo } = DataManager.Instance;
     const enemies: EnemyManager[] = DataManager.Instance.enemies.filter(

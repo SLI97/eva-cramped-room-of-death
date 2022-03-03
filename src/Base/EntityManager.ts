@@ -49,10 +49,6 @@ export default class EntityManager extends Component {
 
   set state(newState) {
     this._state = newState;
-    //想要跳转的状态跟当前状态一致，就不需要重新触发动画了
-    // if (this.fsm.currentState === this.fsm.stateMachines.get(newState)) {
-    //   return;
-    // }
     this.fsm.setParams(newState, true);
   }
 }

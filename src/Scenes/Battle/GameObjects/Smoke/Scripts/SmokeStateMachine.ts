@@ -4,6 +4,7 @@ import IdleSubStateMachine from './IdleSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import EntityManager from '../../../../../Base/EntityManager';
+import { ANIMATION_SPEED } from '../../../../../Base/State';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -14,8 +15,8 @@ export default class SmokeStateMachine extends StateMachine {
       new SpriteAnimation({
         autoPlay: true,
         forwards: true,
-        resource: 'smoke_idle_top',
-        speed: 1000 / 12,
+        resource: '',
+        speed: ANIMATION_SPEED * (2 / 3),
       }),
     );
 
@@ -23,12 +24,11 @@ export default class SmokeStateMachine extends StateMachine {
     this.initStateMachines();
 
     spriteAnimation.on('complete', () => {
-      console.log('smoke', 22);
+      if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
+        return;
+      }
       if (spriteAnimation.resource.startsWith('smoke_idle')) {
-        const em = this.gameObject.getComponent(EntityManager);
-        if (em) {
-          em.state = ENTITY_STATE.DEATH;
-        }
+        this.gameObject.getComponent(EntityManager).state = ENTITY_STATE.DEATH;
       }
     });
   }
@@ -48,10 +48,14 @@ export default class SmokeStateMachine extends StateMachine {
   run() {
     switch (this.currentState) {
       case this.stateMachines.get(PARAMS_NAME.IDLE):
-      case this.stateMachines.get(PARAMS_NAME.DEATH):
         if (this.params.get(PARAMS_NAME.DEATH).value) {
           this.currentState = this.stateMachines.get(PARAMS_NAME.DEATH);
-        } else if (this.params.get(PARAMS_NAME.IDLE).value) {
+        } else {
+          this.currentState = this.currentState;
+        }
+        break;
+      case this.stateMachines.get(PARAMS_NAME.DEATH):
+        if (this.params.get(PARAMS_NAME.IDLE).value) {
           this.currentState = this.stateMachines.get(PARAMS_NAME.IDLE);
         } else {
           this.currentState = this.currentState;
