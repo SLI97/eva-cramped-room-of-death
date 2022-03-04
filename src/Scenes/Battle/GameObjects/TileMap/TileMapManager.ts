@@ -5,7 +5,7 @@ import Tile from '../Tile/Tile';
 import TileManager from '../Tile/TileManager';
 
 export default class TileMapManager extends Component {
-  static componentName = 'MapManager'; // 设置组件的名字
+  static componentName = 'TileMapManager'; // 设置组件的名字
 
   init() {
     this.initTile();
@@ -16,10 +16,10 @@ export default class TileMapManager extends Component {
 
     DataManager.Instance.tileInfo = [];
     for (let i = 0; i < mapInfo.length; i++) {
-      const colum = mapInfo[i];
+      const column = mapInfo[i];
       DataManager.Instance.tileInfo[i] = [];
-      for (let j = 0; j < colum.length; j++) {
-        const item = colum[j];
+      for (let j = 0; j < column.length; j++) {
+        const item = column[j];
         if (item.src === null || item.type === null) {
           continue;
         }
