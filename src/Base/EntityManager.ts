@@ -1,5 +1,5 @@
 import { Component } from '@eva/eva.js';
-import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, ENTITY_STATE, PARAMS_NAME, ENTITY_TYPE_ENUM } from '../Enum';
+import { DIRECTION_ENUM, DIRECTION_ORDER_ENUM, ENTITY_STATE_ENUM, PARAMS_NAME_ENUM, ENTITY_TYPE_ENUM } from '../Enum';
 import StateMachine from './StateMachine';
 import { randomByLength } from '../Utils';
 import { TILE_HEIGHT, TILE_WIDTH } from '../Scenes/Battle/GameObjects/Tile/Tile';
@@ -15,7 +15,7 @@ export default class EntityManager extends Component {
   x: number; //坐标
   y: number;
   type: ENTITY_TYPE_ENUM;
-  private _state: ENTITY_STATE;
+  private _state: ENTITY_STATE_ENUM;
   private _direction: DIRECTION_ENUM;
   fsm: StateMachine;
 
@@ -40,7 +40,7 @@ export default class EntityManager extends Component {
 
   set direction(newDirection) {
     this._direction = newDirection;
-    this.fsm.setParams(PARAMS_NAME.DIRECTION, DIRECTION_ORDER_ENUM[this._direction]);
+    this.fsm.setParams(PARAMS_NAME_ENUM.DIRECTION, DIRECTION_ORDER_ENUM[this._direction]);
   }
 
   get state() {

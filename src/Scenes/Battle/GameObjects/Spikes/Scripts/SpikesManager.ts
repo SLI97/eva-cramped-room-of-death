@@ -1,6 +1,6 @@
 import { ISpikes } from '../../../../../Levels';
 import DataManager from '../../../../../Runtime/DataManager';
-import { EVENT_ENUM, PARAMS_NAME, ENTITY_STATE, SPIKES_TYPE_TOTAL_POINT } from '../../../../../Enum';
+import { EVENT_ENUM, PARAMS_NAME_ENUM, ENTITY_STATE_ENUM, SPIKES_TYPE_MAP_TOTAL_COUNT_ENUM } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import { Component } from '@eva/eva.js';
 import StateMachine from '../../../../../Base/StateMachine';
@@ -30,7 +30,7 @@ export default class SpikesManager extends Component {
 
   set count(newCount) {
     this._count = newCount;
-    this.fsm.setParams(PARAMS_NAME.SPIKES_CUR_COUNT, newCount);
+    this.fsm.setParams(PARAMS_NAME_ENUM.SPIKES_CUR_COUNT, newCount);
   }
 
   get totalCount() {
@@ -39,7 +39,7 @@ export default class SpikesManager extends Component {
 
   set totalCount(newCount) {
     this._totalCount = newCount;
-    this.fsm.setParams(PARAMS_NAME.SPIKES_TOTAL_COUNT, newCount);
+    this.fsm.setParams(PARAMS_NAME_ENUM.SPIKES_TOTAL_COUNT, newCount);
   }
 
   init(spikes: ISpikes) {
@@ -47,7 +47,7 @@ export default class SpikesManager extends Component {
     this.x = spikes.x;
     this.y = spikes.y;
     const type = spikes.type;
-    this.totalCount = SPIKES_TYPE_TOTAL_POINT[type];
+    this.totalCount = SPIKES_TYPE_MAP_TOTAL_COUNT_ENUM[type];
     this.count = spikes.count;
 
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onLoop, this);
@@ -82,7 +82,7 @@ export default class SpikesManager extends Component {
   onAttack() {
     const { x: playerX, y: playerY } = DataManager.Instance.player;
     if (playerX === this.x && playerY === this.y && this.count === this.totalCount) {
-      EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, ENTITY_STATE.DEATH);
+      EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, ENTITY_STATE_ENUM.DEATH);
     }
   }
 }

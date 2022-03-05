@@ -6,7 +6,7 @@ import { game, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
 import { TILE_HEIGHT, TILE_WIDTH } from './GameObjects/Tile/Tile';
 import Door from './GameObjects/Door/Door';
 import EntityManager from '../../Base/EntityManager';
-import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, EVENT_ENUM, ENTITY_STATE, SHAKE_ENUM } from '../../Enum';
+import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, EVENT_ENUM, ENTITY_STATE_ENUM, SHAKE_TYPE_ENUM } from '../../Enum';
 import WoodenSkeleton from './GameObjects/WoodenSkeleton/WoodenSkeleton';
 import EventManager from '../../Runtime/EventManager';
 import IronSkeleton from './GameObjects/IronSkeleton/IronSkeleton';
@@ -26,7 +26,7 @@ import DoorManager from './GameObjects/Door/Scripts/DoorManager';
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
   isShaking: boolean;
-  shakeType: SHAKE_ENUM;
+  shakeType: SHAKE_TYPE_ENUM;
   oldFrame: number;
   oldOffset: { x: number; y: number } = { x: 0, y: 0 };
   level: ILevel;
@@ -204,18 +204,18 @@ export default class BattleManager extends Component {
    */
   generateSmoke(x: number, y: number, direction: DIRECTION_ENUM) {
     //把死了的烟雾拿出来循环利用
-    const item = DataManager.Instance.smokes.find((smoke: SmokeManager) => smoke.state === ENTITY_STATE.DEATH);
+    const item = DataManager.Instance.smokes.find((smoke: SmokeManager) => smoke.state === ENTITY_STATE_ENUM.DEATH);
     if (item) {
       item.x = x;
       item.y = y;
-      item.state = ENTITY_STATE.IDLE;
+      item.state = ENTITY_STATE_ENUM.IDLE;
       item.direction = direction;
     } else {
       const smoke = Smoke({
         x,
         y,
         direction,
-        state: ENTITY_STATE.IDLE,
+        state: ENTITY_STATE_ENUM.IDLE,
         type: ENTITY_TYPE_ENUM.SMOKE,
       });
       this.gameObject.addChild(smoke);
@@ -229,7 +229,7 @@ export default class BattleManager extends Component {
   checkArrived() {
     const { x: doorX, y: doorY, state: doorState } = DataManager.Instance.door;
     const { x: playerX, y: playerY } = DataManager.Instance.player;
-    if (doorX === playerX && doorY === playerY && doorState === ENTITY_STATE.DEATH) {
+    if (doorX === playerX && doorY === playerY && doorState === ENTITY_STATE_ENUM.DEATH) {
       EventManager.Instance.emit(EVENT_ENUM.NEXT_LEVEL);
     }
   }
@@ -250,7 +250,7 @@ export default class BattleManager extends Component {
     this.gameObject.transform.position.y = disY;
   }
 
-  onShake(type: SHAKE_ENUM) {
+  onShake(type: SHAKE_TYPE_ENUM) {
     if (this.isShaking) {
       return;
     }
@@ -272,13 +272,13 @@ export default class BattleManager extends Component {
       const passTime = ((DataManager.Instance.frame - this.oldFrame) / 60) * 1000; //当前持续时长（unit:millisecond）
       const phase = ((DataManager.Instance.frame - this.oldFrame) / 60) * 2 * Math.PI * frequency;
       const offset = shakeAmount * Math.sin(phase);
-      if (this.shakeType === SHAKE_ENUM.TOP) {
+      if (this.shakeType === SHAKE_TYPE_ENUM.TOP) {
         this.gameObject.transform.position.y = this.oldOffset.y - offset;
-      } else if (this.shakeType === SHAKE_ENUM.BOTTOM) {
+      } else if (this.shakeType === SHAKE_TYPE_ENUM.BOTTOM) {
         this.gameObject.transform.position.y = this.oldOffset.y + offset;
-      } else if (this.shakeType === SHAKE_ENUM.LEFT) {
+      } else if (this.shakeType === SHAKE_TYPE_ENUM.LEFT) {
         this.gameObject.transform.position.x = this.oldOffset.x - offset;
-      } else if (this.shakeType === SHAKE_ENUM.RIGHT) {
+      } else if (this.shakeType === SHAKE_TYPE_ENUM.RIGHT) {
         this.gameObject.transform.position.x = this.oldOffset.x + offset;
       }
       if (passTime > duration) {
@@ -295,11 +295,11 @@ export default class BattleManager extends Component {
         x: DataManager.Instance.player.targetX,
         y: DataManager.Instance.player.targetY,
         state:
-          DataManager.Instance.player.state === ENTITY_STATE.IDLE ||
-          DataManager.Instance.player.state === ENTITY_STATE.DEATH ||
-          DataManager.Instance.player.state === ENTITY_STATE.AIRDEATH
+          DataManager.Instance.player.state === ENTITY_STATE_ENUM.IDLE ||
+          DataManager.Instance.player.state === ENTITY_STATE_ENUM.DEATH ||
+          DataManager.Instance.player.state === ENTITY_STATE_ENUM.AIRDEATH
             ? DataManager.Instance.player.state
-            : ENTITY_STATE.IDLE,
+            : ENTITY_STATE_ENUM.IDLE,
         direction: DataManager.Instance.player.direction,
         type: DataManager.Instance.player.type,
       },

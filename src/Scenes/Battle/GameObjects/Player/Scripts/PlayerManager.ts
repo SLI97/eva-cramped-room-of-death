@@ -1,4 +1,4 @@
-import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, ENTITY_STATE, SHAKE_ENUM } from '../../../../../Enum';
+import { CONTROLLER_ENUM, DIRECTION_ENUM, EVENT_ENUM, ENTITY_STATE_ENUM, SHAKE_TYPE_ENUM } from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import DataManager from '../../../../../Runtime/DataManager';
 import { IEntity } from '../../../../../Levels';
@@ -63,7 +63,7 @@ export default class PlayerManager extends EntityManager {
   /***
    * 玩家死亡
    */
-  onDead(type: ENTITY_STATE) {
+  onDead(type: ENTITY_STATE_ENUM) {
     this.state = type;
   }
 
@@ -77,9 +77,9 @@ export default class PlayerManager extends EntityManager {
     }
 
     if (
-      this.state === ENTITY_STATE.DEATH ||
-      this.state === ENTITY_STATE.AIRDEATH ||
-      this.state === ENTITY_STATE.ATTACK
+      this.state === ENTITY_STATE_ENUM.DEATH ||
+      this.state === ENTITY_STATE_ENUM.AIRDEATH ||
+      this.state === ENTITY_STATE_ENUM.ATTACK
     ) {
       return;
     }
@@ -87,7 +87,7 @@ export default class PlayerManager extends EntityManager {
     const id = this.willAttack(inputDirection);
     if (id) {
       EventManager.Instance.emit(EVENT_ENUM.RECORD_STEP);
-      this.state = ENTITY_STATE.ATTACK;
+      this.state = ENTITY_STATE_ENUM.ATTACK;
       EventManager.Instance.emit(EVENT_ENUM.ATTACK_ENEMY, id);
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
       return;
@@ -96,29 +96,29 @@ export default class PlayerManager extends EntityManager {
     //优化成四个方向的震动效果
     if (this.willBlock(inputDirection)) {
       if (inputDirection === CONTROLLER_ENUM.TOP) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.TOP);
       } else if (inputDirection === CONTROLLER_ENUM.BOTTOM) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.BOTTOM);
       } else if (inputDirection === CONTROLLER_ENUM.LEFT) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.LEFT);
       } else if (inputDirection === CONTROLLER_ENUM.RIGHT) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.RIGHT);
       } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.TOP) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.LEFT);
       } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.LEFT) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.BOTTOM);
       } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.BOTTOM) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.RIGHT);
       } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT && this.direction === DIRECTION_ENUM.RIGHT) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.TOP);
       } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.TOP) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.RIGHT);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.RIGHT);
       } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.LEFT) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.TOP);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.TOP);
       } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.BOTTOM) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.LEFT);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.LEFT);
       } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT && this.direction === DIRECTION_ENUM.RIGHT) {
-        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_ENUM.BOTTOM);
+        EventManager.Instance.emit(EVENT_ENUM.SCREEN_SHAKE, SHAKE_TYPE_ENUM.BOTTOM);
       }
       return;
     }
@@ -134,26 +134,26 @@ export default class PlayerManager extends EntityManager {
     EventManager.Instance.emit(EVENT_ENUM.RECORD_STEP);
     if (inputDirection === CONTROLLER_ENUM.TOP) {
       this.targetY -= 1;
-      this.state = ENTITY_STATE.IDLE;
+      this.state = ENTITY_STATE_ENUM.IDLE;
       this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.TOP);
     } else if (inputDirection === CONTROLLER_ENUM.BOTTOM) {
       this.targetY += 1;
-      this.state = ENTITY_STATE.IDLE;
+      this.state = ENTITY_STATE_ENUM.IDLE;
       this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.BOTTOM);
     } else if (inputDirection === CONTROLLER_ENUM.LEFT) {
       this.targetX -= 1;
-      this.state = ENTITY_STATE.IDLE;
+      this.state = ENTITY_STATE_ENUM.IDLE;
       this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.LEFT);
     } else if (inputDirection === CONTROLLER_ENUM.RIGHT) {
       this.targetX += 1;
-      this.state = ENTITY_STATE.IDLE;
+      this.state = ENTITY_STATE_ENUM.IDLE;
       this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.RIGHT);
     } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT) {
-      this.state = ENTITY_STATE.TURNLEFT;
+      this.state = ENTITY_STATE_ENUM.TURNLEFT;
       if (this.direction === DIRECTION_ENUM.TOP) {
         this.direction = DIRECTION_ENUM.LEFT;
       } else if (this.direction === DIRECTION_ENUM.LEFT) {
@@ -165,7 +165,7 @@ export default class PlayerManager extends EntityManager {
       }
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
     } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT) {
-      this.state = ENTITY_STATE.TURNRIGHT;
+      this.state = ENTITY_STATE_ENUM.TURNRIGHT;
       if (this.direction === DIRECTION_ENUM.TOP) {
         this.direction = DIRECTION_ENUM.RIGHT;
       } else if (this.direction === DIRECTION_ENUM.LEFT) {
@@ -189,7 +189,9 @@ export default class PlayerManager extends EntityManager {
    * @param inputDirection
    */
   willAttack(inputDirection: CONTROLLER_ENUM) {
-    const enemies = DataManager.Instance.enemies.filter((enemy: EnemyManager) => enemy.state !== ENTITY_STATE.DEATH);
+    const enemies = DataManager.Instance.enemies.filter(
+      (enemy: EnemyManager) => enemy.state !== ENTITY_STATE_ENUM.DEATH,
+    );
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       const { x: enemyX, y: enemyY, id: enemyId } = enemy;
@@ -235,11 +237,11 @@ export default class PlayerManager extends EntityManager {
     const { targetX: x, targetY: y, direction } = this;
     const { tileInfo: tileInfo } = DataManager.Instance;
     const enemies: EnemyManager[] = DataManager.Instance.enemies.filter(
-      (enemy: EnemyManager) => enemy.state !== ENTITY_STATE.DEATH,
+      (enemy: EnemyManager) => enemy.state !== ENTITY_STATE_ENUM.DEATH,
     );
     const { x: doorX, y: doorY, state: doorState } = DataManager.Instance.door;
     const bursts: BurstManager[] = DataManager.Instance.bursts.filter(
-      (burst: BurstManager) => burst.state !== ENTITY_STATE.DEATH,
+      (burst: BurstManager) => burst.state !== ENTITY_STATE_ENUM.DEATH,
     );
 
     const { mapRowCount: row, mapColumnCount: column } = DataManager.Instance;
@@ -252,7 +254,7 @@ export default class PlayerManager extends EntityManager {
       if (direction === DIRECTION_ENUM.TOP) {
         //判断是否超出地图
         if (playerNextY < 0) {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
 
@@ -263,9 +265,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === x && doorY === playerNextY) || (doorX === x && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
 
@@ -275,7 +277,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === x && enemyY === weaponNextY) || (enemyX === x && enemyY === playerNextY)) {
-            this.state = ENTITY_STATE.BLOCKFRONT;
+            this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
             return true;
           }
         }
@@ -292,7 +294,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
 
@@ -300,7 +302,7 @@ export default class PlayerManager extends EntityManager {
       } else if (direction === DIRECTION_ENUM.BOTTOM) {
         //判断是否超出地图
         if (playerNextY < 0) {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
 
@@ -311,9 +313,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === x && doorY === playerNextY) || (doorX === x && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
 
@@ -323,7 +325,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if (enemyX === x && enemyY === playerNextY) {
-            this.state = ENTITY_STATE.BLOCKBACK;
+            this.state = ENTITY_STATE_ENUM.BLOCKBACK;
             return true;
           }
         }
@@ -340,7 +342,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
 
@@ -348,7 +350,7 @@ export default class PlayerManager extends EntityManager {
       } else if (direction === DIRECTION_ENUM.LEFT) {
         //判断是否超出地图
         if (playerNextY < 0) {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
 
@@ -360,9 +362,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === x && doorY === playerNextY) || (doorX === weaponNextX && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
 
@@ -372,7 +374,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === x && enemyY === playerNextY) || (enemyX === weaponNextX && enemyY === weaponNextY)) {
-            this.state = ENTITY_STATE.BLOCKRIGHT;
+            this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
             return true;
           }
         }
@@ -389,7 +391,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
 
@@ -397,7 +399,7 @@ export default class PlayerManager extends EntityManager {
       } else if (direction === DIRECTION_ENUM.RIGHT) {
         //判断是否超出地图
         if (playerNextY < 0) {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
 
@@ -409,9 +411,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === x && doorY === playerNextY) || (doorX === weaponNextX && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
 
@@ -421,7 +423,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === x && enemyY === playerNextY) || (enemyX === weaponNextX && enemyY === weaponNextY)) {
-            this.state = ENTITY_STATE.BLOCKLEFT;
+            this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
             return true;
           }
         }
@@ -438,7 +440,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
       }
@@ -450,7 +452,7 @@ export default class PlayerManager extends EntityManager {
       //玩家方向——向上
       if (direction === DIRECTION_ENUM.TOP) {
         if (playerNextY > column - 1) {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
 
           return true;
         }
@@ -462,9 +464,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === x && doorY === playerNextY) || (doorX === x && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
 
@@ -474,7 +476,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if (enemyX === x && enemyY === playerNextY) {
-            this.state = ENTITY_STATE.BLOCKBACK;
+            this.state = ENTITY_STATE_ENUM.BLOCKBACK;
             return true;
           }
         }
@@ -491,14 +493,14 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
 
         //玩家方向——向下
       } else if (direction === DIRECTION_ENUM.BOTTOM) {
         if (playerNextY > column - 1) {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
 
           return true;
         }
@@ -510,9 +512,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === x && doorY === playerNextY) || (doorX === x && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
 
@@ -522,7 +524,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === x && enemyY === weaponNextY) || (enemyX === x && enemyY === playerNextY)) {
-            this.state = ENTITY_STATE.BLOCKFRONT;
+            this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
             return true;
           }
         }
@@ -539,14 +541,14 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
 
         //玩家方向——向左
       } else if (direction === DIRECTION_ENUM.LEFT) {
         if (playerNextY > column - 1) {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
 
           return true;
         }
@@ -559,9 +561,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === x && doorY === playerNextY) || (doorX === weaponNextX && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
 
@@ -571,7 +573,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === x && enemyY === playerNextY) || (enemyX === weaponNextX && enemyY === weaponNextY)) {
-            this.state = ENTITY_STATE.BLOCKLEFT;
+            this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
             return true;
           }
         }
@@ -588,14 +590,14 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
 
         //玩家方向——向右
       } else if (direction === DIRECTION_ENUM.RIGHT) {
         if (playerNextY > column - 1) {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
 
           return true;
         }
@@ -608,9 +610,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === x && doorY === playerNextY) || (doorX === weaponNextX && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
 
@@ -620,7 +622,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === x && enemyY === playerNextY) || (enemyX === weaponNextX && enemyY === weaponNextY)) {
-            this.state = ENTITY_STATE.BLOCKRIGHT;
+            this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
             return true;
           }
         }
@@ -637,7 +639,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
       }
@@ -650,7 +652,7 @@ export default class PlayerManager extends EntityManager {
       if (direction === DIRECTION_ENUM.TOP) {
         //判断是否超出地图
         if (playerNextX < 0) {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
 
           return true;
         }
@@ -663,9 +665,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === playerNextX && doorY === y) || (doorX === weaponNextX && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
 
@@ -675,7 +677,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === playerNextX && enemyY === y) || (enemyX === weaponNextX && enemyY === weaponNextY)) {
-            this.state = ENTITY_STATE.BLOCKLEFT;
+            this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
             return true;
           }
         }
@@ -692,7 +694,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
 
@@ -700,7 +702,7 @@ export default class PlayerManager extends EntityManager {
       } else if (direction === DIRECTION_ENUM.BOTTOM) {
         //判断是否超出地图
         if (playerNextX < 0) {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
 
           return true;
         }
@@ -713,9 +715,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === playerNextX && doorY === y) || (doorX === weaponNextX && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
 
@@ -725,7 +727,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === playerNextX && enemyY === y) || (enemyX === weaponNextX && enemyY === weaponNextY)) {
-            this.state = ENTITY_STATE.BLOCKRIGHT;
+            this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
             return true;
           }
         }
@@ -742,7 +744,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
 
@@ -750,7 +752,7 @@ export default class PlayerManager extends EntityManager {
       } else if (direction === DIRECTION_ENUM.LEFT) {
         //判断是否超出地图
         if (playerNextX < 0) {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
 
           return true;
         }
@@ -762,9 +764,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === playerNextX && doorY === y) || (doorX === weaponNextX && doorY === y)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
 
@@ -774,7 +776,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === playerNextX && enemyY === y) || (enemyX === weaponNextX && enemyY === y)) {
-            this.state = ENTITY_STATE.BLOCKFRONT;
+            this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
             return true;
           }
         }
@@ -791,7 +793,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
 
@@ -799,7 +801,7 @@ export default class PlayerManager extends EntityManager {
       } else if (direction === DIRECTION_ENUM.RIGHT) {
         //判断是否超出地图
         if (playerNextX < 0) {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
 
           return true;
         }
@@ -811,9 +813,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === playerNextX && doorY === y) || (doorX === weaponNextX && doorY === y)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
 
@@ -823,7 +825,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if (enemyX === playerNextX && enemyY === y) {
-            this.state = ENTITY_STATE.BLOCKBACK;
+            this.state = ENTITY_STATE_ENUM.BLOCKBACK;
             return true;
           }
         }
@@ -840,7 +842,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
       }
@@ -852,7 +854,7 @@ export default class PlayerManager extends EntityManager {
       //玩家方向——向上
       if (direction === DIRECTION_ENUM.TOP) {
         if (playerNextX > row - 1) {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
 
           return true;
         }
@@ -865,9 +867,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === playerNextX && doorY === y) || (doorX === weaponNextX && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
 
@@ -877,7 +879,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === playerNextX && enemyY === y) || (enemyX === weaponNextX && enemyY === weaponNextY)) {
-            this.state = ENTITY_STATE.BLOCKRIGHT;
+            this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
             return true;
           }
         }
@@ -894,14 +896,14 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKRIGHT;
           return true;
         }
 
         //玩家方向——向下
       } else if (direction === DIRECTION_ENUM.BOTTOM) {
         if (playerNextX > row - 1) {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
 
           return true;
         }
@@ -914,9 +916,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === playerNextX && doorY === y) || (doorX === weaponNextX && doorY === weaponNextY)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
 
@@ -926,7 +928,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === playerNextX && enemyY === y) || (enemyX === weaponNextX && enemyY === weaponNextY)) {
-            this.state = ENTITY_STATE.BLOCKLEFT;
+            this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
             return true;
           }
         }
@@ -943,14 +945,14 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKLEFT;
           return true;
         }
 
         //玩家方向——向左
       } else if (direction === DIRECTION_ENUM.LEFT) {
         if (playerNextX > row - 1) {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
 
           return true;
         }
@@ -962,9 +964,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === playerNextX && doorY === y) || (doorX === weaponNextX && doorY === y)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
 
@@ -974,7 +976,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if (enemyX === playerNextX && enemyY === y) {
-            this.state = ENTITY_STATE.BLOCKBACK;
+            this.state = ENTITY_STATE_ENUM.BLOCKBACK;
             return true;
           }
         }
@@ -991,14 +993,14 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKBACK;
+          this.state = ENTITY_STATE_ENUM.BLOCKBACK;
           return true;
         }
 
         //玩家方向——向右
       } else if (direction === DIRECTION_ENUM.RIGHT) {
         if (playerNextX > row - 1) {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
 
           return true;
         }
@@ -1010,9 +1012,9 @@ export default class PlayerManager extends EntityManager {
         //判断门
         if (
           ((doorX === playerNextX && doorY === y) || (doorX === weaponNextX && doorY === y)) &&
-          doorState !== ENTITY_STATE.DEATH
+          doorState !== ENTITY_STATE_ENUM.DEATH
         ) {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
 
@@ -1022,7 +1024,7 @@ export default class PlayerManager extends EntityManager {
           const { x: enemyX, y: enemyY } = enemy;
 
           if ((enemyX === playerNextX && enemyY === y) || (enemyX === weaponNextX && enemyY === y)) {
-            this.state = ENTITY_STATE.BLOCKFRONT;
+            this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
             return true;
           }
         }
@@ -1039,7 +1041,7 @@ export default class PlayerManager extends EntityManager {
         if (nextPlayerTile && nextPlayerTile.moveable && (!nextWeaponTile || nextWeaponTile.turnable)) {
           // empty
         } else {
-          this.state = ENTITY_STATE.BLOCKFRONT;
+          this.state = ENTITY_STATE_ENUM.BLOCKFRONT;
           return true;
         }
       }
@@ -1067,9 +1069,9 @@ export default class PlayerManager extends EntityManager {
         ((doorX === x && doorY === nextY) ||
           (doorX === nextX && doorY === y) ||
           (doorX === nextX && doorY === nextY)) &&
-        doorState !== ENTITY_STATE.DEATH
+        doorState !== ENTITY_STATE_ENUM.DEATH
       ) {
-        this.state = ENTITY_STATE.BLOCKTURNLEFT;
+        this.state = ENTITY_STATE_ENUM.BLOCKTURNLEFT;
         return true;
       }
 
@@ -1079,15 +1081,15 @@ export default class PlayerManager extends EntityManager {
         const { x: enemyX, y: enemyY } = enemy;
 
         if (enemyX === nextX && enemyY === y) {
-          this.state = ENTITY_STATE.BLOCKTURNLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKTURNLEFT;
 
           return true;
         } else if (enemyX === nextX && enemyY === nextY) {
-          this.state = ENTITY_STATE.BLOCKTURNLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKTURNLEFT;
 
           return true;
         } else if (enemyX === x && enemyY === nextY) {
-          this.state = ENTITY_STATE.BLOCKTURNLEFT;
+          this.state = ENTITY_STATE_ENUM.BLOCKTURNLEFT;
 
           return true;
         }
@@ -1101,7 +1103,7 @@ export default class PlayerManager extends EntityManager {
       ) {
         // empty
       } else {
-        this.state = ENTITY_STATE.BLOCKTURNLEFT;
+        this.state = ENTITY_STATE_ENUM.BLOCKTURNLEFT;
         return true;
       }
 
@@ -1128,9 +1130,9 @@ export default class PlayerManager extends EntityManager {
         ((doorX === x && doorY === nextY) ||
           (doorX === nextX && doorY === y) ||
           (doorX === nextX && doorY === nextY)) &&
-        doorState !== ENTITY_STATE.DEATH
+        doorState !== ENTITY_STATE_ENUM.DEATH
       ) {
-        this.state = ENTITY_STATE.BLOCKTURNRIGHT;
+        this.state = ENTITY_STATE_ENUM.BLOCKTURNRIGHT;
         return true;
       }
 
@@ -1140,15 +1142,15 @@ export default class PlayerManager extends EntityManager {
         const { x: enemyX, y: enemyY } = enemy;
 
         if (enemyX === nextX && enemyY === y) {
-          this.state = ENTITY_STATE.BLOCKTURNRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKTURNRIGHT;
 
           return true;
         } else if (enemyX === nextX && enemyY === nextY) {
-          this.state = ENTITY_STATE.BLOCKTURNRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKTURNRIGHT;
 
           return true;
         } else if (enemyX === x && enemyY === nextY) {
-          this.state = ENTITY_STATE.BLOCKTURNRIGHT;
+          this.state = ENTITY_STATE_ENUM.BLOCKTURNRIGHT;
 
           return true;
         }
@@ -1162,7 +1164,7 @@ export default class PlayerManager extends EntityManager {
       ) {
         // empty
       } else {
-        this.state = ENTITY_STATE.BLOCKTURNRIGHT;
+        this.state = ENTITY_STATE_ENUM.BLOCKTURNRIGHT;
         return true;
       }
     }

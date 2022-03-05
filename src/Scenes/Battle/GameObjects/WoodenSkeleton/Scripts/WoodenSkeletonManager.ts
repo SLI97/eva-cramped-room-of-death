@@ -1,6 +1,6 @@
 import { IEntity } from '../../../../../Levels';
 import EventManager from '../../../../../Runtime/EventManager';
-import { EVENT_ENUM, ENTITY_STATE } from '../../../../../Enum';
+import { EVENT_ENUM, ENTITY_STATE_ENUM } from '../../../../../Enum';
 import EnemyManager from '../../../../../Base/EnemyManager';
 import DataManager from '../../../../../Runtime/DataManager';
 import WoodenSkeletonStateMachine from './WoodenSkeletonStateMachine';
@@ -21,7 +21,7 @@ export default class WoodenSkeletonManager extends EnemyManager {
   }
 
   onAttack() {
-    if (this.state === ENTITY_STATE.DEATH) {
+    if (this.state === ENTITY_STATE_ENUM.DEATH) {
       return;
     }
 
@@ -29,10 +29,10 @@ export default class WoodenSkeletonManager extends EnemyManager {
     if (
       ((playerX === this.x && Math.abs(playerY - this.y) <= 1) ||
         (playerY === this.y && Math.abs(playerX - this.x) <= 1)) &&
-      playerState === ENTITY_STATE.IDLE
+      playerState === ENTITY_STATE_ENUM.IDLE
     ) {
-      this.state = ENTITY_STATE.ATTACK;
-      EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, ENTITY_STATE.DEATH);
+      this.state = ENTITY_STATE_ENUM.ATTACK;
+      EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, ENTITY_STATE_ENUM.DEATH);
     }
   }
 }

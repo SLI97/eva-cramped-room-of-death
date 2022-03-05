@@ -59,7 +59,7 @@ export enum CONTROLLER_ENUM {
 /***
  * 角色状态枚举
  */
-export enum ENTITY_STATE {
+export enum ENTITY_STATE_ENUM {
   IDLE = 'IDLE',
   ATTACK = 'ATTACK',
   TURNLEFT = 'TURNLEFT',
@@ -114,7 +114,7 @@ export enum DIRECTION_ORDER_ENUM {
 /***
  * 尖刺类型和总点数映射
  */
-export enum SPIKES_TYPE_TOTAL_POINT {
+export enum SPIKES_TYPE_MAP_TOTAL_COUNT_ENUM {
   SPIKES_ONE = 2,
   SPIKES_TWO = 3,
   SPIKES_THREE = 4,
@@ -124,7 +124,7 @@ export enum SPIKES_TYPE_TOTAL_POINT {
 /***
  * 尖刺当前点数枚举
  */
-export enum SPIKES_CUR_POINT_ENUM {
+export enum SPIKES_COUNT_ENUM {
   ZERO = 'ZERO',
   ONE = 'ONE',
   TWO = 'TWO',
@@ -136,7 +136,7 @@ export enum SPIKES_CUR_POINT_ENUM {
 /***
  * 尖刺点数类型和数字映射
  */
-export enum SPIKES_POINT_MAP_NUMBER {
+export enum SPIKES_COUNT_MAP_NUMBER_ENUM {
   ZERO = 0,
   ONE = 1,
   TWO = 2,
@@ -145,7 +145,7 @@ export enum SPIKES_POINT_MAP_NUMBER {
   FIVE = 5,
 }
 
-export enum PARAMS_NAME {
+export enum PARAMS_NAME_ENUM {
   IDLE = 'IDLE',
   ATTACK = 'ATTACK',
   TURNLEFT = 'TURNLEFT',
@@ -163,7 +163,7 @@ export enum PARAMS_NAME {
   SPIKES_CUR_COUNT = 'SPIKES_CUR_COUNT',
 }
 
-export enum SHAKE_ENUM {
+export enum SHAKE_TYPE_ENUM {
   TOP = 'TOP',
   BOTTOM = 'BOTTOM',
   LEFT = 'LEFT',

@@ -2,7 +2,7 @@ import EntityManager from './EntityManager';
 import { IEntity } from '../Levels';
 import EventManager from '../Runtime/EventManager';
 import { EVENT_ENUM } from '../Enum';
-import { DIRECTION_ENUM, ENTITY_STATE } from '../Enum';
+import { DIRECTION_ENUM, ENTITY_STATE_ENUM } from '../Enum';
 import DataManager from '../Runtime/DataManager';
 
 /***
@@ -28,7 +28,7 @@ export default abstract class EnemyManager extends EntityManager {
    * 根据玩家在敌人的象限改变敌人的朝向
    */
   onChangeDirection(init = false) {
-    if (this.state === ENTITY_STATE.DEATH || !DataManager.Instance.player) {
+    if (this.state === ENTITY_STATE_ENUM.DEATH || !DataManager.Instance.player) {
       return;
     }
     const { x: playerX, y: playerY } = DataManager.Instance.player;
@@ -63,11 +63,11 @@ export default abstract class EnemyManager extends EntityManager {
    * @param id
    */
   onDead(id: string) {
-    if (this.state === ENTITY_STATE.DEATH) {
+    if (this.state === ENTITY_STATE_ENUM.DEATH) {
       return;
     }
     if (this.id === id) {
-      this.state = ENTITY_STATE.DEATH;
+      this.state = ENTITY_STATE_ENUM.DEATH;
     }
   }
 }

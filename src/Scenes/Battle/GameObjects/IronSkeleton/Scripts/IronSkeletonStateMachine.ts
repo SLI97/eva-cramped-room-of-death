@@ -1,5 +1,5 @@
 import StateMachine, { getInitParamsNumber, getInitParamsTrigger } from '../../../../../Base/StateMachine';
-import { PARAMS_NAME } from '../../../../../Enum';
+import { PARAMS_NAME_ENUM } from '../../../../../Enum';
 import IdleSubStateMachine from './IdleSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
@@ -24,15 +24,15 @@ export default class IronSkeletonStateMachine extends StateMachine {
   }
 
   initParams() {
-    this.params.set(PARAMS_NAME.IDLE, getInitParamsTrigger());
-    this.params.set(PARAMS_NAME.DEATH, getInitParamsTrigger());
-    this.params.set(PARAMS_NAME.DIRECTION, getInitParamsNumber());
+    this.params.set(PARAMS_NAME_ENUM.IDLE, getInitParamsTrigger());
+    this.params.set(PARAMS_NAME_ENUM.DEATH, getInitParamsTrigger());
+    this.params.set(PARAMS_NAME_ENUM.DIRECTION, getInitParamsNumber());
   }
 
   initStateMachines() {
     const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
-    this.stateMachines.set(PARAMS_NAME.IDLE, new IdleSubStateMachine(this, spriteAnimation));
-    this.stateMachines.set(PARAMS_NAME.DEATH, new DeathSubStateMachine(this, spriteAnimation));
+    this.stateMachines.set(PARAMS_NAME_ENUM.IDLE, new IdleSubStateMachine(this, spriteAnimation));
+    this.stateMachines.set(PARAMS_NAME_ENUM.DEATH, new DeathSubStateMachine(this, spriteAnimation));
   }
 
   /***
@@ -41,22 +41,22 @@ export default class IronSkeletonStateMachine extends StateMachine {
 
   run() {
     switch (this.currentState) {
-      case this.stateMachines.get(PARAMS_NAME.IDLE):
-        if (this.params.get(PARAMS_NAME.DEATH).value) {
-          this.currentState = this.stateMachines.get(PARAMS_NAME.DEATH);
+      case this.stateMachines.get(PARAMS_NAME_ENUM.IDLE):
+        if (this.params.get(PARAMS_NAME_ENUM.DEATH).value) {
+          this.currentState = this.stateMachines.get(PARAMS_NAME_ENUM.DEATH);
         } else {
           this.currentState = this.currentState;
         }
         break;
-      case this.stateMachines.get(PARAMS_NAME.DEATH):
-        if (this.params.get(PARAMS_NAME.IDLE).value) {
-          this.currentState = this.stateMachines.get(PARAMS_NAME.IDLE);
+      case this.stateMachines.get(PARAMS_NAME_ENUM.DEATH):
+        if (this.params.get(PARAMS_NAME_ENUM.IDLE).value) {
+          this.currentState = this.stateMachines.get(PARAMS_NAME_ENUM.IDLE);
         } else {
           this.currentState = this.currentState;
         }
         break;
       default:
-        this.currentState = this.stateMachines.get(PARAMS_NAME.IDLE);
+        this.currentState = this.stateMachines.get(PARAMS_NAME_ENUM.IDLE);
         break;
     }
   }

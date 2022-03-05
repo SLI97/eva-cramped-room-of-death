@@ -1,4 +1,4 @@
-import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENTITY_TYPE_ENUM, ENTITY_STATE } from '../Enum';
+import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENTITY_TYPE_ENUM, ENTITY_STATE_ENUM } from '../Enum';
 import { IEntity, ILevel, ISpikes } from './index';
 
 const mapInfo = [
@@ -345,7 +345,7 @@ const player: IEntity = {
   x: 0,
   y: 1,
   direction: DIRECTION_ENUM.RIGHT,
-  state: ENTITY_STATE.IDLE,
+  state: ENTITY_STATE_ENUM.IDLE,
   type: ENTITY_TYPE_ENUM.PLAYER,
 };
 
@@ -354,14 +354,14 @@ const enemies: Array<IEntity> = [
     x: 2,
     y: 4,
     direction: DIRECTION_ENUM.TOP,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.SKELETON_WOODEN,
   },
   {
     x: 4,
     y: 6,
     direction: DIRECTION_ENUM.TOP,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.SKELETON_WOODEN,
   },
 ];
@@ -393,7 +393,7 @@ const door: IEntity = {
   x: 7,
   y: 7,
   direction: DIRECTION_ENUM.LEFT,
-  state: ENTITY_STATE.IDLE,
+  state: ENTITY_STATE_ENUM.IDLE,
   type: ENTITY_TYPE_ENUM.DOOR,
 };
 

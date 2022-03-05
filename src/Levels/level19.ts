@@ -1,4 +1,4 @@
-import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENTITY_TYPE_ENUM, ENTITY_STATE } from '../Enum';
+import { TILE_TYPE_ENUM, DIRECTION_ENUM, ENTITY_TYPE_ENUM, ENTITY_STATE_ENUM } from '../Enum';
 import { IEntity, ILevel, ISpikes } from './index';
 
 const mapInfo = [
@@ -364,7 +364,7 @@ const player: IEntity = {
   x: 0,
   y: 1,
   direction: DIRECTION_ENUM.RIGHT,
-  state: ENTITY_STATE.IDLE,
+  state: ENTITY_STATE_ENUM.IDLE,
   type: ENTITY_TYPE_ENUM.PLAYER,
 };
 
@@ -373,14 +373,14 @@ const enemies: Array<IEntity> = [
     x: 2,
     y: 5,
     direction: DIRECTION_ENUM.TOP,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.SKELETON_WOODEN,
   },
   {
     x: 4,
     y: 9,
     direction: DIRECTION_ENUM.TOP,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.SKELETON_WOODEN,
   },
 ];
@@ -391,49 +391,49 @@ const bursts: Array<IEntity> = [
   {
     x: 1,
     y: 5,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.BURST,
     direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 1,
     y: 6,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.BURST,
     direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 1,
     y: 7,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.BURST,
     direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 1,
     y: 8,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.BURST,
     direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 1,
     y: 9,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.BURST,
     direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 2,
     y: 6,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.BURST,
     direction: DIRECTION_ENUM.TOP,
   },
   {
     x: 2,
     y: 7,
-    state: ENTITY_STATE.IDLE,
+    state: ENTITY_STATE_ENUM.IDLE,
     type: ENTITY_TYPE_ENUM.BURST,
     direction: DIRECTION_ENUM.TOP,
   },
@@ -443,7 +443,7 @@ const door: IEntity = {
   x: 6,
   y: 9,
   direction: DIRECTION_ENUM.LEFT,
-  state: ENTITY_STATE.IDLE,
+  state: ENTITY_STATE_ENUM.IDLE,
   type: ENTITY_TYPE_ENUM.DOOR,
 };
 
