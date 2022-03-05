@@ -4,8 +4,8 @@ import IdleSubStateMachine from './IdleSubStateMachine';
 import AttackSubStateMachine from './AttackSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
-import EntityManager from '../../../../../Base/EntityManager';
 import { ANIMATION_SPEED } from '../../../../../Base/State';
+import WoodenSkeletonManager from './WoodenSkeletonManager';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -29,11 +29,11 @@ export default class WoodenSkeletonStateMachine extends StateMachine {
   initAnimationEvent() {
     const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
     spriteAnimation.on('complete', () => {
-      if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
+      if (!this.gameObject || !this.gameObject.getComponent(WoodenSkeletonManager)) {
         return;
       }
       if (spriteAnimation.resource.startsWith('woodenskeleton_attack')) {
-        this.gameObject.getComponent(EntityManager).state = ENTITY_STATE_ENUM.IDLE;
+        this.gameObject.getComponent(WoodenSkeletonManager).state = ENTITY_STATE_ENUM.IDLE;
       }
     });
   }

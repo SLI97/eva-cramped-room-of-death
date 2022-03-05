@@ -15,8 +15,8 @@ import AirDeathSubStateMachine from './AirDeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 import { Render } from '@eva/plugin-renderer-render';
 import EventManager from '../../../../../Runtime/EventManager';
-import EntityManager from '../../../../../Base/EntityManager';
 import { ANIMATION_SPEED } from '../../../../../Base/State';
+import PlayerManager from './PlayerManager';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -46,12 +46,12 @@ export default class PlayerStateMachine extends StateMachine {
   initAnimationEvent() {
     const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
     spriteAnimation.on('complete', () => {
-      if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
+      if (!this.gameObject || !this.gameObject.getComponent(PlayerManager)) {
         return;
       }
       const list = ['player_turn', 'player_block', 'player_attack'];
       if (list.some(item => spriteAnimation.resource.startsWith(item))) {
-        this.gameObject.getComponent(EntityManager).state = ENTITY_STATE_ENUM.IDLE;
+        this.gameObject.getComponent(PlayerManager).state = ENTITY_STATE_ENUM.IDLE;
       }
     });
 

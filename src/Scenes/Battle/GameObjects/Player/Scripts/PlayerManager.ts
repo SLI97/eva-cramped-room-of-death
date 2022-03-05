@@ -15,7 +15,7 @@ export default class PlayerManager extends EntityManager {
   speed = 1 / 10;
 
   init(player: IEntity) {
-    this.fsm = this.gameObject.addComponent(new PlayerStateMachine(this));
+    this.fsm = this.gameObject.addComponent(new PlayerStateMachine());
     super.init(player);
     this.targetX = this.x;
     this.targetY = this.y;

@@ -3,8 +3,8 @@ import { ENTITY_STATE_ENUM, PARAMS_NAME_ENUM } from '../../../../../Enum';
 import IdleSubStateMachine from './IdleSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
-import EntityManager from '../../../../../Base/EntityManager';
 import { ANIMATION_SPEED } from '../../../../../Base/State';
+import SmokeManager from './SmokeManager';
 
 /***
  * 玩家状态机，根据参数调节自身信息渲染人物
@@ -40,11 +40,11 @@ export default class SmokeStateMachine extends StateMachine {
   initAnimationEvent() {
     const spriteAnimation = this.gameObject.getComponent(SpriteAnimation);
     spriteAnimation.on('complete', () => {
-      if (!this.gameObject || !this.gameObject.getComponent(EntityManager)) {
+      if (!this.gameObject || !this.gameObject.getComponent(SmokeManager)) {
         return;
       }
       if (spriteAnimation.resource.startsWith('smoke_idle')) {
-        this.gameObject.getComponent(EntityManager).state = ENTITY_STATE_ENUM.DEATH;
+        this.gameObject.getComponent(SmokeManager).state = ENTITY_STATE_ENUM.DEATH;
       }
     });
   }
