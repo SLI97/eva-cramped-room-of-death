@@ -39,7 +39,7 @@ export const getInitParamsNumber = () => {
 export default abstract class StateMachine extends Component {
   static componentName = 'StateMachine'; // 设置组件的名字
 
-  _currentState: State | SubStateMachine = null;
+  private _currentState: State | SubStateMachine = null;
   params: Map<string, IParamsValue> = new Map();
   stateMachines: Map<string, SubStateMachine | State> = new Map();
 
@@ -60,7 +60,7 @@ export default abstract class StateMachine extends Component {
   /***
    * 由子类重写，方法目标是根据当前状态和参数修改currentState
    */
-  run() {}
+  abstract run(): void;
 
   /***
    * 清空所有trigger

@@ -23,5 +23,5 @@ export default abstract class SubStateMachine {
   /***
    * 具体类实现
    */
-  run() {}
+  abstract run(): void;
 }

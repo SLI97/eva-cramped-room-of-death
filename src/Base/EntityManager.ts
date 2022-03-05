@@ -15,8 +15,8 @@ export default class EntityManager extends Component {
   x: number; //坐标
   y: number;
   type: ENTITY_TYPE_ENUM;
-  _state: ENTITY_STATE;
-  _direction: DIRECTION_ENUM;
+  private _state: ENTITY_STATE;
+  private _direction: DIRECTION_ENUM;
   fsm: StateMachine;
 
   init(params: IEntity) {
