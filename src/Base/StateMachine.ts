@@ -4,9 +4,11 @@ import { Component } from '@eva/eva.js';
 import State from './State';
 import SubStateMachine from './SubStateMachine';
 
+type ParamsValueType = boolean | number;
+
 export interface IParamsValue {
   type: FSM_PARAM_TYPE_ENUM;
-  value: boolean | number;
+  value: ParamsValueType;
 }
 
 export const getInitParamsTrigger = () => {
@@ -49,7 +51,7 @@ export default abstract class StateMachine extends Component {
     }
   }
 
-  setParams(paramsName: string, value: boolean | number) {
+  setParams(paramsName: string, value: ParamsValueType) {
     if (this.params.has(paramsName)) {
       this.params.get(paramsName).value = value;
       this.run();
