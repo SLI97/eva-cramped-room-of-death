@@ -45,15 +45,15 @@ export default abstract class StateMachine extends Component {
   params: Map<string, IParamsValue> = new Map();
   stateMachines: Map<string, SubStateMachine | State> = new Map();
 
-  getParams(paramsName: string) {
-    if (this.params.has(paramsName)) {
-      return this.params.get(paramsName).value;
+  getParams(paramName: string) {
+    if (this.params.has(paramName)) {
+      return this.params.get(paramName).value;
     }
   }
 
-  setParams(paramsName: string, value: ParamsValueType) {
-    if (this.params.has(paramsName)) {
-      this.params.get(paramsName).value = value;
+  setParams(paramName: string, value: ParamsValueType) {
+    if (this.params.has(paramName)) {
+      this.params.get(paramName).value = value;
       this.run();
       this.resetTrigger();
     }
@@ -68,7 +68,7 @@ export default abstract class StateMachine extends Component {
    * 清空所有trigger
    */
   resetTrigger() {
-    for (const [_, value] of this.params) {
+    for (const [, value] of this.params) {
       if (value.type === FSM_PARAM_TYPE_ENUM.TRIGGER) {
         value.value = false;
       }
