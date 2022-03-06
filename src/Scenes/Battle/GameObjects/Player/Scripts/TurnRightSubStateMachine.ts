@@ -1,10 +1,10 @@
 import { DIRECTION_ENUM } from '../../../../../Enum';
-import DirectionStateMachine from '../../../../../Base/DirectionStateMachine';
+import DirectionSubStateMachine from '../../../../../Base/DirectionSubStateMachine';
 import State from '../../../../../Base/State';
 import StateMachine from '../../../../../Base/StateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
 
-export default class TurnRightSubStateMachine extends DirectionStateMachine {
+export default class TurnRightSubStateMachine extends DirectionSubStateMachine {
   constructor(fsm: StateMachine, spriteAnimation: SpriteAnimation) {
     super(fsm);
 
