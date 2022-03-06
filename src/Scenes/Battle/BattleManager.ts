@@ -34,7 +34,7 @@ export default class BattleManager extends Component {
 
   init() {
     //想跳转到哪关做测试可以修改这里
-    DataManager.Instance.levelIndex = 15;
+    DataManager.Instance.levelIndex = 1;
 
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.checkArrived, this);
     EventManager.Instance.on(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this);
