@@ -8,6 +8,8 @@ import { ENTITY_STATE_ENUM } from '../../../../../Enum';
  * 关卡门类
  */
 export default class DoorManager extends EntityManager {
+  static componentName = 'DoorManager'; // 设置组件的名字
+
   init(door: IEntity) {
     this.fsm = this.gameObject.addComponent(new DoorStateMachine());
     super.init(door);

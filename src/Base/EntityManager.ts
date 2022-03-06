@@ -8,7 +8,7 @@ import { IEntity } from '../Levels';
 /***
  * 实体类，实体必须具备方向和状态
  */
-export default class EntityManager extends Component {
+export default abstract class EntityManager extends Component {
   static componentName = 'EntityManager'; // 设置组件的名字
 
   id: string = randomByLength(12);

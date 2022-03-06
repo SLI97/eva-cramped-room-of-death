@@ -12,6 +12,8 @@ import { ANIMATION_SPEED } from '../../../../../Base/State';
  * 玩家状态机，根据参数调节自身信息渲染人物
  */
 export default class SpikesStateMachine extends StateMachine {
+  static componentName = 'SpikesStateMachine'; // 设置组件的名字
+
   init() {
     this.gameObject.addComponent(
       new SpriteAnimation({

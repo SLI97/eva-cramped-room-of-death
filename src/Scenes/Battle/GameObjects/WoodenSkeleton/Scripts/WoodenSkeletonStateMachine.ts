@@ -11,6 +11,7 @@ import WoodenSkeletonManager from './WoodenSkeletonManager';
  * 玩家状态机，根据参数调节自身信息渲染人物
  */
 export default class WoodenSkeletonStateMachine extends StateMachine {
+  static componentName = 'WoodenSkeletonStateMachine'; // 设置组件的名字
   init() {
     this.gameObject.addComponent(
       new SpriteAnimation({

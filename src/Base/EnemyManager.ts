@@ -9,6 +9,8 @@ import DataManager from '../Runtime/DataManager';
  * 敌人基类，实现面朝人物和死亡
  */
 export default abstract class EnemyManager extends EntityManager {
+  static componentName = 'EnemyManager'; // 设置组件的名字
+
   init(params: IEntity) {
     super.init(params);
     EventManager.Instance.on(EVENT_ENUM.ATTACK_ENEMY, this.onDead, this);

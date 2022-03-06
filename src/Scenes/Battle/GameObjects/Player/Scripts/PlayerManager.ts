@@ -9,6 +9,7 @@ import EnemyManager from '../../../../../Base/EnemyManager';
 import BurstManager from '../../Burst/Scripts/BurstManager';
 
 export default class PlayerManager extends EntityManager {
+  static componentName = 'PlayerManager'; // 设置组件的名字
   targetX: number;
   targetY: number;
   isMoveing = false;
@@ -153,7 +154,6 @@ export default class PlayerManager extends EntityManager {
       this.isMoveing = true;
       this.showSmoke(DIRECTION_ENUM.RIGHT);
     } else if (inputDirection === CONTROLLER_ENUM.TURNLEFT) {
-      this.state = ENTITY_STATE_ENUM.TURNLEFT;
       if (this.direction === DIRECTION_ENUM.TOP) {
         this.direction = DIRECTION_ENUM.LEFT;
       } else if (this.direction === DIRECTION_ENUM.LEFT) {
@@ -163,9 +163,9 @@ export default class PlayerManager extends EntityManager {
       } else if (this.direction === DIRECTION_ENUM.RIGHT) {
         this.direction = DIRECTION_ENUM.TOP;
       }
+      this.state = ENTITY_STATE_ENUM.TURNLEFT;
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
     } else if (inputDirection === CONTROLLER_ENUM.TURNRIGHT) {
-      this.state = ENTITY_STATE_ENUM.TURNRIGHT;
       if (this.direction === DIRECTION_ENUM.TOP) {
         this.direction = DIRECTION_ENUM.RIGHT;
       } else if (this.direction === DIRECTION_ENUM.LEFT) {
@@ -175,6 +175,7 @@ export default class PlayerManager extends EntityManager {
       } else if (this.direction === DIRECTION_ENUM.RIGHT) {
         this.direction = DIRECTION_ENUM.BOTTOM;
       }
+      this.state = ENTITY_STATE_ENUM.TURNRIGHT;
 
       EventManager.Instance.emit(EVENT_ENUM.PLAYER_MOVE_END);
     }

@@ -10,6 +10,8 @@ import { TILE_HEIGHT, TILE_WIDTH } from '../../Tile/Tile';
  * 地裂类
  */
 export default class BurstManager extends EntityManager {
+  static componentName = 'BurstManager'; // 设置组件的名字
+
   init(burst: IEntity) {
     this.fsm = this.gameObject.addComponent(new BurstStateMachine());
     super.init(burst);

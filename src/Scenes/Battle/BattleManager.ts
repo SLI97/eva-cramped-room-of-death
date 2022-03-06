@@ -5,7 +5,6 @@ import Player from './GameObjects/Player/Player';
 import { game, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../index';
 import { TILE_HEIGHT, TILE_WIDTH } from './GameObjects/Tile/Tile';
 import Door from './GameObjects/Door/Door';
-import EntityManager from '../../Base/EntityManager';
 import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, EVENT_ENUM, ENTITY_STATE_ENUM, SHAKE_TYPE_ENUM } from '../../Enum';
 import WoodenSkeleton from './GameObjects/WoodenSkeleton/WoodenSkeleton';
 import EventManager from '../../Runtime/EventManager';
@@ -16,12 +15,13 @@ import MenuScene from '../Menu';
 import Burst from './GameObjects/Burst/Burst';
 import Spikes from './GameObjects/Spikes/Spikes';
 import SpikesManager from './GameObjects/Spikes/Scripts/SpikesManager';
-import EnemyManager from '../../Base/EnemyManager';
 import BurstManager from './GameObjects/Burst/Scripts/BurstManager';
 import FaderManager, { DEFAULT_FADE_DURATION } from '../../Runtime/FaderManager';
 import TileMap from './GameObjects/TileMap/TileMap';
 import PlayerManager from './GameObjects/Player/Scripts/PlayerManager';
 import DoorManager from './GameObjects/Door/Scripts/DoorManager';
+import WoodenSkeletonManager from './GameObjects/WoodenSkeleton/Scripts/WoodenSkeletonManager';
+import IronSkeletonManager from './GameObjects/IronSkeleton/Scripts/IronSkeletonManager';
 
 export default class BattleManager extends Component {
   static componentName = 'BattleManager'; // 设置组件的名字
@@ -34,7 +34,7 @@ export default class BattleManager extends Component {
 
   init() {
     //想跳转到哪关做测试可以修改这里
-    DataManager.Instance.levelIndex = 1;
+    DataManager.Instance.levelIndex = 15;
 
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.checkArrived, this);
     EventManager.Instance.on(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this);
@@ -133,7 +133,7 @@ export default class BattleManager extends Component {
     }
     const player = Player(this.level.player);
     this.gameObject.addChild(player);
-    DataManager.Instance.player = player.getComponent(EntityManager) as PlayerManager;
+    DataManager.Instance.player = player.getComponent(PlayerManager);
   }
 
   /***
@@ -148,11 +148,13 @@ export default class BattleManager extends Component {
       let enemy = null;
       if (item.type === ENTITY_TYPE_ENUM.SKELETON_WOODEN) {
         enemy = WoodenSkeleton(item);
+        this.gameObject.addChild(enemy);
+        return enemy.getComponent(WoodenSkeletonManager);
       } else if (item.type === ENTITY_TYPE_ENUM.SKELETON_IRON) {
         enemy = IronSkeleton(item);
+        this.gameObject.addChild(enemy);
+        return enemy.getComponent(IronSkeletonManager);
       }
-      this.gameObject.addChild(enemy);
-      return enemy.getComponent(EntityManager) as EnemyManager;
     });
   }
 
@@ -165,9 +167,9 @@ export default class BattleManager extends Component {
       return;
     }
     DataManager.Instance.bursts = this.level.bursts.map(item => {
-      const enemy = Burst(item);
-      this.gameObject.addChild(enemy);
-      return enemy.getComponent(EntityManager) as BurstManager;
+      const burst = Burst(item);
+      this.gameObject.addChild(burst);
+      return burst.getComponent(BurstManager);
     });
   }
 
@@ -196,7 +198,7 @@ export default class BattleManager extends Component {
     }
     const door = Door(this.level.door);
     this.gameObject.addChild(door);
-    DataManager.Instance.door = door.getComponent(EntityManager) as DoorManager;
+    DataManager.Instance.door = door.getComponent(DoorManager);
   }
 
   /***
@@ -208,8 +210,8 @@ export default class BattleManager extends Component {
     if (item) {
       item.x = x;
       item.y = y;
-      item.state = ENTITY_STATE_ENUM.IDLE;
       item.direction = direction;
+      item.state = ENTITY_STATE_ENUM.IDLE;
     } else {
       const smoke = Smoke({
         x,

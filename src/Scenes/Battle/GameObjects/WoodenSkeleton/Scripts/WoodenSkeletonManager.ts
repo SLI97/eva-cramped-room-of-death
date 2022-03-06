@@ -9,6 +9,8 @@ import WoodenSkeletonStateMachine from './WoodenSkeletonStateMachine';
  * 木骷髅管理器
  */
 export default class WoodenSkeletonManager extends EnemyManager {
+  static componentName = 'WoodenSkeletonManager'; // 设置组件的名字
+
   init(enemy: IEntity) {
     this.fsm = this.gameObject.addComponent(new WoodenSkeletonStateMachine());
     super.init(enemy);

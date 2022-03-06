@@ -22,6 +22,7 @@ import PlayerManager from './PlayerManager';
  * 玩家状态机，根据参数调节自身信息渲染人物
  */
 export default class PlayerStateMachine extends StateMachine {
+  static componentName = 'PlayerStateMachine'; // 设置组件的名字
   init() {
     this.gameObject.addComponent(
       new SpriteAnimation({
