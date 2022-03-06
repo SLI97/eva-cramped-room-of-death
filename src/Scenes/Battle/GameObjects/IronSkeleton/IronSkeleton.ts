@@ -1,8 +1,8 @@
 import { GameObject } from '@eva/eva.js';
 import { IEntity } from '../../../../Levels';
 import IronSkeletonManager from './Scripts/IronSkeletonManager';
-import { ENTITY_HEIGHT, ENTITY_WIDTH } from '../Player/Player';
 import { Render } from '@eva/plugin-renderer-render';
+import { ENTITY_HEIGHT, ENTITY_WIDTH } from '../../../../Base/EntityManager';
 
 /***
  * 铁骷髅

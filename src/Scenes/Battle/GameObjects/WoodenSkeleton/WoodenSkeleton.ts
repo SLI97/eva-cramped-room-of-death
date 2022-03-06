@@ -1,8 +1,8 @@
 import { GameObject } from '@eva/eva.js';
 import { IEntity } from '../../../../Levels';
 import WoodenSkeletonManager from './Scripts/WoodenSkeletonManager';
-import { ENTITY_HEIGHT, ENTITY_WIDTH } from '../Player/Player';
 import { Render } from '@eva/plugin-renderer-render';
+import { ENTITY_HEIGHT, ENTITY_WIDTH } from '../../../../Base/EntityManager';
 
 /***
  * 木骷髅

@@ -5,6 +5,9 @@ import { randomByLength } from '../Utils';
 import { TILE_HEIGHT, TILE_WIDTH } from '../Scenes/Battle/GameObjects/Tile/Tile';
 import { IEntity } from '../Levels';
 
+export const ENTITY_WIDTH = 128;
+export const ENTITY_HEIGHT = 128;
+
 /***
  * 实体类，实体必须具备方向和状态
  */

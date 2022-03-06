@@ -2,7 +2,7 @@ import { GameObject } from '@eva/eva.js';
 import { IEntity } from '../../../../Levels';
 import DoorManager from './Scripts/DoorManager';
 import { Render } from '@eva/plugin-renderer-render';
-import { ENTITY_HEIGHT, ENTITY_WIDTH } from '../Player/Player';
+import { ENTITY_HEIGHT, ENTITY_WIDTH } from '../../../../Base/EntityManager';
 
 const Door = (door: IEntity) => {
   const go = new GameObject('door', {
