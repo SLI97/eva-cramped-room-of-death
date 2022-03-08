@@ -42,6 +42,7 @@ export default class BattleManager extends Component {
     EventManager.Instance.on(EVENT_ENUM.SCREEN_SHAKE, this.onShake, this);
     EventManager.Instance.on(EVENT_ENUM.REVOKE_STEP, this.revoke, this);
     EventManager.Instance.on(EVENT_ENUM.RECORD_STEP, this.record, this);
+    EventManager.Instance.on(EVENT_ENUM.SHOW_SMOKE, this.generateSmoke, this);
     this.initLevel();
   }
 
@@ -52,6 +53,7 @@ export default class BattleManager extends Component {
     EventManager.Instance.off(EVENT_ENUM.SCREEN_SHAKE, this.onShake);
     EventManager.Instance.off(EVENT_ENUM.REVOKE_STEP, this.revoke);
     EventManager.Instance.off(EVENT_ENUM.RECORD_STEP, this.record);
+    EventManager.Instance.off(EVENT_ENUM.SHOW_SMOKE, this.generateSmoke);
   }
 
   update() {

@@ -4,7 +4,6 @@ import DataManager from '../../../../../Runtime/DataManager';
 import { IEntity } from '../../../../../Levels';
 import EntityManager from '../../../../../Base/EntityManager';
 import PlayerStateMachine from './PlayerStateMachine';
-import BattleManager from '../../../BattleManager';
 import EnemyManager from '../../../../../Base/EnemyManager';
 import BurstManager from '../../Burst/Scripts/BurstManager';
 
@@ -183,7 +182,7 @@ export default class PlayerManager extends EntityManager {
   }
 
   showSmoke(type: DIRECTION_ENUM) {
-    this.gameObject.parent.getComponent(BattleManager).generateSmoke(this.x, this.y, type);
+    EventManager.Instance.emit(EVENT_ENUM.SHOW_SMOKE, this.x, this.y, type);
   }
 
   /***

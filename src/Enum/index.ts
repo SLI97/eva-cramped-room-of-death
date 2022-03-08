@@ -91,6 +91,7 @@ export enum EVENT_ENUM {
   GAME_START = 'GAME_START',
   GAME_OVER = 'GAME_OVER',
   DOOR_OPEN = 'DOOR_OPEN',
+  SHOW_SMOKE = 'SHOW_SMOKE',
 }
 
 /***
