@@ -69,7 +69,7 @@ export default class FaderManager extends Singleton {
     }
   }
 
-  fadeIn(duration: number) {
+  fadeIn(duration: number = DEFAULT_FADE_DURATION) {
     this.render.alpha = 0;
     this.duration = duration;
     this.fadeStatus = FadeStatus.FADE_IN;
@@ -79,7 +79,7 @@ export default class FaderManager extends Singleton {
     });
   }
 
-  fadeOut(duration: number) {
+  fadeOut(duration: number = DEFAULT_FADE_DURATION) {
     this.render.alpha = 1;
     this.duration = duration;
     this.fadeStatus = FadeStatus.FADE_OUT;

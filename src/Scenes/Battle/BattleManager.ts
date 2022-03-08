@@ -97,10 +97,10 @@ export default class BattleManager extends Component {
       this.generateSpikes();
       this.generateEnemies();
       this.generatePlayer();
-      await FaderManager.Instance.fadeOut(DEFAULT_FADE_DURATION);
+      await FaderManager.Instance.fadeOut();
       this.hasInited = true;
     } else {
-      await FaderManager.Instance.fadeIn(DEFAULT_FADE_DURATION);
+      await FaderManager.Instance.fadeIn();
       game.scene.destroy();
       game.loadScene({
         scene: MenuScene(),
