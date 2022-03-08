@@ -9,7 +9,11 @@ const Door = (door: IEntity) => {
     size: { width: ENTITY_WIDTH, height: ENTITY_HEIGHT },
   });
 
-  go.addComponent(new Render());
+  go.addComponent(
+    new Render({
+      zIndex: 2,
+    }),
+  );
   go.addComponent(new DoorManager(door));
 
   return go;

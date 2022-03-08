@@ -11,7 +11,11 @@ const Smoke = (smoke: IEntity) => {
     size: { width: SMOKE_WIDTH, height: SMOKE_HEIGHT },
   });
 
-  go.addComponent(new Render());
+  go.addComponent(
+    new Render({
+      zIndex: 1,
+    }),
+  );
   go.addComponent(new SmokeManager(smoke));
 
   return go;

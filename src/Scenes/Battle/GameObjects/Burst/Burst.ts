@@ -9,7 +9,11 @@ const Burst = (burst: IEntity) => {
     size: { width: TILE_WIDTH, height: TILE_HEIGHT },
   });
 
-  go.addComponent(new Render());
+  go.addComponent(
+    new Render({
+      zIndex: 0,
+    }),
+  );
   go.addComponent(new BurstManager(burst));
 
   return go;

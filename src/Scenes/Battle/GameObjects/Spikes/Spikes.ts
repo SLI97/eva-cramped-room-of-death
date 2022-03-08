@@ -16,7 +16,11 @@ const Spikes = (spikes: ISpikes) => {
     size: { width: SPIKES_WIDTH, height: SPIKES_HEIGHT },
   });
 
-  go.addComponent(new Render());
+  go.addComponent(
+    new Render({
+      zIndex: 0,
+    }),
+  );
   go.addComponent(new SpikesManager(spikes));
 
   return go;

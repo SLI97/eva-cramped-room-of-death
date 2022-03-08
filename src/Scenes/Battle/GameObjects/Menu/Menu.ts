@@ -27,7 +27,11 @@ const Menu = () => {
   go.addChild(RestartButton());
   go.addChild(OutButton());
 
-  go.addComponent(new Render());
+  go.addComponent(
+    new Render({
+      zIndex: 0,
+    }),
+  );
 
   return go;
 };

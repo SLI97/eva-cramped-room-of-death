@@ -16,7 +16,7 @@ const WoodenSkeleton = (enemy: IEntity) => {
 
   go.addComponent(
     new Render({
-      zIndex: 1,
+      zIndex: 2,
     }),
   );
   go.addComponent(new WoodenSkeletonManager(enemy));

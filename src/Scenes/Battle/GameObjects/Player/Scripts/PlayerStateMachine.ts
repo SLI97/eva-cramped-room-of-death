@@ -13,7 +13,6 @@ import BlockTurnRightSubStateMachine from './BlockTurnRightSubStateMachine';
 import DeathSubStateMachine from './DeathSubStateMachine';
 import AirDeathSubStateMachine from './AirDeathSubStateMachine';
 import { SpriteAnimation } from '@eva/plugin-renderer-sprite-animation';
-import { Render } from '@eva/plugin-renderer-render';
 import EventManager from '../../../../../Runtime/EventManager';
 import { ANIMATION_SPEED } from '../../../../../Base/State';
 import PlayerManager from './PlayerManager';
@@ -30,12 +29,6 @@ export default class PlayerStateMachine extends StateMachine {
         forwards: true,
         resource: '',
         speed: ANIMATION_SPEED,
-      }),
-    );
-
-    this.gameObject.addComponent(
-      new Render({
-        zIndex: 1,
       }),
     );
 

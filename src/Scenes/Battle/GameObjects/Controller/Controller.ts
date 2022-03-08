@@ -26,7 +26,11 @@ const Controller = () => {
   go.addChild(ControllerButton(CONTROLLER_ENUM.TURNRIGHT, 5));
   go.addChild(ControllerButton(CONTROLLER_ENUM.RIGHT, 6));
 
-  go.addComponent(new Render());
+  go.addComponent(
+    new Render({
+      zIndex: 0,
+    }),
+  );
 
   return go;
 };

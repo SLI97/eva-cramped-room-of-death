@@ -16,7 +16,7 @@ const IronSkeleton = (enemy: IEntity) => {
 
   go.addComponent(
     new Render({
-      zIndex: 1,
+      zIndex: 2,
     }),
   );
   go.addComponent(new IronSkeletonManager(enemy));

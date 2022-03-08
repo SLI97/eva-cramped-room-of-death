@@ -31,7 +31,11 @@ const Footer = () => {
     }),
   );
 
-  go.addComponent(new Render());
+  go.addComponent(
+    new Render({
+      zIndex: 0,
+    }),
+  );
 
   return go;
 };

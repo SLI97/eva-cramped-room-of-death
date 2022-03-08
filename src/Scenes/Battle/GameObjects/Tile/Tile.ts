@@ -2,6 +2,7 @@ import { GameObject } from '@eva/eva.js';
 import { Sprite } from '@eva/plugin-renderer-sprite';
 import { TILE_TYPE_ENUM } from '../../../../Enum';
 import TileManager from './TileManager';
+import { Render } from '@eva/plugin-renderer-render';
 
 export const TILE_WIDTH = 32;
 export const TILE_HEIGHT = 32;
@@ -15,6 +16,11 @@ const Tile = (type: TILE_TYPE_ENUM, imgSrc: string, i: number, j: number) => {
     },
   });
 
+  go.addComponent(
+    new Render({
+      zIndex: 0,
+    }),
+  );
   go.addComponent(
     new Sprite({
       resource: 'tile',
