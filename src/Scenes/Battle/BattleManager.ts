@@ -43,6 +43,9 @@ export default class BattleManager extends Component {
     EventManager.Instance.on(EVENT_ENUM.REVOKE_STEP, this.revoke, this);
     EventManager.Instance.on(EVENT_ENUM.RECORD_STEP, this.record, this);
     EventManager.Instance.on(EVENT_ENUM.SHOW_SMOKE, this.generateSmoke, this);
+  }
+
+  start() {
     this.initLevel();
   }
 
