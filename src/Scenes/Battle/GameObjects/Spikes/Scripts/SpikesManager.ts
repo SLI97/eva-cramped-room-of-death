@@ -1,14 +1,18 @@
 import { ISpikes } from '../../../../../Levels';
 import DataManager from '../../../../../Runtime/DataManager';
-import { EVENT_ENUM, PARAMS_NAME_ENUM, ENTITY_STATE_ENUM, SPIKES_TYPE_MAP_TOTAL_COUNT_ENUM } from '../../../../../Enum';
+import {
+  EVENT_ENUM,
+  PARAMS_NAME_ENUM,
+  ENTITY_STATE_ENUM,
+  SPIKES_TYPE_MAP_TOTAL_COUNT_ENUM,
+  ENTITY_TYPE_ENUM,
+} from '../../../../../Enum';
 import EventManager from '../../../../../Runtime/EventManager';
 import { Component } from '@eva/eva.js';
 import StateMachine from '../../../../../Base/StateMachine';
 import SpikesStateMachine from './SpikesStateMachine';
 import { TILE_HEIGHT, TILE_WIDTH } from '../../Tile/Tile';
 import { randomByLength } from '../../../../../Utils';
-
-export type SPIKES_TYPE_ENUM = 'SPIKES_ONE' | 'SPIKES_TWO' | 'SPIKES_THREE' | 'SPIKES_FOUR';
 
 /***
  * 关卡门类
@@ -21,7 +25,7 @@ export default class SpikesManager extends Component {
   _count = 0;
   x: number;
   y: number;
-  type: SPIKES_TYPE_ENUM;
+  type: ENTITY_TYPE_ENUM;
   fsm: StateMachine;
 
   get count() {
@@ -47,7 +51,8 @@ export default class SpikesManager extends Component {
     this.x = spikes.x;
     this.y = spikes.y;
     const type = spikes.type;
-    this.totalCount = SPIKES_TYPE_MAP_TOTAL_COUNT_ENUM[type];
+    this.totalCount =
+      SPIKES_TYPE_MAP_TOTAL_COUNT_ENUM[type as 'SPIKES_ONE' | 'SPIKES_TWO' | 'SPIKES_THREE' | 'SPIKES_FOUR'];
     this.count = spikes.count;
 
     EventManager.Instance.on(EVENT_ENUM.PLAYER_MOVE_END, this.onLoop, this);

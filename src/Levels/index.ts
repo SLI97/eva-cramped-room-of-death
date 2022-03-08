@@ -20,7 +20,6 @@ import level19 from './level19';
 import level20 from './level20';
 import level21 from './level21';
 import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, ENTITY_STATE_ENUM, TILE_TYPE_ENUM } from '../Enum';
-import { SPIKES_TYPE_ENUM } from '../Scenes/Battle/GameObjects/Spikes/Scripts/SpikesManager';
 
 export interface ITile {
   src: number | null;
@@ -47,7 +46,7 @@ export interface IEntity {
 export interface ISpikes {
   x: number;
   y: number;
-  type: SPIKES_TYPE_ENUM;
+  type: ENTITY_TYPE_ENUM;
   count: number;
 }
 
