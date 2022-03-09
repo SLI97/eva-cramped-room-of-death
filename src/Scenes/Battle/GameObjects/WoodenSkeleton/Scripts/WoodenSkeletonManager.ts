@@ -31,7 +31,8 @@ export default class WoodenSkeletonManager extends EnemyManager {
     if (
       ((playerX === this.x && Math.abs(playerY - this.y) <= 1) ||
         (playerY === this.y && Math.abs(playerX - this.x) <= 1)) &&
-      playerState === ENTITY_STATE_ENUM.IDLE
+      playerState !== ENTITY_STATE_ENUM.DEATH &&
+      playerState !== ENTITY_STATE_ENUM.AIRDEATH
     ) {
       this.state = ENTITY_STATE_ENUM.ATTACK;
       EventManager.Instance.emit(EVENT_ENUM.ATTACK_PLAYER, ENTITY_STATE_ENUM.DEATH);
