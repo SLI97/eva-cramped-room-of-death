@@ -28,7 +28,7 @@ export default class BattleManager extends Component {
   isShaking: boolean;
   shakeType: SHAKE_TYPE_ENUM;
   oldFrame: number;
-  oldOffset: { x: number; y: number } = { x: 0, y: 0 };
+  oldPos: { x: number; y: number } = { x: 0, y: 0 };
   level: ILevel;
   hasInited = false; //第一次从菜单进来的时候，入场fade效果不一样，特殊处理一下
 
@@ -264,8 +264,8 @@ export default class BattleManager extends Component {
     this.isShaking = true;
     this.shakeType = type;
     this.oldFrame = DataManager.Instance.frame;
-    this.oldOffset.x = this.gameObject.transform.position.x;
-    this.oldOffset.y = this.gameObject.transform.position.y;
+    this.oldPos.x = this.gameObject.transform.position.x;
+    this.oldPos.y = this.gameObject.transform.position.y;
   }
 
   /***
@@ -286,18 +286,18 @@ export default class BattleManager extends Component {
       const totalSecond = duration / 1000;
       const offset = shakeAmount * Math.sin(frequency * Math.PI * curSecond);
       if (this.shakeType === SHAKE_TYPE_ENUM.TOP) {
-        this.gameObject.transform.position.y = this.oldOffset.y - offset;
+        this.gameObject.transform.position.y = this.oldPos.y - offset;
       } else if (this.shakeType === SHAKE_TYPE_ENUM.BOTTOM) {
-        this.gameObject.transform.position.y = this.oldOffset.y + offset;
+        this.gameObject.transform.position.y = this.oldPos.y + offset;
       } else if (this.shakeType === SHAKE_TYPE_ENUM.LEFT) {
-        this.gameObject.transform.position.x = this.oldOffset.x - offset;
+        this.gameObject.transform.position.x = this.oldPos.x - offset;
       } else if (this.shakeType === SHAKE_TYPE_ENUM.RIGHT) {
-        this.gameObject.transform.position.x = this.oldOffset.x + offset;
+        this.gameObject.transform.position.x = this.oldPos.x + offset;
       }
       if (curSecond > totalSecond) {
         this.isShaking = false;
-        this.gameObject.transform.position.x = this.oldOffset.x;
-        this.gameObject.transform.position.y = this.oldOffset.y;
+        this.gameObject.transform.position.x = this.oldPos.x;
+        this.gameObject.transform.position.y = this.oldPos.y;
       }
     }
   }
