@@ -270,15 +270,21 @@ export default class BattleManager extends Component {
 
   /***
    * 正弦震动
-   * @param shakeAmount 振幅
-   * @param duration 持续时间
-   * @param frequency 频率
+   * y= A * sin *(wx + f)
    */
-  onShakeUpdate(shakeAmount = 0.8, duration = 200, frequency = 6) {
+  onShakeUpdate() {
     if (this.isShaking) {
-      const passTime = ((DataManager.Instance.frame - this.oldFrame) / 60) * 1000; //当前持续时长（unit:millisecond）
-      const phase = ((DataManager.Instance.frame - this.oldFrame) / 60) * 2 * Math.PI * frequency;
-      const offset = shakeAmount * Math.sin(phase);
+      //振幅
+      const shakeAmount = 0.8;
+      //持续时间
+      const duration = 200;
+      //频率
+      const frequency = 12;
+      //当前时间
+      const curSecond = (DataManager.Instance.frame - this.oldFrame) / 60;
+      //总时间
+      const totalSecond = duration / 1000;
+      const offset = shakeAmount * Math.sin(frequency * Math.PI * curSecond);
       if (this.shakeType === SHAKE_TYPE_ENUM.TOP) {
         this.gameObject.transform.position.y = this.oldOffset.y - offset;
       } else if (this.shakeType === SHAKE_TYPE_ENUM.BOTTOM) {
@@ -288,7 +294,7 @@ export default class BattleManager extends Component {
       } else if (this.shakeType === SHAKE_TYPE_ENUM.RIGHT) {
         this.gameObject.transform.position.x = this.oldOffset.x + offset;
       }
-      if (passTime > duration) {
+      if (curSecond > totalSecond) {
         this.isShaking = false;
         this.gameObject.transform.position.x = this.oldOffset.x;
         this.gameObject.transform.position.y = this.oldOffset.y;
