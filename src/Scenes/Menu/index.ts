@@ -28,7 +28,6 @@ const MenuScene = () => {
   );
 
   scene.addChild(Logo());
-  scene.addChild(Logo());
   scene.addChild(Title());
   scene.addChild(Tips());
   scene.addChild(Creator());
