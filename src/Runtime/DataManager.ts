@@ -1,6 +1,6 @@
 import Singleton from '../base/Singleton';
 import TileManager from '../Scenes/Battle/GameObjects/Tile/TileManager';
-import { IEntity, ISpikes, ITile } from '../Levels';
+import { ILevel, ITile } from '../Levels';
 import PlayerManager from '../Scenes/Battle/GameObjects/Player/Scripts/PlayerManager';
 import EnemyManager from '../Base/EnemyManager';
 import DoorManager from '../Scenes/Battle/GameObjects/Door/Scripts/DoorManager';
@@ -8,13 +8,7 @@ import SpikesManager from '../Scenes/Battle/GameObjects/Spikes/Scripts/SpikesMan
 import BurstManager from '../Scenes/Battle/GameObjects/Burst/Scripts/BurstManager';
 import SmokeManager from '../Scenes/Battle/GameObjects/Smoke/Scripts/SmokeManager';
 
-export interface IRecord {
-  player: IEntity;
-  door: IEntity;
-  enemies: IEntity[];
-  spikes: ISpikes[];
-  bursts: IEntity[];
-}
+export type IRecord = Omit<ILevel, 'mapInfo'>;
 
 /**
  * 全局数据管理类
